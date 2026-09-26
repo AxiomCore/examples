@@ -1,0 +1,22 @@
+name: Example smoke test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  domain:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Axiom CLI
+        run: curl -fsSL https://axiomcore.dev/install | bash
+      - name: Validate and compare domain example
+        working-directory: domain-commerce
+        run: |
+          axiom domain validate commerce-v1.acore
+          axiom diff commerce-v1.acore commerce-v2.acore --format semantic
