@@ -1,0 +1,13 @@
+module phase2.collections.target.field.ui
+
+app TargetField { route "/" => Home }
+
+page Home {
+  view {
+    Page {
+      ViewPager(android_always_overscroll: true) {
+        View { Text("Android-only attribute") }
+      }
+    }
+  }
+}

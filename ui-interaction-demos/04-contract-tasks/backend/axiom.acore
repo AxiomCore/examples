@@ -1,0 +1,245 @@
+// Backend-owned source for the UI contract demo. A local
+// build creates an unsigned backend/axiom.axiom development artifact. The UI
+// never imports this source file; it consumes only that compiled contract.
+
+project {
+  id = "phase5-contract-tasks"
+  version = "v0.1.0"
+}
+
+variants {
+  ["default"] { include = Listing { "*" } }
+}
+
+models {
+  ["Task"] = ModelDef {
+    name = "Task"
+    fields = Mapping {
+      ["id"] = ModelField {
+        name = "id"
+        typeRef = TypeRefPrimitive { kind = "string" }
+      }
+      ["title"] = ModelField {
+        name = "title"
+        typeRef = TypeRefPrimitive { kind = "string" }
+      }
+      ["completed"] = ModelField {
+        name = "completed"
+        typeRef = TypeRefPrimitive { kind = "bool" }
+      }
+    }
+  }
+}
+
+hidden Models = {
+  Task = TypeRefNamed { value = "Task" }
+}
+
+Entities = Entities {
+  task = extend Models.Task
+}
+
+domain {
+  entities = Entities
+  projections = Projections {
+    ["taskCreate"] = DomainProjection {
+      entity = Entities.task
+      fields = Listing { "title" }
+      audience = "mobile"
+    }
+    ["taskUpdate"] = DomainProjection {
+      entity = Entities.task
+      fields = Listing { "completed" }
+      audience = "mobile"
+    }
+    ["taskMobile"] = DomainProjection {
+      entity = Entities.task
+      fields = Listing { "id" "title" "completed" }
+      audience = "mobile"
+    }
+  }
+}
+
+endpoints {
+  ["ListTasks"] = EndpointDef {
+    id = 1
+    name = "list_tasks"
+    method = "GET"
+    path = "/tasks"
+    returnType = TypeRefList { value = Entities.task }
+    responseProjection = "taskMobile"
+    cacheIdentity = "tasks:list"
+    errors = Listing { "unauthorized" "unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        initial = Mapping {
+          ["tasks"] = Listing {}
+        }
+      }
+      fallback = MockResponse {
+        status = 200
+        data = StoreQueryData {
+          key = "tasks"
+          filterKey = "id"
+          filterValue = ""
+          returnAll = true
+        }
+      }
+    }
+  }
+
+  ["CreateTask"] = EndpointDef {
+    id = 2
+    name = "create_task"
+    method = "POST"
+    path = "/tasks"
+    parameters = Listing {
+      EndpointParameter {
+        name = "title"
+        source = "body"
+        typeRef = TypeRefPrimitive { kind = "string" }
+      }
+    }
+    returnType = Entities.task
+    requestProjection = "taskCreate"
+    responseProjection = "taskMobile"
+    cacheIdentity = "tasks:detail"
+    invalidates = Listing { "tasks:list" }
+    errors = Listing { "invalid_title" "unauthorized" "unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        changes = Listing {
+          StateChange {
+            name = "materialize-created-task"
+            mutations = Listing {
+              StoreMutation {
+                type = "set"
+                key = "createdTask"
+                value = {
+                  id = "{{faker.uuid}}"
+                  title = "{{request.body.title}}"
+                  completed = false
+                }
+              }
+            }
+          }
+          StateChange {
+            name = "persist-created-task"
+            mutations = Listing {
+              StoreMutation {
+                type = "append"
+                key = "tasks"
+                value = "{{store.createdTask}}"
+              }
+            }
+          }
+        }
+      }
+      fallback = MockResponse {
+        status = 201
+        data = TemplateData {
+          body = "{{store.createdTask}}"
+        }
+      }
+    }
+  }
+
+  ["UpdateTask"] = EndpointDef {
+    id = 3
+    name = "update_task"
+    method = "PATCH"
+    path = "/tasks/{id}"
+    parameters = Listing {
+      EndpointParameter {
+        name = "id"
+        source = "path"
+        typeRef = TypeRefPrimitive { kind = "string" }
+      }
+      EndpointParameter {
+        name = "completed"
+        source = "body"
+        typeRef = TypeRefPrimitive { kind = "bool" }
+      }
+    }
+    returnType = Entities.task
+    requestProjection = "taskUpdate"
+    responseProjection = "taskMobile"
+    cacheIdentity = "tasks:detail"
+    invalidates = Listing { "tasks:list" }
+    errors = Listing { "not_found" "unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        onReceive = Listing {
+          StoreMutation {
+            type = "update"
+            key = "tasks"
+            filterKey = "id"
+            filterValue = "{{request.path.id}}"
+            value = { completed = "{{request.body.completed}}" }
+          }
+        }
+      }
+      fallback = MockResponse {
+        status = 200
+        data = StoreQueryData {
+          key = "tasks"
+          filterKey = "id"
+          filterValue = "{{request.path.id}}"
+        }
+      }
+    }
+  }
+
+  ["DeleteTask"] = EndpointDef {
+    id = 4
+    name = "delete_task"
+    method = "DELETE"
+    path = "/tasks/{id}"
+    parameters = Listing {
+      EndpointParameter {
+        name = "id"
+        source = "path"
+        typeRef = TypeRefPrimitive { kind = "string" }
+      }
+    }
+    returnType = TypeRefList { value = Entities.task }
+    responseProjection = "taskMobile"
+    cacheIdentity = "tasks:list"
+    invalidates = Listing { "tasks:list" }
+    errors = Listing { "not_found" "unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        onReceive = Listing {
+          StoreMutation {
+            type = "delete"
+            key = "tasks"
+            filterKey = "id"
+            filterValue = "{{request.path.id}}"
+          }
+        }
+      }
+      fallback = MockResponse {
+        status = 200
+        data = StoreQueryData {
+          key = "tasks"
+          filterKey = "id"
+          filterValue = ""
+          returnAll = true
+        }
+      }
+    }
+  }
+}
+
+// These endpoints are intentionally public only inside the controlled manual
+// fixture. Production contracts should declare their real principal, auth,
+// permission, rate-limit, and resource policies.
+security {
+  mode = "strict"
+  endpoints {
+    ["ListTasks"] = EndpointGuard { public = true }
+    ["CreateTask"] = EndpointGuard { public = true idempotent = true }
+    ["UpdateTask"] = EndpointGuard { public = true idempotent = true }
+    ["DeleteTask"] = EndpointGuard { public = true idempotent = true }
+  }
+}

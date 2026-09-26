@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Reject generated and private files
         run: |
-          if git ls-files | grep -E '(^|/)(\.DS_Store|\.summary_files/|node_modules/|\.dart_tool/|\.env($|\.)|.*\.(pem|p12|pfx|key|jks))' ; then
+          if git ls-files | grep -E '(^|/)(\.DS_Store|\.summary_files/|\.local-generated/|\.axiom/extensions/keys/|node_modules/|\.dart_tool/|\.env($|\.)|.*-key\.hex$|.*\.(pem|p12|pfx|key|jks))' ; then
             echo 'Generated or credential file is tracked' >&2
             exit 1
           fi

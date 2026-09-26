@@ -1,0 +1,55 @@
+module phase2.advanced.native.ui
+
+styles {
+  .screen {
+    width: 100%
+    min-height: 100vh
+    padding: 16px
+  }
+  .frame {
+    width: 100%
+    height: 120px
+  }
+  .blur {
+    width: 100%
+    height: 80px
+  }
+  .web {
+    width: 100%
+    height: 220px
+  }
+  .video {
+    width: 100%
+    height: 220px
+  }
+}
+
+app NativeAdvanced { route "/" => Home }
+
+page Home {
+  state overlay_visible: Bool = false
+  state status: String = "Waiting for native lifecycle events"
+
+  action event_received() { status = "Native lifecycle event received" }
+  action play_video() { invoke("clip", play) }
+  action pause_video() { invoke("clip", pause) }
+  action stop_video() { invoke("clip", stop) }
+  action seek_video() { invoke("clip", seek, position: 2) }
+  action reload_web() { invoke("docs", reload) }
+
+  view {
+    SafeArea(class: "screen") {
+      Text("Native-only UI catalog")
+      Text(status)
+      Frame(class: "frame", source: "https://cdn.example/frame.lynx.bundle", preset_width: "320px", preset_height: "120px", on_load: event_received, on_load_metrics: event_received, accessibility_label: "Nested Axiom page")
+      BlurView(class: "blur", blur_radius: "12px") { Text("Native backdrop blur") }
+      WebView(id: "docs", class: "web", source: "https://example.com/", allowed_origin: "https://example.com", enable_debug: false, on_load: event_received, on_error: event_received, on_message: event_received, accessibility_label: "Example web page")
+      Video(id: "clip", class: "video", source: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4", allowed_origin: "https://interactive-examples.mdn.mozilla.net", experimental: true, muted: true, volume: 0.5, speed: 1.0, object_fit: "contain", mode: "latest", time_update_interval: 0.5, on_first_frame: event_received, on_playing: event_received, on_paused: event_received, on_stopped: event_received, on_time_update: event_received, on_ended: event_received, on_looped: event_received, on_error: event_received, on_buffering: event_received, accessibility_label: "Flower video")
+      Button(label: "Reload web page", on_press: reload_web)
+      Button(label: "Play video", on_press: play_video)
+      Button(label: "Pause video", on_press: pause_video)
+      Button(label: "Seek video", on_press: seek_video)
+      Button(label: "Stop video", on_press: stop_video)
+    }
+  }
+}

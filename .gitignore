@@ -3,6 +3,7 @@
 **/node_modules/
 **/.dart_tool/
 **/.venv/
+/.local-generated/
 **/build/
 **/dist/
 .env

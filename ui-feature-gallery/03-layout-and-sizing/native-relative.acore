@@ -1,0 +1,63 @@
+module phase2.native.relative.ui
+
+styles {
+  Page {
+    min-height: 100vh
+    background-color: #f4f7fb
+  }
+
+  .relative_stage {
+    display: relative
+    relative-layout-once: true
+    width: 100%
+    height: 240px
+    padding: 16px
+    box-sizing: border-box
+  }
+
+  .anchor {
+    relative-id: 1
+    relative-align-top: parent
+    relative-align-inline-start: parent
+    width: 120px
+    height: 64px
+    padding: 8px
+    background-color: #dcecff
+  }
+
+  .sibling {
+    relative-id: 2
+    relative-inline-end-of: 1
+    relative-align-top: 1
+    width: 120px
+    height: 64px
+    padding: 8px
+    background-color: #b8d8ff
+  }
+
+  .centered {
+    relative-id: 3
+    relative-center: horizontal
+    relative-bottom-of: 1
+    width: 160px
+    height: 64px
+    padding: 8px
+    background-color: #8fc2ff
+  }
+}
+
+app NativeRelativeLayout {
+  route "/" => RelativeGallery
+}
+
+page RelativeGallery {
+  view {
+    SafeArea {
+      View(class: "relative_stage") {
+        View(class: "anchor") { Text("Reference 1") }
+        View(class: "sibling") { Text("After reference 1") }
+        View(class: "centered") { Text("Centered below 1") }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+module phase2.native.hit.testing.ui
+
+styles {
+  .screen {
+    position: relative
+    width: 100%
+    min-height: 240px
+    padding: 16px
+  }
+  .button_layer {
+    position: absolute
+    top: 72px
+    left: 16px
+    width: 220px
+    height: 52px
+  }
+  .pass_through {
+    position: absolute
+    top: 72px
+    left: 16px
+    width: 220px
+    height: 52px
+    box-sizing: border-box
+    padding-top: 28px
+    background-color: rgba(72, 196, 238, .35)
+    border: 2px dashed #10223a
+    pointer-events: none
+  }
+}
+
+app NativeHitTesting { route "/" => HitTest }
+
+page HitTest {
+  state result: String = "Not pressed"
+  action press() { result = "Pressed through transparent overlay" }
+  view {
+    SafeArea {
+      View(class: "screen") {
+        Text("Tap the overlapping button")
+        View(class: "button_layer") { Button(label: "Press through overlay", on_press: press) }
+        View(class: "pass_through") { Text("Overlay ignores hits") }
+        Text(value: result)
+      }
+    }
+  }
+}

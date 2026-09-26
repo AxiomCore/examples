@@ -1,0 +1,108 @@
+module phase2.effects.motion.ui
+
+styles {
+  variables {
+    accent: #4cc9f0
+    ink: #10223a
+  }
+
+  @keyframes phase2f_pulse {
+    from {
+      opacity: 0.45
+      transform: translateX(0) scale(0.92)
+      filter: saturate(80%)
+    }
+    50% {
+      opacity: 1
+      transform: translateX(24px) rotate(4deg) scale(1.05)
+      filter: saturate(130%)
+    }
+    to {
+      opacity: 0.65
+      transform: translateX(0) scale(1)
+      filter: saturate(100%)
+    }
+  }
+
+  .gallery {
+    display: flex
+    flex-direction: column
+    gap: 16px
+    padding: 20px
+  }
+
+  .motion-card {
+    width: 220px
+    height: 72px
+    padding: 12px
+    background-color: var(accent)
+    color: var(ink)
+    transform-origin: left center
+    perspective: 600px
+    animation: phase2f_pulse 1200ms ease-in-out 0s infinite alternate both running
+  }
+
+  .motion-longhands {
+    animation-name: phase2f_pulse
+    animation-duration: 900ms
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1)
+    animation-delay: 40ms
+    animation-iteration-count: 2
+    animation-direction: alternate
+    animation-fill-mode: both
+    animation-play-state: running
+  }
+
+  .path-card {
+    width: 90px
+    height: 48px
+    background-color: #f72585
+    offset-path: path("M0,0 C40,0 40,70 100,70")
+    offset-distance: 45%
+    offset-rotate: auto
+    transform: rotateZ(3deg)
+  }
+
+  .transition-card {
+    width: 180px
+    height: 52px
+    background-color: #7209b7
+    color: white
+    transition: transform 240ms ease-out 20ms
+    transition-property: transform, opacity
+    transition-duration: 240ms, 180ms
+    transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1), linear
+    transition-delay: 20ms, 0s
+  }
+
+  .scaled-paint {
+    width: 80px
+    height: 80px
+    background-image: linear-gradient(#3a0ca3, #4cc9f0)
+    image-rendering: crisp-edges
+    filter: brightness(115%)
+    transform: translate(6px, 2px) skewX(3deg) scale(1.05)
+  }
+}
+
+app Phase2EffectsMotion {
+  route "/" => MotionGallery
+}
+
+page MotionGallery {
+  view {
+    SafeArea(class: "gallery") {
+      Text("UI effects and motion")
+      View(class: "motion-card motion-longhands") {
+        Text("Keyframe transform + filter")
+      }
+      View(class: "path-card") {
+        Text("Path")
+      }
+      View(class: "transition-card") {
+        Text("Typed transition")
+      }
+      View(class: "scaled-paint")
+    }
+  }
+}

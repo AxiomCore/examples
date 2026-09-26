@@ -1,0 +1,44 @@
+module phase2.collections.ios.probe.ui
+
+styles {
+  .screen {
+    width: 100%
+    height: 100vh
+    padding: 18px
+  }
+  .viewport {
+    width: 100%
+    height: 180px
+  }
+  .header {
+    width: 100%
+    height: 52px
+  }
+  .cell {
+    width: 100%
+    height: 52px
+  }
+}
+
+app Phase2CollectionsIosProbe {
+  route "/" => Probe
+}
+
+page Probe {
+  action refreshed() { invoke("refresh", finish_refresh) }
+  view {
+    Page {
+      SafeArea {
+        ScrollView(class: "screen", scroll_orientation: "vertical", enable_scroll: true) {
+          Text("Refresh probe")
+          Refresh(id: "refresh", class: "viewport", enable_refresh: true, on_start_refresh: refreshed) {
+            RefreshHeader(class: "header") { Text("Pull to refresh") }
+            ScrollView(class: "viewport", scroll_orientation: "vertical", enable_scroll: true) {
+              View(class: "cell") { Text("Refresh body") }
+            }
+          }
+        }
+      }
+    }
+  }
+}

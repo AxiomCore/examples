@@ -1,0 +1,123 @@
+module phase2.standard.components.ui
+
+styles {
+  .screen {
+    width: 100%
+    min-height: 100vh
+    padding: 16px
+    gap: 12px
+    background-color: #ffffff
+  }
+
+  .row {
+    min-height: 44px
+    padding: 8px
+    border-width: 1px
+    border-color: #334155
+  }
+
+  .indicator {
+    width: 18px
+    height: 18px
+    border-width: 1px
+    border-color: #334155
+  }
+
+  .panel {
+    padding: 16px
+    background-color: #e2e8f0
+  }
+
+  .collection {
+    min-height: 88px
+    border-width: 1px
+    border-color: #334155
+  }
+}
+
+app StandardComponents {
+  route "/" => Home
+}
+
+page Home {
+  state checked: Bool = false
+  state dialog_open: Bool = false
+  state popover_open: Bool = false
+  state sheet_open: Bool = false
+  state selected: String = "one"
+  state title: String = ""
+  state items: List<Task> = [{"id":"one","title":"First component item"},{"id":"two","title":"Second component item"},{"id":"three","title":"Third component item"}]
+
+  action record_change() { title = "Interaction delivered" }
+  action open_sheet() { sheet_open = true }
+  action submitted() { title = "Submitted" }
+  action sorted() { title = "Sorted" }
+
+  view {
+    Page {
+      SafeArea(class: "screen") {
+        Text("UI official headless component catalog")
+        Text(title)
+
+        Button(class: "row", label: "Button", on_press: record_change, accessibility_label: "Run button action")
+        Checkbox(class: "row", checked: checked, on_change: record_change, accessibility_label: "Catalog checkbox") {
+          CheckboxIndicator(class: "indicator") { Text("✓") }
+        }
+        Switch(class: "row", checked: checked, on_change: record_change, accessibility_label: "Catalog switch") {
+          SwitchTrack(class: "indicator") { SwitchThumb(class: "indicator") {} }
+        }
+        RadioGroup(value: selected, on_change: record_change) {
+          Radio(class: "row", value: "one", accessibility_label: "First option") { RadioIndicator(class: "indicator") {} Text("One") }
+          Radio(class: "row", value: "two", accessibility_label: "Second option") { RadioIndicator(class: "indicator") {} Text("Two") }
+        }
+        InputField(id: "catalog-input", class: "row", value: title, placeholder: "Type here", accessibility_label: "Catalog input")
+
+        Form(on_submit: submitted) {
+          FormField(class: "row", name: "title", control: "InputField", placeholder: "Form title", accessibility_label: "Form title") {}
+          FormSubmit(class: "row", label: "Submit form", accessibility_label: "Submit catalog form")
+        }
+
+        Dialog(show: dialog_open, on_show_change: record_change) {
+          DialogTrigger(class: "row", accessibility_label: "Open dialog") { Text("Open dialog") }
+          DialogView(level: 1) {
+            DialogBackdrop(click_to_close: true) {}
+            DialogContent(class: "panel") { Text("Dialog content") DialogClose(accessibility_label: "Close dialog") { Text("Close") } }
+          }
+        }
+
+        Popover(show: popover_open, on_visible_change: record_change) {
+          PopoverTrigger(class: "row", accessibility_label: "Open popover") { Text("Open popover") }
+          PopoverAnchor {}
+          PopoverPositioner(placement: "bottom", placement_offset: 4) {
+            PopoverContent(class: "panel") { Text("Popover content") }
+            PopoverArrow(class: "indicator", size: 8)
+          }
+        }
+
+        Button(class: "row", label: "Open sheet", on_press: open_sheet, accessibility_label: "Open sheet")
+        Sheet(show: sheet_open, on_show_change: record_change) {
+          SheetView(level: 1) {
+            SheetBackdrop(click_to_close: true) {}
+            SheetContent(class: "panel") { SheetHandle(class: "indicator", accessibility_label: "Drag sheet") {} Text("Sheet content") }
+          }
+        }
+
+        OverlayPanel(level: 1) { Text("OverlayPanel remains in its authored location") }
+        Draggable(class: "row", enabled: true, direction: "all", trigger: "immediate", on_drag_end: record_change, accessibility_label: "Draggable card") {
+          DraggableArea { Text("Drag me") }
+        }
+        ScrollArea(scroll_id: "catalog-scroll", enabled: true, orientation: "vertical") {
+          LazyComponent(pid: "catalog-lazy", scene: "phase2k", estimated_width: 240, estimated_height: 44) { Text("Lazy content") }
+        }
+        ListView(class: "collection", items: items, key: item.id, list_id: "catalog-list", list_type: "single", span_count: 1, orientation: "vertical") { item => Text(item.title) }
+        FeedList(class: "collection", items: items, key: item.id, list_id: "catalog-feed", list_type: "single", span_count: 1, orientation: "vertical", on_refresh: record_change) { item => Text(item.title) }
+        Sortable(class: "collection", items: items, key: item.id, enabled: true, on_sort_end: sorted) { item => Text(item.title) }
+        SwipeAction(enabled: true, swipe_id: "catalog-swipe", on_action: record_change, accessibility_label: "Swipe row actions") {
+          SwipeDisplay { View(class: "row") { Text("Swipe this row") } }
+          SwipeActions { View(class: "row") { Text("Action") } }
+        }
+        Swiper(class: "collection", items: items, key: item.id, item_width: 240, loop: false, on_change: record_change) { item => Text(item.title) }
+      }
+    }
+  }
+}

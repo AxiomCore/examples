@@ -1,0 +1,95 @@
+module phase2.css.grammar.ui
+
+styles {
+  @import "shared.acss"
+
+  variables {
+    surface: #10223a
+    panel: #1e3b5a
+    text: #ffffff
+    muted: #a9bfd6
+    inset: 14px
+    corner: 10px
+  }
+
+  Page {
+    background-color: var(surface)
+    padding: var(inset)
+  }
+
+  .panel {
+    background-color: var(panel)
+    padding: var(inset)
+    border-radius: var(corner)
+  }
+
+  #headline, .panel > Text:not(.muted) {
+    color: var(text)
+    font-size: 22px
+  }
+
+  .muted {
+    color: var(muted)
+    font-size: 16px
+  }
+
+  .primary:active {
+    background-color: var(accent, #78d6ff)
+  }
+
+  @font-face {
+    font-family: "AxiomSystem"
+    src: local("Arial")
+  }
+
+  @keyframes phase2_pulse {
+    from { opacity: 0 }
+    50% { opacity: 0.5 }
+    to { opacity: 1 }
+  }
+}
+
+component StatusBadge(label: String) {
+  view {
+    View(class: "badge") {
+      Text(label, class: "badge_label")
+    }
+  }
+}
+
+styles StatusBadge {
+  .badge {
+    background-color: #244c70
+    padding: 8px
+    border-radius: 6px
+  }
+
+  .badge_label {
+    color: #78d6ff
+    font-size: 14px
+  }
+}
+
+app Phase2Grammar {
+  route "/" => Home
+}
+
+page Home {
+  state status: String = "No interaction yet"
+
+  action mark_pressed() {
+    status = "Button event received"
+  }
+
+  view {
+    SafeArea {
+      View(class: "panel from_import", id: "main_panel") {
+        Text("UI typed styles", id: "headline")
+        Text("Imported, scoped, and cascaded without raw CSS", class: "muted")
+        StatusBadge(label: "Component-scoped style")
+        Button(label: "Press to validate :active", on_press: mark_pressed, class: "primary")
+        Text(status, class: "muted")
+      }
+    }
+  }
+}

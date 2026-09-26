@@ -1,0 +1,15 @@
+format = "axiom-package-deps/v1"
+targets = ["android", "ios", "web"]
+
+[packages.theme]
+artifact = "packages/neutral-theme.axiom"
+name = "example.neutral-theme"
+kind = "theme"
+version = "1.0.0"
+
+[packages.widgets]
+artifact = "packages/neutral-widgets.axiom"
+name = "example.neutral-widgets"
+kind = "component-library"
+version = "1.0.0"
+dependencies = ["theme"]

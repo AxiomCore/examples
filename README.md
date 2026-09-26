@@ -16,6 +16,11 @@ Start with a single directory; each example owns its dependencies and commands. 
 | [`axiom-shopping-app`](axiom-shopping-app) | Demo | Contract-driven shopping UI, state, and Rust extension |
 | [`axiom-project-management-app`](axiom-project-management-app) | Demo | Flowspace project management UI and capability-scoped extensions |
 | [`extension-sandbox`](extension-sandbox) | Advanced | Authored Rust extension with bounded authority |
+| [`axiom-extension-language-samples`](axiom-extension-language-samples) | Preview fixture | TypeScript/Python extension source and dependency-resolution cases; requires a development CLI |
+| [`ui-feature-gallery`](ui-feature-gallery) | Source gallery | Styles, layout, text, elements, scrolling, input, and component examples |
+| [`ui-interaction-demos`](ui-interaction-demos) | Source demos | State, navigation, assets, and contract-backed tasks |
+| [`package-dependencies`](package-dependencies) | Guided fixture | Pinned theme and component-library packages across platforms |
+| [`native-ui-first-render`](native-ui-first-render) | Source demo | Minimal native-rendered Acore page with local state |
 | [`axiom-ui-task-app`](axiom-ui-task-app) | Compiler fixture | Virtual Acore UI compile/check without a native host |
 | [`demo-app`](demo-app) | Legacy fixture | Small contract/build experiment; not the recommended starting point |
 | [`rpc`](rpc), [`stream`](stream), [`observability-and-auth`](observability-and-auth) | Maintainer fixtures | Lower-level Flutter/runtime behavior, RPC, streams, and auth |

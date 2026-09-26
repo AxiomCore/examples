@@ -1,0 +1,10 @@
+module phase2.input.web.autofill.ui
+
+app WebAutofill { route "/" => Home }
+
+page Home {
+  state email: String = ""
+  view {
+    Input(value: email, input_type: "email", autofill: "email", accessibility_label: "Email")
+  }
+}

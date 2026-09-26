@@ -1,0 +1,21 @@
+module axiom.native_host.ui
+
+app NativeHostFixture { route "/" => Welcome }
+
+page Welcome {
+  state message: String = "Acore is rendering through Lynx"
+
+  action reset() {
+    message = "Acore is rendering through Lynx"
+  }
+
+  view {
+    SafeArea {
+      View {
+        Text(message)
+        Text("This page is authored only in Acore.")
+        Button(label: "Reset", on_press: reset)
+      }
+    }
+  }
+}

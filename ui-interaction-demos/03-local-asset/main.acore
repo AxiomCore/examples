@@ -1,0 +1,21 @@
+module phase5.local.asset.ui
+
+theme {
+  color.surface: "#FFFFFF"
+  color.text: "#172033"
+  spacing.page: 20
+  text.title: 22
+}
+
+app LocalAsset { route "/" => Home }
+
+page Home {
+  view {
+    SafeArea {
+      View(background: color.surface, padding: spacing.page) {
+        Text("Declared local asset", color: color.text, font_size: text.title)
+        Image(source: asset("images/banner.png"), alt: "Axiom test banner")
+      }
+    }
+  }
+}

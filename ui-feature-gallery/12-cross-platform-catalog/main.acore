@@ -1,0 +1,85 @@
+module phase2.closure.catalog.ui
+
+styles {
+  .screen {
+    width: 100%
+    min-height: 100vh
+    padding: 16px
+    gap: 10px
+    background-color: #ffffff
+  }
+
+  .authored_control {
+    width: 100%
+    min-height: 44px
+    padding: 8px
+    border-width: 1px
+    border-style: solid
+    border-color: #334155
+    border-radius: 0px
+    background-color: #ffffff
+    color: #0f172a
+  }
+
+  .indicator {
+    width: 18px
+    height: 18px
+    border-width: 1px
+    border-color: #334155
+  }
+
+  .closure_scroll {
+    height: 72px
+  }
+
+  .scroll_row {
+    min-height: 44px
+    padding: 8px
+  }
+
+  .closure_list {
+    height: 104px
+  }
+
+  .list_row {
+    min-height: 44px
+    padding: 8px
+  }
+}
+
+app Phase2ClosureCatalog {
+  route "/" => Catalog
+}
+
+page Catalog {
+  state draft: String = ""
+  state checked: Bool = false
+  state status: String = "No event delivered"
+  state items: List<Task> = [{"id":"one","title":"Stable list identity"},{"id":"two","title":"Second row"}]
+
+  action pressed() { status = "Button delivered exactly once" }
+  action changed() { status = "Controlled change delivered exactly once" }
+
+  view {
+    Page {
+      SafeArea(class: "screen") {
+        Text("UI cross-platform closure catalog")
+        Text("Every visible style below is explicitly authored.")
+        Text(status)
+        Input(id: "closure-input", class: "authored_control", value: draft, placeholder: "Type Unicode or use an IME", on_input: changed, accessibility_label: "Closure text input")
+        Button(class: "authored_control", label: "Deliver one action", on_press: pressed, accessibility_label: "Deliver one action")
+        Checkbox(class: "authored_control", checked: checked, on_change: changed, accessibility_label: "Closure checkbox") {
+          CheckboxIndicator(class: "indicator") { Text("✓") }
+        }
+        ScrollView(id: "closure-scroll", class: "authored_control closure_scroll", scroll_orientation: "vertical", enable_scroll: true, on_scroll: changed, accessibility_label: "Closure scroll area") {
+          View(class: "scroll_row") { Text("Scrollable authored content 1") }
+          View(class: "scroll_row") { Text("Scrollable authored content 2") }
+          View(class: "scroll_row") { Text("Scrollable authored content 3") }
+        }
+        List(id: "closure-list", class: "authored_control closure_list", items: items, key: |item| item.id, list_type: "single", span_count: 1, scroll_orientation: "vertical", enable_scroll: true, accessibility_label: "Closure stable list") {
+          item => View(class: "list_row") { Text(item.title) }
+        }
+      }
+    }
+  }
+}

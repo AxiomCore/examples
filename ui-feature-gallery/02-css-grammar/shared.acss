@@ -1,0 +1,8 @@
+variables {
+  accent: #78d6ff
+  imported_text: #d8e7f7
+}
+
+.from_import {
+  color: var(imported_text)
+}

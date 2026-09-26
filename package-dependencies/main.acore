@@ -1,0 +1,13 @@
+module phase3.packages.ui
+use theme AppTheme from "theme" export "default"
+use component Card from "widgets" export "Card"
+
+app PackageClosure { route "/" => Home }
+
+page Home {
+  view {
+    SafeArea {
+      Card(title: "Locked package component")
+    }
+  }
+}

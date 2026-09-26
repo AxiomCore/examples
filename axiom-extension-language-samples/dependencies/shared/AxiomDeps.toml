@@ -1,0 +1,41 @@
+format = "axiom-deps/v2"
+targets = ["web", "server"]
+
+[dependencyEnvironments.rust-release]
+language = "rust"
+profile = "release"
+runtimeVersion = "1.82.0"
+toolchainSha256 = "1111111111111111111111111111111111111111111111111111111111111111"
+engine = "cargo"
+engineSha256 = "2222222222222222222222222222222222222222222222222222222222222222"
+abi = "axiom-extension-abi@1.0.0"
+sdk = "axiom-extension-sdk@0.1.0"
+bindingSchema = "axiom-sdk-interface-ir/v1"
+targetFamily = "wasm32"
+
+[dependencyRegistries.crates]
+language = "rust"
+index = "https://packages.example/rust-index.json"
+allowedHosts = ["packages.example"]
+
+[extensions.pricing]
+language = "rust"
+source = "extension.rs"
+exports = ["run"]
+targets = ["web", "server"]
+environment = "rust-release"
+
+[extensions.pricing.packages.portable-money]
+version = "1.0.0"
+registry = "crates"
+
+[extensions.tax]
+language = "rust"
+source = "extension.rs"
+exports = ["run"]
+targets = ["web", "server"]
+environment = "rust-release"
+
+[extensions.tax.packages.portable-money]
+version = "1.0.0"
+registry = "crates"

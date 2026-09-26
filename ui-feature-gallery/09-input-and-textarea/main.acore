@@ -1,0 +1,143 @@
+module phase2.input.textarea.ui
+
+styles {
+  .screen {
+    width: 100%
+    min-height: 100vh
+    padding: 20px
+    background-color: #f4f6fb
+  }
+
+  .field {
+    width: 100%
+    height: 48px
+    padding: 12px
+    margin-bottom: 12px
+    border-width: 1px
+    border-style: solid
+    border-color: #526079
+    border-radius: 0px
+    background-color: white
+    color: #172033
+  }
+
+  .notes {
+    width: 100%
+    height: 128px
+    padding: 12px
+    margin-bottom: 12px
+    border-width: 1px
+    border-style: solid
+    border-color: #526079
+    border-radius: 0px
+    background-color: white
+    color: #172033
+  }
+
+  .button {
+    width: 100%
+    min-height: 44px
+    padding: 10px
+    margin-bottom: 8px
+    background-color: #244fc7
+    color: white
+  }
+
+  .status {
+    margin-bottom: 12px
+    color: #172033
+  }
+}
+
+app Phase2Inputs {
+  route "/" => InputGallery
+}
+
+page InputGallery {
+  state title: String = ""
+  state notes: String = ""
+  state selection_start: Int = 0
+  state selection_end: Int = 0
+  state composing: Bool = false
+  state title_focused: Bool = false
+  state status: String = "Type Unicode or use an IME"
+
+  action input_changed() {
+    status = "Input event delivered once"
+  }
+
+  action selection_changed() {
+    status = "Selection event delivered"
+  }
+
+  action focus_changed() {
+    status = "Focus lifecycle delivered"
+  }
+
+  action confirmed() {
+    status = "Confirm delivered"
+  }
+
+  action focus_title() {
+    invoke("title", focus)
+  }
+
+  action blur_title() {
+    invoke("title", blur)
+  }
+
+  action select_first_two() {
+    invoke("title", set_selection_range, selection_start: 0, selection_end: 2)
+  }
+
+  action replace_title() {
+    title = "OK"
+    invoke("title", set_value, value: "OK")
+  }
+
+  view {
+    SafeArea(class: "screen") {
+      Text("UI controlled text entry")
+      Text(status, class: "status")
+      Input(
+        id: "title",
+        class: "field",
+        value: title,
+        placeholder: "Letters and digits only",
+        input_type: "text",
+        confirm_type: "done",
+        input_filter: "[A-Za-z0-9 ]",
+        max_length: 24,
+        selection_start: selection_start,
+        selection_end: selection_end,
+        composing: composing,
+        focused: title_focused,
+        on_input: input_changed,
+        on_selection: selection_changed,
+        on_focus: focus_changed,
+        on_blur: focus_changed,
+        on_confirm: confirmed,
+        accessibility_label: "Task title"
+      )
+      TextArea(
+        id: "notes",
+        class: "notes",
+        value: notes,
+        placeholder: "Four lines of notes",
+        input_type: "text",
+        max_length: 160,
+        max_lines: 4,
+        line_spacing: 4,
+        enable_scroll_bar: true,
+        on_input: input_changed,
+        accessibility_label: "Task notes"
+      )
+      Button(label: "Focus title", class: "button", on_press: focus_title)
+      Button(label: "Blur title", class: "button", on_press: blur_title)
+      Button(label: "Select first two", class: "button", on_press: select_first_two)
+      Button(label: "Replace with OK", class: "button", on_press: replace_title)
+      Text(title)
+      Text(notes)
+    }
+  }
+}

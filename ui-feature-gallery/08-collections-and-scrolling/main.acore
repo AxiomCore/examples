@@ -1,0 +1,193 @@
+module phase2.collections.scrolling.ui
+
+styles {
+  variables {
+    ink: #10223a
+    surface: #f4f8fc
+    accent: #4361ee
+    border: #b8c4d6
+  }
+
+  Page {
+    background-color: var(surface)
+  }
+
+  .screen {
+    width: 100%
+    height: 100vh
+    padding: 17px
+  }
+
+  .section {
+    width: 100%
+    margin-bottom: 16px
+  }
+
+  .viewport {
+    width: 100%
+    height: 180px
+    border-width: 1px
+    border-style: solid
+    border-color: var(border)
+  }
+
+  .feed {
+    list-main-axis-gap: 8px
+    list-cross-axis-gap: 8px
+  }
+
+  .cell {
+    min-height: 52px
+    padding: 12px
+    background-color: white
+    color: var(ink)
+  }
+
+  .control {
+    min-height: 44px
+    padding: 10px
+    margin-bottom: 8px
+    background-color: var(accent)
+    color: white
+  }
+
+  .pager-page {
+    width: 100%
+    height: 180px
+    padding: 16px
+  }
+
+  .refresh-header {
+    height: 52px
+    padding: 12px
+  }
+
+  .coordinator {
+    width: 100%
+    height: 240px
+  }
+
+  .coordinator-header {
+    width: 100%
+    height: 72px
+    padding: 12px
+    padding-top: 48px
+    background-color: #dce7ff
+  }
+
+  .coordinator-toolbar {
+    width: 100%
+    height: 44px
+    padding: 10px
+    background-color: #bed0ff
+  }
+
+  .coordinator-slot {
+    width: 100%
+    height: 196px
+  }
+}
+
+app Phase2Collections {
+  route "/" => CollectionsGallery
+}
+
+page CollectionsGallery {
+  state status: String = "Interact with every collection"
+  state items: List<Task> = [{"id":"task-1","title":"Stable item 1","kind":"task"},{"id":"task-2","title":"Stable item 2","kind":"task"},{"id":"task-3","title":"Stable item 3","kind":"task"},{"id":"task-4","title":"Stable item 4","kind":"task"},{"id":"task-5","title":"Stable item 5","kind":"task"},{"id":"task-6","title":"Stable item 6","kind":"task"},{"id":"task-7","title":"Stable item 7","kind":"task"},{"id":"task-8","title":"Stable item 8","kind":"task"},{"id":"task-9","title":"Stable item 9","kind":"task"},{"id":"task-10","title":"Stable item 10","kind":"task"}]
+
+  action list_scrolled() {
+    status = "List event delivered"
+  }
+
+  action jump_to_item() {
+    invoke("feed", scroll_to_position, position: 7, align_to: "middle", smooth: false)
+    status = "List method requested item 8"
+  }
+
+  action refresh_started() {
+    status = "Refresh lifecycle delivered"
+    invoke("refresh", finish_refresh)
+  }
+
+  action start_refresh() {
+    invoke("refresh", auto_start_refresh)
+    status = "Programmatic refresh requested"
+  }
+
+  action page_changed() {
+    status = "Pager change delivered"
+  }
+
+  action select_second_page() {
+    invoke("pager", select_tab, index: 1, smooth: false)
+    status = "Pager method selected page 2"
+  }
+
+  action coordinator_moved() {
+    status = "Coordinator offset delivered"
+  }
+
+  action expand_coordinator() {
+    invoke("coordinator", set_fold_expanded, offset: "0px", smooth: false)
+    status = "Coordinator expansion requested"
+  }
+
+  view {
+    Page(accessibility_label: "UI collections and scrolling") {
+      SafeArea {
+        ScrollView(id: "screen", class: "screen", scroll_orientation: "vertical", enable_scroll: true) {
+        Text("UI collections and scrolling")
+        Text(status)
+
+        View(class: "section") {
+          Text("Keyed virtualized List")
+          View(class: "control", accessibility_element: true, accessibility_trait: "button", on_tap: jump_to_item) { Text("Jump to item 8") }
+          List(id: "feed", class: "viewport feed", items: items, key: |item| item.id, list_type: "single", span_count: 1, scroll_orientation: "vertical", enable_scroll: true, enable_nested_scroll: true, need_visible_item_info: true, lower_threshold_item_count: 1, scroll_event_throttle: 100, item_recyclable: true, item_reuse_identifier: item.kind, item_estimated_main_axis_size_px: 52, on_scroll: list_scrolled, on_scroll_to_lower: list_scrolled, on_scroll_state_change: list_scrolled, on_layout_complete: list_scrolled) { item =>
+            View(class: "cell") { Text(item.title) }
+          }
+        }
+
+        View(class: "section") {
+          Text("Refresh")
+          View(class: "control", accessibility_element: true, accessibility_trait: "button", on_tap: start_refresh) { Text("Start refresh") }
+          Refresh(id: "refresh", class: "viewport", enable_refresh: true, on_start_refresh: refresh_started, on_header_offset: list_scrolled, on_refresh_state_change: list_scrolled) {
+            RefreshHeader(class: "refresh-header") { Text("Pull to refresh") }
+            ScrollView(class: "viewport", scroll_orientation: "vertical", enable_scroll: true) {
+              View(class: "cell") { Text("Refresh body") }
+              View(class: "cell") { Text("Drag down from the top") }
+            }
+          }
+        }
+
+        View(class: "section") {
+          Text("ViewPager")
+          View(class: "control", accessibility_element: true, accessibility_trait: "button", on_tap: select_second_page) { Text("Select page 2") }
+          ViewPager(id: "pager", class: "viewport", enable_scroll: true, initial_select_index: 0, on_change: page_changed, on_will_change: page_changed, on_offset_change: page_changed) {
+            View(class: "pager-page") { Text("Pager page 1") }
+            View(class: "pager-page") { Text("Pager page 2") }
+          }
+        }
+
+        View(class: "section") {
+          Text("ScrollCoordinator")
+          View(class: "control", accessibility_element: true, accessibility_trait: "button", on_tap: expand_coordinator) { Text("Expand coordinator") }
+          ScrollCoordinator(id: "coordinator", class: "coordinator", enable_scroll: true, granularity: 0.1, header_over_slot: false, on_offset: coordinator_moved) {
+            ScrollCoordinatorHeader(class: "coordinator-header") { Text("Collapsing header") }
+            ScrollCoordinatorToolbar(class: "coordinator-toolbar") { Text("Sticky toolbar") }
+            ScrollCoordinatorSlot(class: "coordinator-slot") {
+              ScrollView(class: "coordinator-slot", scroll_orientation: "vertical", enable_scroll: true) {
+                View(class: "cell") { Text("Coordinated row 1") }
+                View(class: "cell") { Text("Coordinated row 2") }
+                View(class: "cell") { Text("Coordinated row 3") }
+                View(class: "cell") { Text("Coordinated row 4") }
+                View(class: "cell") { Text("Coordinated row 5") }
+              }
+            }
+          }
+        }
+        }
+      }
+    }
+  }
+}

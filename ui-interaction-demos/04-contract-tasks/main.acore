@@ -1,0 +1,45 @@
+module phase5.contract.tasks.ui
+
+use contract Tasks from "tasks" audience "mobile"
+
+app ContractTasks {
+  route "/" => Home
+}
+
+page Home {
+  state draft: String = ""
+
+  query tasks = Tasks.list_tasks()
+  mutation create = Tasks.create_task(title: draft)
+
+  action submit() {
+    create.run()
+    draft = ""
+  }
+
+  view {
+    SafeArea {
+      View {
+        Text("Persistent contract task list")
+        Text("Tasks are stored by the local Axiom mock server.")
+
+        Input(
+          value: draft,
+          placeholder: "Add a task",
+          accessibility_label: "Task title"
+        )
+        Button(label: "Create task", on_press: submit)
+
+        if tasks.pending {
+          Text("Loading tasks…")
+        } else if tasks.error {
+          Text("Could not load tasks")
+        } else {
+          List(items: tasks.data, key: |task| task.id, list_type: "single", span_count: 1, scroll_orientation: "vertical") { task =>
+            Text(task.title)
+          }
+        }
+      }
+    }
+  }
+}

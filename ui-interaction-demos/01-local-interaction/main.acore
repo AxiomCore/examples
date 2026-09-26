@@ -1,0 +1,30 @@
+module phase5.local.interaction.ui
+
+app LocalInteraction { route "/" => Home }
+
+page Home {
+  state draft: String = ""
+  state submitted: String = "Nothing submitted yet"
+
+  action submit() {
+    submitted = draft
+    draft = ""
+  }
+
+  action reset() {
+    draft = ""
+    submitted = "Nothing submitted yet"
+  }
+
+  view {
+    SafeArea {
+      View {
+        Text("Phase Test 5 local interaction")
+        Input(value: draft, placeholder: "Write a short message", accessibility_label: "Message")
+        Button(label: "Submit", on_press: submit)
+        Button(label: "Reset", on_press: reset)
+        Text(value: submitted)
+      }
+    }
+  }
+}

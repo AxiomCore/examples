@@ -1,0 +1,8 @@
+module phase2.core.android.field.ui
+
+app AndroidField { route "/" => Home }
+page Home {
+  view {
+    Page(flatten: false) { Text("Android-only flatten field") }
+  }
+}

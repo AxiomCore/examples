@@ -1,0 +1,396 @@
+{
+  "domain": {
+    "entities": {
+      "task": {
+        "kind": "named",
+        "model": "Task",
+        "value": "Task"
+      }
+    },
+    "projections": {
+      "taskCreate": {
+        "audience": "mobile",
+        "entity": {
+          "kind": "named",
+          "model": "Task",
+          "value": "Task"
+        },
+        "fields": [
+          "title"
+        ]
+      },
+      "taskMobile": {
+        "audience": "mobile",
+        "entity": {
+          "kind": "named",
+          "model": "Task",
+          "value": "Task"
+        },
+        "fields": [
+          "id",
+          "title",
+          "completed"
+        ]
+      },
+      "taskUpdate": {
+        "audience": "mobile",
+        "entity": {
+          "kind": "named",
+          "model": "Task",
+          "value": "Task"
+        },
+        "fields": [
+          "completed"
+        ]
+      }
+    }
+  },
+  "endpoints": {
+    "CreateTask": {
+      "id": 2,
+      "cacheIdentity": "tasks:detail",
+      "errors": [
+        "invalid_title",
+        "unauthorized",
+        "unavailable"
+      ],
+      "invalidates": [
+        "tasks:list"
+      ],
+      "method": "POST",
+      "mock": {
+        "enabled": true,
+        "fallback": {
+          "data": {
+            "body": "{{store.createdTask}}",
+            "type": "template"
+          },
+          "delayJitterMs": 0,
+          "delayMs": 0,
+          "status": 201,
+          "weight": 1
+        },
+        "selectionStrategy": "first_match",
+        "state": {
+          "activityKey": "activity",
+          "changes": [
+            {
+              "mutations": [
+                {
+                  "by": 1,
+                  "key": "createdTask",
+                  "type": "set",
+                  "value": {
+                    "completed": false,
+                    "id": "{{faker.uuid}}",
+                    "title": "{{request.body.title}}"
+                  }
+                }
+              ],
+              "name": "materialize-created-task"
+            },
+            {
+              "mutations": [
+                {
+                  "by": 1,
+                  "key": "tasks",
+                  "type": "append",
+                  "value": "{{store.createdTask}}"
+                }
+              ],
+              "name": "persist-created-task"
+            }
+          ]
+        }
+      },
+      "name": "create_task",
+      "parameters": [
+        {
+          "isOptional": false,
+          "name": "title",
+          "source": "body",
+          "typeRef": {
+            "kind": "string"
+          }
+        }
+      ],
+      "path": "/tasks",
+      "requestProjection": "taskCreate",
+      "responseProjection": "taskMobile",
+      "returnIsOptional": false,
+      "returnType": {
+        "kind": "named",
+        "model": "Task",
+        "value": "Task"
+      }
+    },
+    "DeleteTask": {
+      "id": 4,
+      "cacheIdentity": "tasks:list",
+      "errors": [
+        "not_found",
+        "unavailable"
+      ],
+      "invalidates": [
+        "tasks:list"
+      ],
+      "method": "DELETE",
+      "mock": {
+        "enabled": true,
+        "fallback": {
+          "data": {
+            "filterKey": "id",
+            "filterValue": "",
+            "key": "tasks",
+            "returnAll": true,
+            "type": "store_query"
+          },
+          "delayJitterMs": 0,
+          "delayMs": 0,
+          "status": 200,
+          "weight": 1
+        },
+        "selectionStrategy": "first_match",
+        "state": {
+          "activityKey": "activity",
+          "onReceive": [
+            {
+              "by": 1,
+              "filterKey": "id",
+              "filterValue": "{{request.path.id}}",
+              "key": "tasks",
+              "type": "delete"
+            }
+          ]
+        }
+      },
+      "name": "delete_task",
+      "parameters": [
+        {
+          "isOptional": false,
+          "name": "id",
+          "source": "path",
+          "typeRef": {
+            "kind": "string"
+          }
+        }
+      ],
+      "path": "/tasks/{id}",
+      "responseProjection": "taskMobile",
+      "returnIsOptional": false,
+      "returnType": {
+        "kind": "list",
+        "value": {
+          "kind": "named",
+          "model": "Task",
+          "value": "Task"
+        }
+      }
+    },
+    "ListTasks": {
+      "id": 1,
+      "cacheIdentity": "tasks:list",
+      "errors": [
+        "unauthorized",
+        "unavailable"
+      ],
+      "method": "GET",
+      "mock": {
+        "enabled": true,
+        "fallback": {
+          "data": {
+            "filterKey": "id",
+            "filterValue": "",
+            "key": "tasks",
+            "returnAll": true,
+            "type": "store_query"
+          },
+          "delayJitterMs": 0,
+          "delayMs": 0,
+          "status": 200,
+          "weight": 1
+        },
+        "selectionStrategy": "first_match",
+        "state": {
+          "activityKey": "activity"
+        }
+      },
+      "name": "list_tasks",
+      "path": "/tasks",
+      "responseProjection": "taskMobile",
+      "returnIsOptional": false,
+      "returnType": {
+        "kind": "list",
+        "value": {
+          "kind": "named",
+          "model": "Task",
+          "value": "Task"
+        }
+      }
+    },
+    "UpdateTask": {
+      "id": 3,
+      "cacheIdentity": "tasks:detail",
+      "errors": [
+        "not_found",
+        "unavailable"
+      ],
+      "invalidates": [
+        "tasks:list"
+      ],
+      "method": "PATCH",
+      "mock": {
+        "enabled": true,
+        "fallback": {
+          "data": {
+            "filterKey": "id",
+            "filterValue": "{{request.path.id}}",
+            "key": "tasks",
+            "returnAll": false,
+            "type": "store_query"
+          },
+          "delayJitterMs": 0,
+          "delayMs": 0,
+          "status": 200,
+          "weight": 1
+        },
+        "selectionStrategy": "first_match",
+        "state": {
+          "activityKey": "activity",
+          "onReceive": [
+            {
+              "by": 1,
+              "filterKey": "id",
+              "filterValue": "{{request.path.id}}",
+              "key": "tasks",
+              "type": "update",
+              "value": {
+                "completed": "{{request.body.completed}}"
+              }
+            }
+          ]
+        }
+      },
+      "name": "update_task",
+      "parameters": [
+        {
+          "isOptional": false,
+          "name": "id",
+          "source": "path",
+          "typeRef": {
+            "kind": "string"
+          }
+        },
+        {
+          "isOptional": false,
+          "name": "completed",
+          "source": "body",
+          "typeRef": {
+            "kind": "bool"
+          }
+        }
+      ],
+      "path": "/tasks/{id}",
+      "requestProjection": "taskUpdate",
+      "responseProjection": "taskMobile",
+      "returnIsOptional": false,
+      "returnType": {
+        "kind": "named",
+        "model": "Task",
+        "value": "Task"
+      }
+    }
+  },
+  "models": {
+    "Task": {
+      "fields": {
+        "completed": {
+          "isOptional": false,
+          "name": "completed",
+          "typeRef": {
+            "kind": "bool"
+          }
+        },
+        "id": {
+          "isOptional": false,
+          "name": "id",
+          "typeRef": {
+            "kind": "string"
+          }
+        },
+        "title": {
+          "isOptional": false,
+          "name": "title",
+          "typeRef": {
+            "kind": "string"
+          }
+        }
+      },
+      "name": "Task"
+    }
+  },
+  "project": {
+    "id": "phase5-contract-tasks",
+    "version": "v0.1.0"
+  },
+  "security": {
+    "endpoints": {
+      "CreateTask": {
+        "id": 1,
+        "name": "CreateTask",
+        "auth": "",
+        "csrfExempt": false,
+        "idempotent": true,
+        "permission": "",
+        "policy": "",
+        "public": true,
+        "rateLimit": "",
+        "resource": ""
+      },
+      "DeleteTask": {
+        "id": 2,
+        "name": "DeleteTask",
+        "auth": "",
+        "csrfExempt": false,
+        "idempotent": true,
+        "permission": "",
+        "policy": "",
+        "public": true,
+        "rateLimit": "",
+        "resource": ""
+      },
+      "ListTasks": {
+        "id": 3,
+        "name": "ListTasks",
+        "auth": "",
+        "csrfExempt": false,
+        "idempotent": false,
+        "permission": "",
+        "policy": "",
+        "public": true,
+        "rateLimit": "",
+        "resource": ""
+      },
+      "UpdateTask": {
+        "id": 4,
+        "name": "UpdateTask",
+        "auth": "",
+        "csrfExempt": false,
+        "idempotent": true,
+        "permission": "",
+        "policy": "",
+        "public": true,
+        "rateLimit": "",
+        "resource": ""
+      }
+    },
+    "mode": "strict"
+  },
+  "variants": {
+    "default": {
+      "include": [
+        "*"
+      ]
+    }
+  }
+}

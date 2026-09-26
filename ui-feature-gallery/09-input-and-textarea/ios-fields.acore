@@ -1,0 +1,10 @@
+module phase2.input.ios.fields.ui
+
+app IosFields { route "/" => Home }
+
+page Home {
+  state notes: String = ""
+  view {
+    TextArea(value: notes, bounces: true, ios_auto_correct: false, ios_spell_check: false)
+  }
+}

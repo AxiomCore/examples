@@ -1,0 +1,40 @@
+module phase2.native.auto.font.ui
+
+styles {
+  .screen {
+    display: flex
+    flex-direction: column
+    gap: 16px
+    padding: 16px
+    width: 100%
+  }
+  .adaptive {
+    width: 220px
+    overflow: hidden
+    white-space: nowrap
+    font-size: 24px
+    -x-auto-font-size: true 10px 24px 1px
+    -x-auto-font-size-line-ranges: line-range(1, 10px, 24px)
+  }
+  .preset {
+    width: 280px
+    overflow: hidden
+    white-space: nowrap
+    -x-auto-font-size: true
+    -x-auto-font-size-preset-sizes: 12px 16px 22px
+    -x-handle-color: #48c4ee
+    -x-handle-size: 20px
+  }
+}
+
+app NativeTypography { route "/" => NativeTypographyPage }
+page NativeTypographyPage {
+  view {
+    SafeArea {
+      View(class: "screen") {
+        Text("This long line must auto-size into 220 pixels", class: "adaptive")
+        Text("Preset sizes choose the largest fitting value", class: "preset")
+      }
+    }
+  }
+}

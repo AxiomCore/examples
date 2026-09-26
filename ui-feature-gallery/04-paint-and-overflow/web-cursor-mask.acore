@@ -1,0 +1,19 @@
+module phase2.web.cursor.mask.ui
+
+styles {
+  .web_sample {
+    width: 240px
+    height: 120px
+    padding: 16px
+    background-image: linear-gradient(135deg, #10223a, #48c4ee)
+    mask-image: linear-gradient(#000, #000), radial-gradient(circle, transparent, #000)
+    mask-composite: add, exclude
+    cursor: pointer
+    color: #ffffff
+  }
+}
+
+app WebPaint { route "/" => WebOnly }
+page WebOnly {
+  view { View(class: "web_sample") { Text("Web cursor and mask compositing") } }
+}

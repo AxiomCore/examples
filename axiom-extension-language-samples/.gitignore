@@ -1,0 +1,4 @@
+.axiom/
+AxiomDeps.lock
+AxiomExtensions.toml
+AxiomPackages.lock

@@ -1,0 +1,53 @@
+module phase5.themed.navigation.ui
+
+theme {
+  color.surface: "#10223A"
+  color.card: "#1E3B5A"
+  color.text: "#FFFFFF"
+  color.accent: "#78D6FF"
+  spacing.page: 20
+  spacing.card: 12
+  radius.card: 12
+  radius.control: 10
+  text.title: 24
+  text.body: 16
+}
+
+app ThemedNavigation {
+  route "/" => Home
+  route "/details" => Details
+}
+
+page Home {
+  action open_details() {
+    navigate("/details")
+  }
+
+  view {
+    SafeArea {
+      View(background: color.surface, padding: spacing.page) {
+        Text("Acore navigation", color: color.text, font_size: text.title)
+        View(background: color.card, padding: spacing.card, radius: radius.card) {
+          Text("Routes and tokens are declarative.", color: color.text, font_size: text.body)
+          Button(label: "Open details", on_press: open_details, radius: radius.control)
+        }
+      }
+    }
+  }
+}
+
+page Details {
+  action go_back() {
+    back()
+  }
+
+  view {
+    SafeArea {
+      View(background: color.surface, padding: spacing.page) {
+        Text("Details", color: color.text, font_size: text.title)
+        Text("Back uses Axiom-owned in-process route history.", color: color.accent, font_size: text.body)
+        Button(label: "Back", on_press: go_back, radius: radius.control)
+      }
+    }
+  }
+}

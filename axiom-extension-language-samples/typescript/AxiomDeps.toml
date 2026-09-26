@@ -1,0 +1,12 @@
+format = "axiom-deps/v2"
+targets = ["android", "ios", "web", "server"]
+
+[extensions.pricing]
+language = "typescript"
+source = "pricing.ts"
+exports = ["calculate_discount"]
+targets = ["android", "ios", "web", "server"]
+
+[extensions.pricing.permissions.ui-state.cart]
+read = ["subtotal_cents"]
+write = ["discount_cents", "total_cents"]

@@ -1,0 +1,90 @@
+module phase2.core.elements.ui
+
+styles {
+  variables {
+    ink: #10223a
+    surface: #f4f8fc
+    accent: #4361ee
+  }
+
+  Page {
+    background-color: var(surface)
+    padding: 20px
+  }
+
+  .stack {
+    display: flex
+    flex-direction: column
+    gap: 12px
+  }
+
+  .banner {
+    width: 240px
+    height: 120px
+    image-rendering: auto
+  }
+
+  .mark {
+    width: 96px
+    height: 96px
+  }
+
+  .headline {
+    color: var(ink)
+    font-size: 24px
+    font-weight: 700
+  }
+
+  .touch-target {
+    width: 240px
+    min-height: 48px
+    padding: 12px
+    background-color: var(accent)
+    color: white
+  }
+}
+
+app Phase2CoreElements {
+  route "/" => CoreGallery
+}
+
+page CoreGallery {
+  state asset_status: String = "Waiting for local assets"
+  state tap_status: String = "Tap the blue View"
+  state selection_status: String = "Select the heading to test selection"
+
+  action tapped() {
+    tap_status = "View tap delivered exactly once"
+    invoke("headline", bounding_client_rect)
+    invoke("touch-target", request_accessibility_focus)
+  }
+
+  action asset_loaded() {
+    asset_status = "Local assets loaded"
+  }
+
+  action layout_observed() {
+    invoke("headline", bounding_client_rect)
+  }
+
+  action selection_changed() {
+    selection_status = "Text selection changed"
+  }
+
+  view {
+    Page(accessibility_label: "UI core elements", on_layout_change: layout_observed) {
+      SafeArea(class: "stack", data_test_id: "phase-2g-core") {
+        Text("UI core elements", id: "headline", class: "headline", text_selection: true, on_selection_change: selection_changed) {
+          Text(" — inline Text child")
+        }
+        Image(source: asset("images/banner.png"), placeholder: asset("images/placeholder.png"), alt: "Axiom UI banner", class: "banner", auto_size: false, mode: "aspectFit", on_load: asset_loaded)
+        Svg(source: asset("images/mark.svg"), alt: "Axiom vector mark", class: "mark", on_load: asset_loaded)
+        Text(asset_status)
+        Text(selection_status)
+        View(id: "touch-target", class: "touch-target", accessibility_element: true, accessibility_label: "Core element touch target", accessibility_trait: "button", on_tap: tapped) {
+          Text(tap_status)
+        }
+      }
+    }
+  }
+}

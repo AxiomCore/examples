@@ -1,0 +1,93 @@
+module phase2.typography.selection.ui
+
+styles {
+  variables {
+    ink: #10223a
+    accent: #48c4ee
+  }
+
+  Page {
+    min-height: 100vh
+    background-color: #f4f7fb
+  }
+
+  .screen {
+    display: flex
+    flex-direction: column
+    gap: 14px
+    padding: 16px
+    width: 100%
+    box-sizing: border-box
+  }
+
+  .heading {
+    color: linear-gradient(90deg, #10223a, #48c4ee)
+    font-family: "Axiom Sans", system-ui
+    font-size: 26px
+    font-weight: 700
+    line-height: 1.2
+    letter-spacing: -0.5px
+  }
+
+  .features {
+    color: var(ink)
+    font-size: 16px
+    font-style: italic
+    font-feature-settings: "liga" on, "kern" 1
+    font-optical-sizing: auto
+    font-variation-settings: "wght" 625, "opsz" 18
+    line-height: 24px
+    text-indent: 12px
+  }
+
+  .decorated {
+    color: #1e6a8a
+    text-decoration: underline dashed var(accent)
+    text-shadow: 1px 2px 3px rgba(16, 34, 58, .3)
+  }
+
+  .stroked {
+    color: #ffffff
+    background-color: #10223a
+    padding: 8px
+    text-stroke: 1px var(accent)
+  }
+
+  .ellipsis {
+    width: 220px
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    word-break: normal
+    color: var(ink)
+  }
+
+  .rtl {
+    direction: rtl
+    text-align: start
+    color: var(ink)
+  }
+
+  .vertical {
+    vertical-align: text-bottom
+    font-size: 14px
+    color: var(ink)
+  }
+}
+
+app Phase2Typography { route "/" => TypographyGallery }
+page TypographyGallery {
+  view {
+    SafeArea {
+      View(class: "screen") {
+        Text("UI typography", class: "heading")
+        Text("Feature and variation settings remain typed and inherited through text.", class: "features")
+        Text("Authored decoration and shadow", class: "decorated")
+        Text("Expanded text stroke", class: "stroked")
+        Text("This deliberately long single line must truncate with an ellipsis at the authored width.", class: "ellipsis")
+        Text("مرحبا من اليمين", class: "rtl")
+        Text("Explicit vertical alignment", class: "vertical")
+      }
+    }
+  }
+}
