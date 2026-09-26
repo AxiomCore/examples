@@ -4,14 +4,14 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "sync:atmx": "cp ../../../../../axiom-sdk/web/atmx/dist/atmx.es.js public/atmx.es.js && cp ../../../../../axiom-sdk/web/atmx/public/axiom_runtime.wasm public/axiom_runtime.wasm",
+    "sync:atmx": "cp node_modules/atmx-web/dist/atmx.es.js public/atmx.es.js && cp node_modules/atmx-web/dist/axiom_runtime.wasm public/axiom_runtime.wasm",
     "dev": "npm run sync:atmx && vite",
     "build": "npm run sync:atmx && tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
 	"@tailwindcss/vite": "^4.1.11",
-    "atmx-cli": "file:../../../../release/atmx-cli",
+    "atmx-web": "^0.147.1",
 	"tailwindcss": "^4.1.11",
     "typescript": "^6.0.3",
     "vite": "^8.0.10"

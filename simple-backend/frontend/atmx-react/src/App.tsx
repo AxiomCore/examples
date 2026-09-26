@@ -1,7 +1,6 @@
 // FILE: src/App.tsx
 import { useState } from "react";
 import { sdk } from "./generated/sdk";
-import { setAuthToken } from "atmx-react";
 import * as models from "./generated/models";
 
 function App() {

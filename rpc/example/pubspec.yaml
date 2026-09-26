@@ -28,8 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  axiom_flutter:
-    path: ../../../../axiom-sdk/flutter/axiom_flutter
+  axiom_flutter: ^0.147.2
   flutter:
     sdk: flutter
 
@@ -38,8 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
-  axiom_flutter_generator:
-    path: ../../../../axiom-sdk/flutter/axiom_flutter_generator
+  axiom_flutter_generator: ^0.146.3
   flutter_test:
     sdk: flutter
 

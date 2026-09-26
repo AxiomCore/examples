@@ -1,34 +1,107 @@
-name: Example smoke test
+name: Verify released Axiom examples
 
 on:
+  repository_dispatch:
+    types: [axiom-release-verified]
   workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
 
+concurrency:
+  group: examples-${{ github.event.client_payload.train_id || github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  domain:
-    runs-on: macos-latest
+  acore:
+    name: Released CLI · backend and web Acore
+    runs-on: macos-15
+    timeout-minutes: 45
     env:
-      AXIOM_REFERRAL_CODE: ${{ secrets.AXIOM_REFERRAL }}
+      AXIOM_CLOUD_URL: http://127.0.0.1:8000
+      AXIOM_UI_WEB_NO_OPEN: '1'
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Require private-alpha CI access
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test release selection
+        run: python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Install latest verified CLI and extractors
         run: |
-          if [ -z "$AXIOM_REFERRAL_CODE" ]; then
-            echo 'Set the AXIOM_REFERRAL secret on this repository before running the manual smoke job.' >&2
-            exit 1
+          python scripts/install_released_toolchain.py \
+            --bin-dir "$RUNNER_TEMP/axiom-bin" \
+            --extractor-dir "$HOME/.acore/bin"
+          "$RUNNER_TEMP/axiom-bin/axiom" --version
+      - name: Install verified web UI host
+        run: axiom ui host install --target web --non-interactive
+      - name: Compile and exercise every Acore example
+        run: python scripts/verify_acore_examples.py
+
+  npm-web:
+    name: npm web · ${{ matrix.example }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        example:
+          - simple-backend/frontend/atmx-web
+          - simple-backend/frontend/atmx-react
+          - offline-first-feed/frontend/atmx-web
+          - realtime-chat/frontend/atmx-web
+          - realtime-chat/frontend/atmx-react
+    defaults:
+      run:
+        working-directory: ${{ matrix.example }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: ${{ matrix.example }}/package-lock.json
+      - name: Install locked packages
+        run: npm ci --ignore-scripts
+      - name: Build or type-check web frontend
+        run: |
+          if npm pkg get scripts.build | grep -qv '^{}$'; then
+            npm run build
+          else
+            npx tsc --noEmit --lib dom,es2020 --moduleResolution bundler --module esnext generated/*.ts
+            node --check generated/sdk.js
+            node --check generated/models.js
           fi
-      - name: Install verified Axiom CLI archive
-        run: |
-          archive="$RUNNER_TEMP/axiom-macos-arm64.tar.gz"
-          curl -fsSL https://github.com/AxiomCore/AxiomCore/releases/download/v0.147.0/axiom-macos-arm64.tar.gz -o "$archive"
-          printf '%s  %s\n' '0b67a85e510bbb4b7681d3079f6ada1c0ed89b9f87413e2022552e87356f8426' "$archive" | shasum -a 256 -c -
-          mkdir -p "$RUNNER_TEMP/axiom-bin"
-          tar -xzf "$archive" -C "$RUNNER_TEMP/axiom-bin"
-          echo "$RUNNER_TEMP/axiom-bin" >> "$GITHUB_PATH"
-      - name: Validate and compare domain example
-        working-directory: domain-commerce
-        run: |
-          axiom domain validate commerce-v1.acore
-          axiom diff commerce-v1.acore commerce-v2.acore --format semantic
+
+  flutter-web:
+    name: Flutter web · ${{ matrix.example }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        example:
+          - simple-backend/frontend/axiom_flutter_web
+          - realtime-chat/frontend/axiom_flutter_web
+          - rpc/example
+          - stream/example
+          - observability-and-auth/example
+    defaults:
+      run:
+        working-directory: ${{ matrix.example }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Resolve published packages
+        run: flutter pub get
+      - name: Run browser widget tests
+        run: flutter test --platform chrome --no-pub
+      - name: Build web frontend
+        run: flutter build web --release --no-pub

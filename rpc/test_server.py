@@ -14,6 +14,11 @@ class CollectionRequest(BaseModel):
     max_results: int
 
 
+@app.get("/people/{person_id}", response_model=Person)
+def get_person(person_id: str):
+    return Person(id=person_id, name="Example person")
+
+
 @app.post("/collections")
 def create_collection(req: CollectionRequest):
     return {

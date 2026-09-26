@@ -1,7 +1,5 @@
 amends "axiom-fastapi:./test_server.py:app"
 
-local Routes = module.Routes
-
 project {
   id = "auth-obs-test"
   version = "1.0.0"
@@ -9,7 +7,7 @@ project {
 
 variants {
   ["default"] { // Changed from "mobile"
-    include = List("*")
+    include = Listing { "*" }
   }
 }
 
@@ -31,16 +29,16 @@ endpoints {
       scopes = Listing { "items:read" }
       methods = Listing {
         AuthMethodDef {
-          type = "bearer";
-          name = "Authorization";
-          scheme = "Bearer";
-          location = "header";
+          type = "bearer"
+          name = "Authorization"
+          scheme = "Bearer"
+          location = "header"
           // VALIDATED LOCALLY IN RUST!
           validation = AuthValidationDef {
-            strategy = "jwt";
+            strategy = "jwt"
             // Fixture-only placeholder. Production validation material belongs
             // in a runtime secret provider, not a committed contract.
-            secret = "development-only-placeholder";
+            secret = "development-only-placeholder"
             alg = "HS256"
           }
         }
@@ -54,8 +52,8 @@ endpoints {
       required = true
       methods = Listing {
         AuthMethodDef {
-          type = "api_key";
-          name = "x-api-key";
+          type = "api_key"
+          name = "x-api-key"
           location = "header"
         }
       }
@@ -68,8 +66,8 @@ endpoints {
       required = true
       methods = Listing {
         AuthMethodDef {
-          type = "api_key";
-          name = "api_key";
+          type = "api_key"
+          name = "api_key"
           location = "query"
         }
       }
@@ -82,8 +80,8 @@ endpoints {
       required = true
       condition = "or" // Only needs ONE of these to pass
       methods = Listing {
-        AuthMethodDef { type = "bearer"; name = "Authorization"; location = "header" };
-        AuthMethodDef { type = "api_key"; name = "x-api-key"; location = "header" }
+        AuthMethodDef { type = "bearer" name = "Authorization" location = "header" }
+        AuthMethodDef { type = "api_key" name = "x-api-key" location = "header" }
       }
     }
   }

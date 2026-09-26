@@ -20,7 +20,7 @@ page Home {
       Button(label: "Add", on_press: submit)
 
       if tasks.pending { Text("Loading...") }
-      else if tasks.error { Text("aauld noot load tasks") }
+      else if tasks.error { Text("Could not load tasks") }
       else { List(items: tasks.data, key: |task| task.id, list_type: "single", span_count: 1, scroll_orientation: "vertical") { task => Text(task.title) } }
     }
   }

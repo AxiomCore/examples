@@ -1,7 +1,5 @@
 amends "axiom-fastapi:./test_server.py:app"
 
-local Routes = module.Routes
-
 project {
   id = "streaming-test"
   version = "1.0.0"
@@ -9,7 +7,7 @@ project {
 
 variants {
   ["default"] {
-    include = List("*")
+    include = Listing { "*" }
   }
 }
 

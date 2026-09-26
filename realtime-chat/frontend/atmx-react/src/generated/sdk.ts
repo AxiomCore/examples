@@ -5,7 +5,6 @@ import * as models from "./models";
 
 import {
   useAxiomQuery,
-  useAxiomMutation,
   setAuthToken,
   clearAuthToken,
   axiomQueryManager,

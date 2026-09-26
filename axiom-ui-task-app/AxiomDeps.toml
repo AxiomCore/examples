@@ -1,0 +1,5 @@
+[contracts.tasks]
+source = "../ui-interaction-demos/04-contract-tasks/backend/axiom.axiom"
+base_url = "http://127.0.0.1:8080"
+audience = "mobile"
+operations = ["list_tasks", "create_task", "update_task", "delete_task"]

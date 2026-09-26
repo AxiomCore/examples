@@ -24,7 +24,7 @@ export const pyExampleModule = {
       payload: payload, args: mappedArgs, decoder: models.Mappers.pyExample.Item.fromJson, serializer: models.Mappers.pyExample.ItemCreate.toJson, isStream: false
     };
   },
-  useCreateItemMutation(args?: { item: models.pyExample.ItemCreate }, options?: { enabled?: boolean }) {
+  useCreateItemMutation(args?: { item: models.pyExample.ItemCreate }, _options?: { enabled?: boolean }) {
     return useAxiomMutation<models.pyExample.Item, { item: models.pyExample.ItemCreate }>((a) => this.getCreateItemDef(a || args));
   },
 
@@ -39,7 +39,7 @@ export const pyExampleModule = {
       payload: payload, args: mappedArgs, decoder: (data: any) => data, serializer: (p: any) => p, isStream: false
     };
   },
-  useDeleteItemMutation(args?: { itemId: string }, options?: { enabled?: boolean }) {
+  useDeleteItemMutation(args?: { itemId: string }, _options?: { enabled?: boolean }) {
     return useAxiomMutation<any, { itemId: string }>((a) => this.getDeleteItemDef(a || args));
   },
 
@@ -93,8 +93,8 @@ export const pyExampleModule = {
       args: args || {}, decoder: models.Mappers.pyExample.Token.fromJson, serializer: (p: any) => p, isStream: false
     };
   },
-  useLoginMutation(options?: { enabled?: boolean }) {
-    return useAxiomMutation<models.pyExample.Token, void | Record<string,any>>((a) => this.getLoginDef(a));
+  useLoginMutation(_options?: { enabled?: boolean }) {
+    return useAxiomMutation<models.pyExample.Token, Record<string,any> | undefined>((a) => this.getLoginDef(a));
   },
 
   getRegisterDef(args?: { user: models.pyExample.UserCreate }): AxiomQueryDef<models.pyExample.User> {
@@ -108,7 +108,7 @@ export const pyExampleModule = {
       payload: payload, args: mappedArgs, decoder: models.Mappers.pyExample.User.fromJson, serializer: models.Mappers.pyExample.UserCreate.toJson, isStream: false
     };
   },
-  useRegisterMutation(args?: { user: models.pyExample.UserCreate }, options?: { enabled?: boolean }) {
+  useRegisterMutation(args?: { user: models.pyExample.UserCreate }, _options?: { enabled?: boolean }) {
     return useAxiomMutation<models.pyExample.User, { user: models.pyExample.UserCreate }>((a) => this.getRegisterDef(a || args));
   },
 
@@ -123,7 +123,7 @@ export const pyExampleModule = {
       payload: payload, args: mappedArgs, decoder: (data: any) => data, serializer: (p: any) => p, isStream: false
     };
   },
-  useSendEmailMutation(args?: { backgroundTasks: any }, options?: { enabled?: boolean }) {
+  useSendEmailMutation(args?: { backgroundTasks: any }, _options?: { enabled?: boolean }) {
     return useAxiomMutation<any, { backgroundTasks: any }>((a) => this.getSendEmailDef(a || args));
   },
 
@@ -134,8 +134,8 @@ export const pyExampleModule = {
       args: args || {}, decoder: () => undefined, serializer: (p: any) => p, isStream: false
     };
   },
-  useWebsocketEndpointMutation(options?: { enabled?: boolean }) {
-    return useAxiomMutation<void, void | Record<string,any>>((a) => this.getWebsocketEndpointDef(a));
+  useWebsocketEndpointMutation(_options?: { enabled?: boolean }) {
+    return useAxiomMutation<void, Record<string,any> | undefined>((a) => this.getWebsocketEndpointDef(a));
   },
 };
 

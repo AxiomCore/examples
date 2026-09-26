@@ -1,15 +1,12 @@
 amends "axiom-fastapi:./test_server.py:app"
 
-local Models = module.Models
-local Routes = module.Routes
-
 project {
   id = "rpc-obs-test"
   version = "1.0.0"
 }
 
 models {
-  [Models.Person._model] {
+  ["Person"] {
     rpcs {
       get_contacts {
         endpoint = Routes.create_collection
