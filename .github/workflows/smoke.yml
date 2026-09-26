@@ -1,9 +1,7 @@
 name: Example smoke test
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,8 +9,16 @@ permissions:
 jobs:
   domain:
     runs-on: macos-latest
+    env:
+      AXIOM_REFERRAL_CODE: ${{ secrets.AXIOM_REFERRAL }}
     steps:
       - uses: actions/checkout@v4
+      - name: Require private-alpha CI access
+        run: |
+          if [ -z "$AXIOM_REFERRAL_CODE" ]; then
+            echo 'Set the AXIOM_REFERRAL secret on this repository before running the manual smoke job.' >&2
+            exit 1
+          fi
       - name: Install verified Axiom CLI archive
         run: |
           archive="$RUNNER_TEMP/axiom-macos-arm64.tar.gz"
