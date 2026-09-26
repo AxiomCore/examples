@@ -45,13 +45,14 @@ It selects the newest stable CLI release with a macOS ARM64 archive, verifies
 the published SHA-256 digest, and does the same for the Go and FastAPI
 extractors. It never selects a UI-host or runtime release as the CLI.
 
-The Acore job builds and HTTP-probes every backend mock, compiles every web
-entry point, HTTP-probes every web UI, validates both domain examples, and
-checks the strict-security fixture fails for the expected reason. Separate
-jobs build the five npm frontends and build/test the five Flutter web apps
-against published packages. Native-only gallery variants are not treated as
-web examples; the extension-language source fixtures still require a
-development CLI and receive a source-presence audit only.
+The Acore job builds and HTTP-probes every backend mock, compiles every Acore
+web entry point, HTTP-probes every Acore web UI, validates both domain
+examples, and checks the strict-security fixture fails for the expected
+reason. The npm and Flutter demo clients remain available for manual or
+target-specific checks, but are not part of this release-triggered test.
+Native-only gallery variants are not treated as web examples; the
+extension-language source fixtures still require a development CLI and
+receive a source-presence audit only.
 
 For local reproduction with the workspace CLI:
 

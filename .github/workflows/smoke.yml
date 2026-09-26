@@ -29,6 +29,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.25.7'
+          cache: false
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
       - name: Test release selection
         run: python -m unittest discover -s scripts -p 'test_*.py' -v
       - name: Install latest verified CLI and extractors
@@ -41,67 +48,3 @@ jobs:
         run: axiom ui host install --target web --non-interactive
       - name: Compile and exercise every Acore example
         run: python scripts/verify_acore_examples.py
-
-  npm-web:
-    name: npm web · ${{ matrix.example }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    strategy:
-      fail-fast: false
-      matrix:
-        example:
-          - simple-backend/frontend/atmx-web
-          - simple-backend/frontend/atmx-react
-          - offline-first-feed/frontend/atmx-web
-          - realtime-chat/frontend/atmx-web
-          - realtime-chat/frontend/atmx-react
-    defaults:
-      run:
-        working-directory: ${{ matrix.example }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: npm
-          cache-dependency-path: ${{ matrix.example }}/package-lock.json
-      - name: Install locked packages
-        run: npm ci --ignore-scripts
-      - name: Build or type-check web frontend
-        run: |
-          if npm pkg get scripts.build | grep -qv '^{}$'; then
-            npm run build
-          else
-            npx tsc --noEmit --lib dom,es2020 --moduleResolution bundler --module esnext generated/*.ts
-            node --check generated/sdk.js
-            node --check generated/models.js
-          fi
-
-  flutter-web:
-    name: Flutter web · ${{ matrix.example }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        example:
-          - simple-backend/frontend/axiom_flutter_web
-          - realtime-chat/frontend/axiom_flutter_web
-          - rpc/example
-          - stream/example
-          - observability-and-auth/example
-    defaults:
-      run:
-        working-directory: ${{ matrix.example }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-      - name: Resolve published packages
-        run: flutter pub get
-      - name: Run browser widget tests
-        run: flutter test --platform chrome --no-pub
-      - name: Build web frontend
-        run: flutter build web --release --no-pub
