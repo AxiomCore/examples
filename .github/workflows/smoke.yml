@@ -28,8 +28,8 @@ jobs:
       AXIOM_EXTENSION_TEST_MODE: source-only
       GITHUB_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - uses: actions/setup-go@v6
