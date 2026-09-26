@@ -54,6 +54,15 @@ Native-only gallery variants are not treated as web examples; the
 extension-language source fixtures still require a development CLI and
 receive a source-presence audit only.
 
+Three Acore web examples (`axiom-project-management-app`,
+`axiom-shopping-app`, and `extension-sandbox`) use authored Rust extensions.
+The currently published CLI resolves the Rust SDK from a build-machine path,
+so clean hosted runners validate their dependency manifests and Acore UI
+source but cannot run their web hosts. This is explicitly marked
+`SOURCE-ONLY` in CI, not reported as a runtime pass. Local `laxiom` checks
+exercise the full extension builds and web hosts. Remove the temporary
+`AXIOM_EXTENSION_TEST_MODE` setting once a portable CLI is published.
+
 For local reproduction with the workspace CLI:
 
 ```sh

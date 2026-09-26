@@ -9,6 +9,7 @@ import socket
 import subprocess
 import sys
 import time
+import tomllib
 import urllib.error
 import urllib.request
 
@@ -106,6 +107,28 @@ def main() -> int:
             results.append(smoke_server(label, source.parent, source.name, web=False))
     for source in sorted(ROOT.rglob("main.acore")):
         label = str(source.relative_to(ROOT))
+        deps = source.parent / "AxiomDeps.toml"
+        manifest = tomllib.loads(deps.read_text(encoding="utf-8")) if deps.is_file() else {}
+        extensions = manifest.get("extensions", {})
+        has_extensions = bool(extensions)
+        if has_extensions and os.environ.get("AXIOM_EXTENSION_TEST_MODE") == "source-only":
+            if manifest.get("format") == "axiom-deps/v2":
+                results.append(run(label, source.parent, "dependencies", "check",
+                                   "--deps", deps.name))
+            else:
+                sources_present = all((source.parent / entry["source"]).is_file()
+                                      for entry in extensions.values())
+                print(f"{'PASS' if sources_present else 'FAIL'} {label}: extension sources present",
+                      flush=True)
+                results.append(sources_present)
+            if manifest.get("contracts"):
+                results.append(run(label, source.parent, "contract", "resolve",
+                                   "--deps", deps.name))
+            results.append(run(label, source.parent, "ui", "check", source.name,
+                               "--target", "web"))
+            print(f"SOURCE-ONLY {label}: published CLI needs a portable Rust extension SDK; "
+                  "web runtime was not exercised", flush=True)
+            continue
         command = ("packages", "run") if label == "package-dependencies/main.acore" else ("run",)
         extra = ("--package-lock", "AxiomPackages.lock") if label == "package-dependencies/main.acore" else ()
         compiled = run(label, source.parent, *command, source.name, "--target", "web", "--once", *extra)
