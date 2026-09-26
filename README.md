@@ -44,6 +44,8 @@ train (including subset releases), on pull requests, and on pushes to `main`.
 It selects the newest stable CLI release with a macOS ARM64 archive, verifies
 the published SHA-256 digest, and does the same for the Go and FastAPI
 extractors. It never selects a UI-host or runtime release as the CLI.
+The web UI host is fetched with the workflow token and its asset digests;
+the CLI then verifies its signed manifest before use.
 
 The Acore job builds and HTTP-probes every backend mock, compiles every Acore
 web entry point, HTTP-probes every Acore web UI, validates both domain

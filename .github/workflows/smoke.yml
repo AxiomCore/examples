@@ -48,6 +48,8 @@ jobs:
             --extractor-dir "$HOME/.acore/bin"
           "$RUNNER_TEMP/axiom-bin/axiom" --version
       - name: Install verified web UI host
-        run: axiom ui host install --target web --non-interactive
+        run: |
+          python scripts/install_released_ui_host.py \
+            --download-dir "$RUNNER_TEMP/axiom-web-host"
       - name: Compile and exercise every Acore example
         run: python scripts/verify_acore_examples.py
