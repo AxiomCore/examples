@@ -31,12 +31,3 @@ axiom diff commerce-v1.acore commerce-v2.acore --format semantic
 ```
 
 The second contract intentionally removes a projected field; treat that as a consumer-breaking change even if the current semantic output does not classify it automatically. `axiom build` requires a configured local CLI/runtime environment and is not part of this minimal smoke test. For FastAPI extraction, use [`domain-inference-fastapi`](domain-inference-fastapi/README.md) and install its Python dependencies first. For a full application, follow the README in its directory and run the backend and frontend in separate terminals.
-
-## Safety and scope
-
-- Do not commit credentials, signing keys, production endpoints, real customer data, developer home paths, `node_modules`, `.dart_tool`, or generated `.axiom` signing state.
-- Some fixtures intentionally contain development-only keys, unsigned local artifacts, or commands expected to fail. Read their README before running them.
-- Platform demos need their target toolchains. A passing web check does not imply iOS or Android acceptance.
-- Historical internal acceptance suites and operator artifacts remain private; they are not public examples.
-
-The public source of release binaries and mirrored package archives is [AxiomCore Releases](https://github.com/AxiomCore/AxiomCore/releases), not this repository.
