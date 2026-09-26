@@ -13,8 +13,14 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Axiom CLI
-        run: curl -fsSL https://axiomcore.dev/install | bash
+      - name: Install verified Axiom CLI archive
+        run: |
+          archive="$RUNNER_TEMP/axiom-macos-arm64.tar.gz"
+          curl -fsSL https://github.com/AxiomCore/AxiomCore/releases/download/v0.147.0/axiom-macos-arm64.tar.gz -o "$archive"
+          printf '%s  %s\n' '0b67a85e510bbb4b7681d3079f6ada1c0ed89b9f87413e2022552e87356f8426' "$archive" | shasum -a 256 -c -
+          mkdir -p "$RUNNER_TEMP/axiom-bin"
+          tar -xzf "$archive" -C "$RUNNER_TEMP/axiom-bin"
+          echo "$RUNNER_TEMP/axiom-bin" >> "$GITHUB_PATH"
       - name: Validate and compare domain example
         working-directory: domain-commerce
         run: |
