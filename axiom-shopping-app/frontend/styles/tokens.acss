@@ -1,0 +1,10 @@
+variables {
+  ink: #17201c
+  muted: #6c746f
+  canvas: #f1eee6
+  paper: #fffdf9
+  forest: #1f4736
+  acid: #d9ff86
+  coral: #ff715b
+  line: #d9d5ca
+}

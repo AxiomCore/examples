@@ -1,0 +1,36 @@
+axiom := env_var_or_default("AXIOM", "laxiom")
+
+default:
+    @just --list
+
+check:
+    cd frontend && {{axiom}} run main.acore --target web --once
+    cd frontend && {{axiom}} run main.acore --target android --once
+    cd frontend && {{axiom}} run main.acore --target ios --once
+
+backend:
+    cd backend && {{axiom}} run axiom.acore
+
+mock:
+    cd backend && {{axiom}} run axiom.acore --mode mock --debug
+
+web:
+    cd frontend && {{axiom}} run main.acore --target web
+
+android:
+    cd frontend && {{axiom}} run main.acore --target android
+
+ios:
+    cd frontend && {{axiom}} run main.acore --target ios
+
+inspect:
+    cd frontend && {{axiom}} inspect serve .
+
+audit:
+    cd frontend && {{axiom}} dependencies check --deps AxiomDeps.toml
+    cd frontend && {{axiom}} inspect security .
+    cd frontend && {{axiom}} inspect authority .
+    cd frontend && {{axiom}} inspect provenance pricing .
+
+release-check:
+    cd frontend && {{axiom}} inspect release-check . --enforce

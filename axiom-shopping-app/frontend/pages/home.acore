@@ -1,0 +1,89 @@
+module examples.shopping.storefront.ui.pages.home
+
+use component StoreHeader from "../components/store_header.acore"
+use component StoreHero from "../components/store_hero.acore"
+use component CatalogHeading from "../components/catalog_heading.acore"
+use component ProductCard from "../components/product_card.acore"
+use component BagTotals from "../components/bag_totals.acore"
+
+page Home {
+  state cart {
+    subtotal_cents: Int = 23700
+    discount_cents: Int = 0
+    discount_label: String = "$0.00"
+    total_label: String = "$237.00"
+    pricing_status: String = "Member pricing runs inside a capability-scoped Rust sandbox."
+  }
+
+  query products = Shop.list_products()
+  mutation checkout = Shop.create_order(
+    subtotal_cents: cart.subtotal_cents,
+    discount_cents: cart.discount_cents
+  )
+
+  action apply_member_price = MemberPricing.apply_member_price(cart.subtotal_cents)
+  action place_order = checkout.run()
+
+  view {
+    Page(accessibility_label: "Still shopping storefront") {
+      AppScreen(class: "screen", accessibility_label: "Still shopping storefront") {
+          StoreHeader()
+          StoreHero()
+          Section(accessibility_label: "The edit") {
+            CatalogHeading(refreshing: products.pending)
+
+            AsyncBoundary(
+              pending: products.pending,
+              error: products.error,
+              loading_label: "Refreshing collection…",
+              error_label: "The saved collection is shown while refresh is unavailable.",
+              preserve_content: true
+            ) {
+              ResponsiveGrid(
+                class: "catalog",
+                items: products.data,
+                key: |product| product.id,
+                span_count: responsive(compact: 1, regular: 2, wide: 2),
+                scroll_orientation: "vertical",
+                enable_scroll: false,
+                enable_nested_scroll: true,
+                item_recyclable: true,
+                item_reuse_identifier: product.badge,
+                item_estimated_main_axis_size_px: responsive(compact: 122, regular: 136, wide: 136)
+              ) { product =>
+                ProductCard(product: product)
+              }
+            }
+          }
+
+          View(class: "summary") {
+            BagTotals(
+              total_label: cart.total_label,
+              discount_label: cart.discount_label,
+              pricing_status: cart.pricing_status
+            )
+            View(class: "summary_actions") {
+              Button(
+                class: "member_button",
+                label: "Apply member price",
+                on_press: apply_member_price,
+                accessibility_label: "Calculate member price in sandbox"
+              )
+              ActionButton(
+                class: "checkout_button",
+                label: "Checkout · secure",
+                on_press: place_order,
+                disabled: checkout.pending,
+                pending: checkout.pending,
+                progress_label: "Confirming order",
+                accessibility_label: "Create order"
+              )
+            }
+            if checkout.error {
+              Text("Checkout is temporarily unavailable.", class: "error")
+            }
+          }
+      }
+    }
+  }
+}

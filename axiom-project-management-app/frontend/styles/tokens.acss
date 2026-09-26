@@ -1,0 +1,15 @@
+variables {
+  ink: #101322
+  ink-soft: #262a3b
+  muted: #707586
+  canvas: #f3f3f1
+  paper: #fffefd
+  line: #e2e1de
+  sky: #bceaf6
+  sky-deep: #76cfe4
+  coral: #ffc6c4
+  coral-strong: #ef6c67
+  lilac: #d9c7ff
+  mint: #c7efd8
+  lime: #dff58a
+}

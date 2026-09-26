@@ -1,0 +1,30 @@
+format = "axiom-deps/v2"
+targets = ["android", "ios", "web", "server"]
+
+[application]
+name = "example.flowspace.project-management"
+version = "0.1.0"
+
+[contracts.workspace]
+artifact = "../backend/axiom.axiom"
+baseUrl = "http://127.0.0.1:8080"
+audience = "workspace-member"
+operations = ["create_task", "get_project", "get_workspace", "list_activity", "list_project_tasks", "list_projects", "list_tasks", "update_task", "watch_presence"]
+
+[dependencyPolicy]
+approvedRegistries = []
+forbiddenLicenses = ["AGPL-3.0-only", "GPL-3.0-only"]
+allowedAdvisories = []
+allowPackageScripts = false
+allowDuplicateVersions = false
+allowUnsupportedPackageForms = false
+
+[extensions.risk]
+language = "rust"
+source = "sandbox/risk_forecast.rs"
+exports = ["assess_delivery_risk"]
+targets = ["android", "ios", "web", "server"]
+
+[extensions.risk.permissions.ui-state.forecast]
+read = ["engine_label", "risk_label", "risk_score", "risk_summary"]
+write = ["engine_label", "risk_label", "risk_score", "risk_summary"]

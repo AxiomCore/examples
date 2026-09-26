@@ -1,0 +1,18 @@
+module examples.shopping.storefront.ui.components.catalog_heading
+
+component CatalogHeading(refreshing: Bool) {
+  view {
+    View(class: "section_heading") {
+      Text("The edit", class: "section_title")
+      if refreshing {
+        Text("Refreshing…", class: "section_meta")
+      } else {
+        Text("4 considered pieces", class: "section_meta")
+      }
+    }
+  }
+}
+
+styles CatalogHeading {
+  @import "styles/catalog-heading.acss"
+}

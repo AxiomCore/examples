@@ -1,0 +1,46 @@
+module examples.sandboxed.checkout.ui
+
+use extension CheckoutRules from "checkout" export "recalculate"
+
+theme {
+  color.surface: "#F3F7FC"
+  color.card: "#FFFFFF"
+  color.ink: "#10233E"
+  color.accent: "#315FDB"
+  color.success: "#147D64"
+  spacing.page: 24
+  spacing.card: 18
+  radius.card: 16
+  radius.control: 12
+  text.title: 24
+  text.body: 16
+}
+
+app SandboxedCheckout { route "/" => Home }
+
+page Home {
+  state subtotal: Int = 120
+  state discount: Int = 0
+  state status: String = "Waiting for sandbox"
+
+  action calculate() {
+    CheckoutRules.recalculate(subtotal)
+  }
+
+  view {
+    SafeArea {
+      View(background: color.surface, padding: spacing.page) {
+        Text("Acore + sandboxed Rust", color: color.ink, font_size: text.title)
+        Text("The button invokes one capability-scoped WASM module.", color: color.ink, font_size: text.body)
+        View(background: color.card, padding: spacing.card, radius: radius.card) {
+          Text("Order subtotal", color: color.ink, font_size: text.body)
+          Text(value: subtotal, color: color.ink, font_size: text.title)
+          Text("Applied discount", color: color.ink, font_size: text.body)
+          Text(value: discount, color: color.success, font_size: text.title)
+          Text(value: status, color: color.success, font_size: text.body)
+          Button(label: "Calculate in Rust sandbox", on_press: calculate, background: color.accent, radius: radius.control, accessibility_label: "Calculate discount in sandboxed Rust")
+        }
+      }
+    }
+  }
+}

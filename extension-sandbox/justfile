@@ -1,0 +1,19 @@
+axiom := env_var_or_default("AXIOM", "laxiom")
+
+default:
+    @just --list
+
+release:
+    {{axiom}} extensions source-release checkout --deps AxiomDeps.toml --application example.extensions.checkout
+
+check:
+    bash acceptance/check.sh "{{axiom}}"
+
+web:
+    {{axiom}} run main.acore --target web
+
+android:
+    {{axiom}} run main.acore --target android
+
+ios:
+    {{axiom}} run main.acore --target ios

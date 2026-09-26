@@ -1,0 +1,172 @@
+@import "tokens.acss"
+
+viewport compact {
+  .desktop_sidebar { display: none }
+
+  .page_content, .form_page, .timeline_page, .detail_page {
+    padding: 14px 14px 30px 14px
+    gap: 14px
+  }
+
+  .mobile_brand { display: flex }
+  .mobile_nav {
+    display: flex
+    flex-direction: row
+    width: 100%
+    padding: 4px
+    gap: 4px
+    background-color: var(paper)
+    border-radius: 14px
+  }
+  .mobile_nav_item { width: 33.33% }
+  .topbar_actions {
+    justify-content: flex-end
+  }
+  .presence_pill {
+    padding: 6px 8px
+    font-size: 10px
+  }
+  .compact_button {
+    min-height: 44px
+    padding: 8px 10px
+    font-size: 10px
+  }
+
+  .hero_panel {
+    min-height: 252px
+    padding: 22px
+    border-radius: 22px
+  }
+
+  .hero_copy { width: 100% }
+  .hero_title {
+    font-size: 29px
+    line-height: 1.03
+    letter-spacing: -.9px
+  }
+  .hero_description {
+    font-size: 10px
+    line-height: 15px
+  }
+  .hero_orbit { display: none }
+  .hero_actions {
+    flex-direction: column
+    align-items: stretch
+    gap: 6px
+  }
+  .dark_button, .ghost_button { width: 100% }
+
+  .metric_grid {
+    flex-wrap: wrap
+    gap: 8px
+  }
+  .metric_tile {
+    width: 100%
+    min-height: 96px
+    padding: 13px
+  }
+  .metric_grid > .axiom-scope-MetricTile { width: 48% }
+  .metric_grid > .metric_tile { width: 48% }
+  .metric_value { font-size: 23px }
+
+  .content_grid, .form_layout, .detail_body {
+    flex-direction: column
+    gap: 14px
+  }
+
+  .content_primary, .content_rail, .form_card, .form_context_card, .detail_tasks, .detail_brief {
+    width: 100%
+  }
+  .content_rail { order: -1 }
+
+  .project_grid {
+    min-height: 648px
+    list-main-axis-gap: 9px
+  }
+  .project_card { min-height: 202px }
+  .task_card { align-items: flex-start }
+  .task_description { font-size: 10px }
+  .task_meta {
+    flex-wrap: wrap
+    gap: 7px
+  }
+
+  .form_topbar .brand_caption { display: none }
+  .form_title { font-size: 28px }
+  .form_card { padding: 17px }
+  .form_row {
+    flex-direction: column
+    gap: 14px
+  }
+  .half_field { width: 100% }
+  .choice_grid { flex-direction: column }
+  .choice_button { width: 100% }
+
+  .timeline_intro {
+    align-items: flex-start
+    gap: 12px
+  }
+  .timeline_intro .ghost_button { width: auto }
+  .date_strip {
+    padding: 7px
+    gap: 2px
+  }
+  .date_cell { min-height: 58px }
+  .date_number { font-size: 12px }
+  .timeline_time {
+    width: 76px
+    padding-right: 6px
+  }
+  .timeline_clock { font-size: 10px }
+  .timeline_rule { width: 16px }
+  .timeline_task { padding: 13px }
+  .timeline_task_title { font-size: 13px }
+
+  .detail_hero {
+    flex-direction: column
+    align-items: flex-start
+    min-height: 360px
+    padding: 23px
+    border-radius: 22px
+  }
+  .detail_hero_copy { width: 100% }
+  .detail_title { font-size: 32px }
+  .detail_progress {
+    width: 126px
+    height: 126px
+  }
+  .detail_progress_value { font-size: 31px }
+  .detail_metrics {
+    flex-direction: column
+    gap: 8px
+  }
+  .detail_metric {
+    width: 100%
+    min-height: 80px
+  }
+  .portfolio_grid { flex-direction: column }
+  .portfolio_grid > .axiom-async-boundary { width: 100% }
+  .schedule_summary { flex-direction: column }
+  .schedule_summary_item { width: 100% }
+}
+
+viewport regular {
+  .desktop_sidebar {
+    width: 204px
+    padding: 24px 16px
+  }
+  .sidebar_footer { margin-top: 220px }
+  .page_content { padding: 24px 24px 40px 24px }
+  .hero_title { font-size: 34px }
+  .hero_orbit {
+    width: 136px
+    height: 136px
+    border-width: 13px
+  }
+  .content_primary { width: 66% }
+  .content_rail { width: 34% }
+}
+
+viewport wide {
+  .page_content { padding: 28px 36px 48px 36px }
+}

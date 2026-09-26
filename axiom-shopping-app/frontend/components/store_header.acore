@@ -1,0 +1,20 @@
+module examples.shopping.storefront.ui.components.store_header
+
+component StoreHeader() {
+  view {
+    View(class: "topbar") {
+      View(class: "brand_lockup") {
+        Text("S", class: "brand_mark")
+        View {
+          Text("STILL", class: "brand")
+          Text("OBJECTS FOR EVERYDAY RITUALS", class: "brand_note")
+        }
+      }
+      Text("BAG · 4", class: "bag")
+    }
+  }
+}
+
+styles StoreHeader {
+  @import "styles/store-header.acss"
+}

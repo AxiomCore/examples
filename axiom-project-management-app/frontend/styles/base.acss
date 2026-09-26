@@ -1,0 +1,182 @@
+@import "tokens.acss"
+
+Page {
+  min-height: 100vh
+  background-color: var(canvas)
+}
+
+.app_shell, .form_shell, .timeline_shell, .detail_shell {
+  display: flex
+  flex-direction: row
+  box-sizing: border-box
+  width: 100%
+  height: 100vh
+  background-color: var(canvas)
+}
+
+.main_scroll, .form_scroll, .timeline_scroll, .detail_scroll {
+  width: 100%
+  height: 100vh
+}
+
+.page_content, .form_page, .timeline_page, .detail_page {
+  box-sizing: border-box
+  width: 100%
+  max-width: 1480px
+  padding: 28px 32px 44px 32px
+  gap: 22px
+}
+
+.topbar, .form_topbar, .topbar_actions, .brand_lockup, .hero_actions, .section_header, .project_card_top, .project_card_meta, .task_card, .task_topline, .task_meta, .forecast_header, .activity_item, .form_row, .timeline_intro, .date_strip, .timeline_row, .detail_actions, .detail_metrics {
+  display: flex
+  flex-direction: row
+  align-items: center
+}
+
+.topbar, .form_topbar, .section_header, .project_card_top, .project_card_meta, .task_topline, .forecast_header, .timeline_intro {
+  justify-content: space-between
+  width: 100%
+}
+
+.topbar {
+  min-height: 48px
+}
+
+.brand_lockup {
+  gap: 11px
+}
+
+.brand_mark {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 38px
+  height: 38px
+  background-color: var(ink)
+  border-radius: 12px
+}
+
+.brand_letter {
+  color: var(lime)
+  font-size: 18px
+  font-weight: 700
+}
+
+.brand_name {
+  color: var(ink)
+  font-size: 15px
+  font-weight: 700
+  letter-spacing: 2px
+}
+
+.brand_caption {
+  margin-top: 2px
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1.1px
+}
+
+.topbar_actions {
+  gap: 10px
+}
+
+.presence_pill, .status_pill, .priority_pill, .assignee_chip {
+  padding: 7px 10px
+  background-color: #e8f7ee
+  border-radius: 20px
+  color: #28593d
+  font-size: 10px
+  font-weight: 700
+}
+
+.presence_offline {
+  background-color: #ffe7e5
+  color: #9a3834
+}
+
+.primary_button, .dark_button, .ghost_button, .text_button, .coral_button, .mint_button, .light_button, .outline_light_button, .submit_button, .icon_button, .nav_item, .segment_button {
+  min-height: 44px
+  padding: 11px 15px
+  border-radius: 13px
+  font-size: 11px
+  font-weight: 700
+}
+
+.primary_button, .dark_button, .submit_button {
+  background-color: var(ink)
+  color: #ffffff
+}
+
+.compact_button {
+  min-height: 44px
+  padding: 9px 13px
+}
+
+.ghost_button {
+  background-color: rgba(255, 255, 255, .72)
+  border-width: 1px
+  border-style: solid
+  border-color: rgba(16, 19, 34, .13)
+  color: var(ink)
+}
+
+.text_button {
+  padding: 8px 0px
+  background-color: transparent
+  color: var(ink)
+}
+
+.icon_button {
+  width: 44px
+  padding: 9px
+  background-color: #ffffff
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  color: var(ink)
+  font-size: 17px
+}
+
+.mobile_brand, .mobile_nav { display: none }
+
+.mobile_nav_item {
+  min-height: 44px
+  padding: 10px 12px
+  background-color: transparent
+  border-radius: 12px
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+}
+
+.mobile_nav_active {
+  background-color: var(ink)
+  color: #ffffff
+}
+
+.notice {
+  width: 100%
+  padding: 14px
+  border-radius: 14px
+  font-size: 11px
+}
+
+.error_notice {
+  background-color: #ffe9e7
+  color: #8f332f
+}
+
+.inline_error, .inline_success {
+  margin-top: 10px
+  font-size: 10px
+  line-height: 14px
+}
+
+.inline_error { color: #a03530 }
+.inline_success { color: #24643f }
+
+.loading_block {
+  opacity: .55
+  animation: loading_pulse 900ms ease-in-out 0s infinite alternate both running
+}

@@ -1,0 +1,82 @@
+module examples.flowspace.project_management.ui.pages.timeline
+
+use component AppMark from "../components/app_mark.acore"
+
+page Timeline {
+  query tasks = Workspace.list_tasks()
+
+  action go_back() { back() }
+  action go_home() { navigate("/") }
+  action open_create() { navigate("/create") }
+
+  view {
+    Page(accessibility_label: "Workspace schedule") {
+      AppScreen(class: "timeline_shell", accessibility_label: "Workspace schedule") {
+        ScrollView(class: "timeline_scroll", scroll_orientation: "vertical", enable_scroll: true) {
+          View(class: "timeline_page") {
+            View(class: "form_topbar") {
+              Button(class: "icon_button", label: "←", on_press: go_back, accessibility_label: "Go back")
+              AppMark()
+              Button(class: "primary_button compact_button", label: "+ Task", on_press: open_create, accessibility_label: "Create task")
+            }
+            View(class: "timeline_intro") {
+              View {
+                Text("WORKSPACE SCHEDULE", class: "eyebrow dark_eyebrow")
+                Text("Every commitment, in one legible flow.", class: "form_title")
+                Text("All projects · current sprint · live contract data", class: "form_lead")
+              }
+              Button(class: "ghost_button", label: "Dashboard", on_press: go_home, accessibility_label: "Go to dashboard")
+            }
+            View(class: "schedule_summary") {
+              View(class: "schedule_summary_item") { Text("SCOPE", class: "metric_label") Text("3 active projects", class: "schedule_summary_value") }
+              View(class: "schedule_summary_item") { Text("ORDER", class: "metric_label") Text("Due window", class: "schedule_summary_value") }
+              View(class: "schedule_summary_item") { Text("SOURCE", class: "metric_label") Text("Verified backend", class: "schedule_summary_value") }
+            }
+            AsyncBoundary(
+              pending: tasks.pending,
+              error: tasks.error,
+              loading_label: "Building timeline…",
+              error_label: "Timeline tasks could not be loaded.",
+              preserve_content: true
+            ) {
+              List(
+                class: "timeline_list",
+                items: tasks.data,
+                key: |task| task.id,
+                list_type: "single",
+                span_count: 1,
+                scroll_orientation: "vertical",
+                enable_scroll: false,
+                enable_nested_scroll: true,
+                item_recyclable: true,
+                item_reuse_identifier: task.id,
+                item_estimated_main_axis_size_px: 128
+              ) { task =>
+                View(class: "timeline_row") {
+                  View(class: "timeline_time") {
+                    Text(task.due_label, class: "timeline_due")
+                    Text(task.time_label, class: "timeline_clock")
+                  }
+                  View(class: "timeline_rule") { View(class: "timeline_node") {} }
+                  View(class: "timeline_task") {
+                    View(class: "task_topline") {
+                      Text(task.project_name, class: "task_project")
+                      Text(task.priority, class: "priority_pill")
+                    }
+                    Text(task.title, class: "timeline_task_title")
+                    Text(task.description, class: "task_description")
+                    View(class: "task_meta") {
+                      Text(task.assignee_initials, class: "assignee_chip")
+                      Text(task.status, class: "meta_text_strong")
+                      View(class: "comment_badge") { Text("COMMENTS", class: "comment_label") Text(task.comments, class: "comment_count") }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

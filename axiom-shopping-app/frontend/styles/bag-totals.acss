@@ -1,0 +1,53 @@
+@import "tokens.acss"
+
+.summary_top, .summary_row {
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  width: 100%
+}
+
+.summary_title {
+  color: var(ink)
+  font-size: 16px
+  font-weight: 700
+}
+
+.summary_badge {
+  padding: 5px 8px
+  background-color: #eef4ef
+  border-radius: 10px
+  color: var(forest)
+  font-size: 9px
+  font-weight: 700
+}
+
+.muted {
+  color: var(muted)
+  font-size: 11px
+}
+
+.summary_value {
+  color: var(ink)
+  font-size: 13px
+  font-weight: 700
+}
+
+.discount_value {
+  color: var(coral)
+  font-size: 13px
+  font-weight: 700
+}
+
+.pricing_status {
+  color: var(forest)
+  font-size: 10px
+  line-height: 14px
+}
+
+viewport compact {
+  .summary_row, .pricing_status {
+    margin-top: 6px
+  }
+}

@@ -1,0 +1,23 @@
+module examples.shopping.storefront.ui.components.bag_totals
+
+component BagTotals(total_label: String, discount_label: String, pricing_status: String) {
+  view {
+    View(class: "summary_top") {
+      Text("Your curated bag", class: "summary_title")
+      Text("SECURE CHECKOUT", class: "summary_badge")
+    }
+    View(class: "summary_row") {
+      Text("Four pieces · delivery included", class: "muted")
+      Text(value: total_label, class: "summary_value")
+    }
+    View(class: "summary_row") {
+      Text("Member saving", class: "muted")
+      Text(value: discount_label, class: "discount_value")
+    }
+    Text(value: pricing_status, class: "pricing_status")
+  }
+}
+
+styles BagTotals {
+  @import "styles/bag-totals.acss"
+}

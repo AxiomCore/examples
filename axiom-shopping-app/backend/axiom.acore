@@ -1,0 +1,204 @@
+// Backend-owned shopping contract. Build this file into axiom.axiom before
+// resolving the frontend dependency lock.
+
+project {
+  id = "minimal-shopping-backend"
+  version = "v0.1.0"
+}
+
+variants {
+  ["default"] { include = Listing { "*" } }
+}
+
+models {
+  ["Product"] = ModelDef {
+    name = "Product"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["name"] = ModelField { name = "name" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["description"] = ModelField { name = "description" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["price_label"] = ModelField { name = "price_label" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["badge"] = ModelField { name = "badge" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["icon"] = ModelField { name = "icon" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+  }
+
+  ["Order"] = ModelDef {
+    name = "Order"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["subtotal_cents"] = ModelField { name = "subtotal_cents" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["discount_cents"] = ModelField { name = "discount_cents" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["status"] = ModelField { name = "status" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+  }
+}
+
+hidden Models = {
+  Product = TypeRefNamed { value = "Product" }
+  Order = TypeRefNamed { value = "Order" }
+}
+
+Entities = Entities {
+  product = extend Models.Product
+  order = extend Models.Order
+}
+
+domain {
+  entities = Entities
+  projections = Projections {
+    ["productShopper"] = DomainProjection {
+      entity = Entities.product
+      fields = Listing { "id" "name" "description" "price_label" "badge" "icon" }
+      audience = "shopper"
+    }
+    ["orderCreate"] = DomainProjection {
+      entity = Entities.order
+      fields = Listing { "subtotal_cents" "discount_cents" }
+      audience = "shopper"
+    }
+    ["orderReceipt"] = DomainProjection {
+      entity = Entities.order
+      fields = Listing { "id" "subtotal_cents" "discount_cents" "status" }
+      audience = "shopper"
+    }
+  }
+}
+
+endpoints {
+  ["ListProducts"] = EndpointDef {
+    id = 1
+    name = "list_products"
+    method = "GET"
+    path = "/products"
+    returnType = TypeRefList { value = Entities.product }
+    responseProjection = "productShopper"
+    cacheIdentity = "products:list"
+    cache = CachePolicy {
+      // Render the last verified response immediately on every launch, then
+      // refresh it in the background and replace it with the network result.
+      strategy = "stale_while_revalidate"
+      ttlSeconds = 0
+    }
+    errors = Listing { "unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        initial = Mapping {
+          ["products"] = Listing {
+            {
+              id = "linen-tote"
+              name = "Linen carryall"
+              description = "Stonewashed flax · inner pocket"
+              price_label = "$64"
+              badge = "BESTSELLER"
+              icon = "◒"
+            }
+            {
+              id = "pour-over"
+              name = "Quiet pour-over"
+              description = "Hand-glazed ceramic · 600 ml"
+              price_label = "$48"
+              badge = "SMALL BATCH"
+              icon = "◇"
+            }
+            {
+              id = "wool-throw"
+              name = "Cloud wool throw"
+              description = "Soft merino blend · undyed"
+              price_label = "$77"
+              badge = "NEW"
+              icon = "≈"
+            }
+            {
+              id = "hinoki-incense"
+              name = "Hinoki incense set"
+              description = "Twenty sticks · stone holder"
+              price_label = "$48"
+              badge = "STUDIO PICK"
+              icon = "✦"
+            }
+          }
+          ["orders"] = Listing {}
+        }
+      }
+      fallback = MockResponse {
+        status = 200
+        data = StoreQueryData {
+          key = "products"
+          filterKey = "id"
+          filterValue = ""
+          returnAll = true
+        }
+      }
+    }
+  }
+
+  ["CreateOrder"] = EndpointDef {
+    id = 2
+    name = "create_order"
+    method = "POST"
+    path = "/orders"
+    parameters = Listing {
+      EndpointParameter {
+        name = "subtotal_cents"
+        source = "body"
+        typeRef = TypeRefPrimitive { kind = "int64" }
+      }
+      EndpointParameter {
+        name = "discount_cents"
+        source = "body"
+        typeRef = TypeRefPrimitive { kind = "int64" }
+      }
+    }
+    returnType = Entities.order
+    requestProjection = "orderCreate"
+    responseProjection = "orderReceipt"
+    cacheIdentity = "orders:detail"
+    errors = Listing { "invalid_order" "unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        changes = Listing {
+          StateChange {
+            name = "materialize-order"
+            mutations = Listing {
+              StoreMutation {
+                type = "set"
+                key = "createdOrder"
+                value = {
+                  id = "{{faker.uuid}}"
+                  subtotal_cents = "{{request.body.subtotal_cents}}"
+                  discount_cents = "{{request.body.discount_cents}}"
+                  status = "confirmed"
+                }
+              }
+            }
+          }
+          StateChange {
+            name = "persist-order"
+            mutations = Listing {
+              StoreMutation {
+                type = "append"
+                key = "orders"
+                value = "{{store.createdOrder}}"
+              }
+            }
+          }
+        }
+      }
+      fallback = MockResponse {
+        status = 201
+        data = TemplateData { body = "{{store.createdOrder}}" }
+      }
+    }
+  }
+}
+
+// Public access is limited to this local example. A production contract should
+// replace these guards with its real principal and permission policies.
+security {
+  mode = "strict"
+  endpoints {
+    ["ListProducts"] = EndpointGuard { public = true }
+    ["CreateOrder"] = EndpointGuard { public = true idempotent = true }
+  }
+}

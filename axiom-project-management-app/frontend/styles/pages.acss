@@ -1,0 +1,520 @@
+@import "tokens.acss"
+
+.form_page, .timeline_page, .detail_page {
+  max-width: 1180px
+  margin-left: auto
+  margin-right: auto
+}
+
+.form_topbar {
+  min-height: 48px
+}
+
+.form_intro, .timeline_intro {
+  margin-top: 10px
+  gap: 8px
+}
+
+.form_title {
+  max-width: 720px
+  color: var(ink)
+  font-size: 34px
+  font-weight: 700
+  line-height: 1.05
+  letter-spacing: -1.1px
+}
+
+.form_lead {
+  max-width: 680px
+  color: var(muted)
+  font-size: 11px
+  line-height: 17px
+}
+
+.form_layout, .detail_body {
+  display: flex
+  flex-direction: row
+  align-items: flex-start
+  width: 100%
+  gap: 18px
+}
+
+.form_card {
+  width: 68%
+  padding: 24px
+  gap: 16px
+}
+
+.form_context_card {
+  width: 32%
+  padding: 22px
+  gap: 15px
+  background-color: var(sky)
+}
+
+.field_group {
+  width: 100%
+  gap: 7px
+}
+
+.field_label {
+  color: var(ink)
+  font-size: 10px
+  font-weight: 700
+}
+
+.choice_grid {
+  display: flex
+  flex-direction: row
+  width: 100%
+  gap: 8px
+}
+
+.choice_button {
+  width: 33.33%
+  min-height: 44px
+  padding: 10px
+  background-color: #f0f0ee
+  border-width: 1px
+  border-style: solid
+  border-color: transparent
+  border-radius: 12px
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+}
+
+.choice_selected {
+  background-color: var(sky)
+  border-color: #72bed1
+  color: var(ink)
+}
+
+.input_field, .textarea_field {
+  box-sizing: border-box
+  width: 100%
+  min-height: 48px
+  padding: 13px 14px
+  background-color: #f7f7f5
+  border-width: 1px
+  border-style: solid
+  border-color: #e5e4e0
+  border-radius: 13px
+  color: var(ink)
+  font-size: 11px
+}
+
+.textarea_field {
+  min-height: 116px
+}
+
+.form_row {
+  width: 100%
+  gap: 12px
+}
+
+.half_field { width: 50% }
+
+.segmented_control {
+  display: flex
+  flex-direction: row
+  width: 100%
+  padding: 4px
+  gap: 4px
+  background-color: #f0f0ee
+  border-radius: 14px
+}
+
+.segment_button {
+  width: 33.33%
+  background-color: transparent
+  color: var(muted)
+}
+
+.segment_selected {
+  background-color: var(ink)
+  color: #ffffff
+}
+
+.selected_value {
+  color: var(muted)
+  font-size: 10px
+  text-align: right
+}
+
+.submit_button {
+  width: 100%
+  min-height: 50px
+  margin-top: 2px
+}
+
+.context_step {
+  display: flex
+  flex-direction: row
+  align-items: flex-start
+  gap: 11px
+}
+
+.context_number {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 32px
+  height: 32px
+  background-color: rgba(255, 255, 255, .72)
+  border-radius: 10px
+  color: var(ink)
+  font-size: 10px
+  font-weight: 700
+}
+
+.context_title {
+  color: var(ink)
+  font-size: 11px
+  font-weight: 700
+}
+
+.context_copy {
+  max-width: 220px
+  margin-top: 3px
+  color: #4e6570
+  font-size: 10px
+  line-height: 14px
+}
+
+.success_panel {
+  padding: 16px
+  gap: 8px
+  background-color: #edf8f1
+  border-radius: 14px
+}
+
+.timeline_intro {
+  flex-direction: row
+  align-items: flex-end
+}
+
+.date_strip {
+  width: 100%
+  padding: 10px
+  gap: 7px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 18px
+}
+
+.date_cell {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 14.28%
+  min-height: 68px
+  gap: 3px
+  border-radius: 13px
+}
+
+.date_active {
+  background-color: var(ink)
+}
+
+.date_number {
+  color: var(ink)
+  font-size: 15px
+  font-weight: 700
+}
+
+.date_active .date_number, .date_active .date_day { color: #ffffff }
+
+.date_day {
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+}
+
+.timeline_list {
+  width: 100%
+  list-main-axis-gap: 0px
+}
+
+.timeline_row {
+  box-sizing: border-box
+  width: 100%
+  min-height: 126px
+  align-items: stretch
+}
+
+.timeline_time {
+  width: 138px
+  padding: 17px 12px 12px 0px
+  gap: 4px
+  text-align: right
+}
+
+.timeline_due {
+  color: var(ink)
+  font-size: 10px
+  font-weight: 700
+}
+
+.timeline_clock {
+  color: var(muted)
+  font-size: 10px
+}
+
+.schedule_summary {
+  display: flex
+  flex-direction: row
+  width: 100%
+  padding: 12px
+  gap: 10px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 18px
+}
+
+.schedule_summary_item {
+  width: 33.33%
+  min-height: 64px
+  padding: 12px
+  gap: 5px
+  background-color: #f7f7f5
+  border-radius: 12px
+}
+
+.schedule_summary_value {
+  color: var(ink)
+  font-size: 12px
+  font-weight: 700
+}
+
+.timeline_rule {
+  width: 24px
+  min-height: 126px
+  border-left-width: 1px
+  border-left-style: solid
+  border-left-color: #c9c8c4
+}
+
+.timeline_node {
+  width: 11px
+  height: 11px
+  margin-left: -6px
+  margin-top: 20px
+  background-color: var(coral-strong)
+  border-width: 3px
+  border-style: solid
+  border-color: var(canvas)
+  border-radius: 50%
+}
+
+.timeline_task {
+  width: 100%
+  min-width: 0
+  margin-bottom: 10px
+  padding: 15px 17px
+  gap: 5px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 16px
+}
+
+.timeline_task_title {
+  color: var(ink)
+  font-size: 15px
+  font-weight: 700
+}
+
+.assignee_chip {
+  padding: 5px 7px
+  background-color: var(lilac)
+  color: var(ink)
+  font-size: 10px
+}
+
+.portfolio_grid {
+  display: flex
+  flex-direction: row
+  align-items: stretch
+  width: 100%
+  gap: 14px
+}
+
+.portfolio_grid > .axiom-async-boundary {
+  width: 33.33%
+}
+
+.portfolio_grid .axiom-scope-ProjectCard {
+  width: 100%
+}
+
+.portfolio_home { width: 160px }
+
+.detail_hero {
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  width: 100%
+  min-height: 278px
+  padding: 30px
+  gap: 24px
+  box-sizing: border-box
+  background-image: linear-gradient(135deg, #15182a, #323852), radial-gradient(circle, #66708d, transparent)
+  background-position: center, right top
+  border-radius: 26px
+  overflow: hidden
+}
+
+.detail_hero_copy {
+  width: 72%
+  gap: 9px
+}
+
+.detail_code {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 42px
+  height: 42px
+  background-color: var(sky)
+  border-radius: 13px
+  color: var(ink)
+  font-size: 11px
+  font-weight: 700
+}
+
+.light_status {
+  background-color: rgba(199, 239, 216, .16)
+  color: #d9f6e4
+}
+
+.detail_title {
+  color: #ffffff
+  font-size: 39px
+  font-weight: 700
+  letter-spacing: -1.2px
+}
+
+.detail_description {
+  max-width: 590px
+  color: #cbd0df
+  font-size: 12px
+  line-height: 18px
+}
+
+.detail_actions {
+  margin-top: 8px
+  gap: 9px
+}
+.light_button {
+  background-color: #ffffff
+  color: var(ink)
+}
+.outline_light_button {
+  background-color: rgba(255, 255, 255, .08)
+  border-width: 1px
+  border-style: solid
+  border-color: rgba(255, 255, 255, .25)
+  color: #ffffff
+}
+
+.detail_progress {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 172px
+  height: 172px
+  background-color: rgba(255, 255, 255, .07)
+  border-width: 1px
+  border-style: solid
+  border-color: rgba(255, 255, 255, .16)
+  border-radius: 50%
+}
+
+.detail_progress_value {
+  color: #ffffff
+  font-size: 40px
+  font-weight: 700
+}
+.progress_value_row {
+  display: flex
+  flex-direction: row
+  align-items: flex-end
+}
+.detail_progress_suffix {
+  color: #ffffff
+  font-size: 20px
+  font-weight: 700
+}
+.detail_progress_label {
+  margin-top: 3px
+  color: #aeb5c9
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1px
+}
+.detail_members {
+  margin-top: 9px
+  color: var(sky)
+  font-size: 10px
+  font-weight: 700
+}
+
+.detail_metrics {
+  width: 100%
+  gap: 12px
+}
+
+.detail_metric {
+  width: 33.33%
+  min-height: 96px
+  padding: 15px
+  gap: 6px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 16px
+}
+
+.detail_metric_value {
+  color: var(ink)
+  font-size: 25px
+  font-weight: 700
+}
+.detail_metric_text {
+  color: var(ink)
+  font-size: 13px
+  font-weight: 700
+}
+.detail_tasks {
+  width: 70%
+  min-width: 0
+  gap: 12px
+}
+.detail_brief {
+  width: 30%
+  background-color: var(lilac)
+}
+.brief_quote {
+  color: var(ink)
+  font-size: 15px
+  font-weight: 700
+  line-height: 21px
+}
+.brief_rule {
+  width: 100%
+  height: 1px
+  background-color: rgba(16, 19, 34, .16)
+}
+.brief_item {
+  color: #514b64
+  font-size: 10px
+  line-height: 15px
+}

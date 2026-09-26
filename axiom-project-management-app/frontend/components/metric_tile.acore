@@ -1,0 +1,11 @@
+module examples.flowspace.project_management.ui.components.metric_tile
+
+component MetricTile(label: String, value: Int, meta: String) {
+  view {
+    View(class: "metric_tile") {
+      Text(label, class: "metric_label")
+      Text(value: value, class: "metric_value")
+      Text(meta, class: "metric_meta")
+    }
+  }
+}

@@ -1,0 +1,8 @@
+format = "axiom-package-deps/v1"
+targets = ["web"]
+
+[extensions.escape]
+language = "rust"
+source = "../outside.rs"
+exports = ["escape"]
+targets = ["web"]

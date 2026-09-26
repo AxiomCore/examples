@@ -1,0 +1,32 @@
+module examples.flowspace.project_management.ui.components.task_card
+
+component TaskCard(task: Task, on_open: Action) {
+  view {
+    View(class: "task_card") {
+      View(class: "task_check") {
+        if task.completed {
+          Text("✓", class: "task_check_mark")
+        } else {
+          Text(task.assignee_initials, class: "task_initials")
+        }
+      }
+      View(class: "task_content") {
+        View(class: "task_topline") {
+          Text(task.project_name, class: "task_project")
+          Text(task.priority, class: "priority_pill")
+        }
+        Text(task.title, class: "task_title")
+        Text(task.description, class: "task_description")
+        View(class: "task_meta") {
+          Text(task.time_label, class: "meta_text")
+          Text(task.due_label, class: "meta_text_strong")
+          View(class: "comment_badge") {
+            Text("COMMENTS", class: "comment_label")
+            Text(task.comments, class: "comment_count")
+          }
+        }
+        Button(class: "task_action", label: "Open schedule", on_press: on_open, accessibility_label: "Open workspace schedule")
+      }
+    }
+  }
+}

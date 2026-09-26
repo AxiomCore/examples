@@ -1,0 +1,39 @@
+module examples.flowspace.project_management.ui.pages.signal_details
+
+use component AppMark from "../components/app_mark.acore"
+use component TaskCard from "../components/task_card.acore"
+
+page SignalDetails {
+  query project = Workspace.get_project(id: "signal-research")
+  query tasks = Workspace.list_project_tasks(project_id: "signal-research")
+  action go_back() { back() }
+  action go_home() { navigate("/") }
+  action open_timeline() { navigate("/timeline") }
+  action open_create() { navigate("/create") }
+  view {
+    Page(accessibility_label: "Signal research project details") {
+      AppScreen(class: "detail_shell", accessibility_label: "Signal project details") {
+        ScrollView(class: "detail_scroll", scroll_orientation: "vertical", enable_scroll: true) {
+          View(class: "detail_page") {
+            View(class: "form_topbar") { Button(class: "icon_button", label: "←", on_press: go_back, accessibility_label: "Go back") AppMark() Button(class: "text_button", label: "Dashboard", on_press: go_home, accessibility_label: "Go to dashboard") }
+            if project.pending { View(class: "detail_hero loading_block") {} } else if project.error { View(class: "notice error_notice") { Text("Project details are unavailable.") } } else {
+              View(class: "detail_hero") {
+                View(class: "detail_hero_copy") {
+                  View(class: "project_card_top") { Text(project.data.code, class: "detail_code") Text(project.data.status, class: "status_pill light_status") }
+                  Text(project.data.name, class: "detail_title") Text(project.data.description, class: "detail_description")
+                  View(class: "detail_actions") { Button(class: "light_button", label: "Open schedule", on_press: open_timeline, accessibility_label: "Open workspace schedule") Button(class: "outline_light_button", label: "+ Add task", on_press: open_create, accessibility_label: "Add project task") }
+                }
+                View(class: "detail_progress") { View(class: "progress_value_row") { Text(value: project.data.progress, class: "detail_progress_value") Text("%", class: "detail_progress_suffix") } Text("PERCENT COMPLETE", class: "detail_progress_label") Text(project.data.members_label, class: "detail_members") }
+              }
+              View(class: "detail_metrics") { View(class: "detail_metric") { Text("TASKS", class: "metric_label") Text(value: project.data.task_count, class: "detail_metric_value") } View(class: "detail_metric") { Text("NEXT MILESTONE", class: "metric_label") Text(project.data.due_label, class: "detail_metric_text") } View(class: "detail_metric") { Text("DELIVERY", class: "metric_label") Text(project.data.status, class: "detail_metric_text") } }
+            }
+            View(class: "detail_body") {
+              View(class: "detail_tasks") { View(class: "section_header") { View { Text("Project work", class: "section_title") Text("Only Signal tasks", class: "section_subtitle") } Button(class: "text_button", label: "+ New task", on_press: open_create, accessibility_label: "Create task") } AsyncBoundary(pending: tasks.pending, error: tasks.error, loading_label: "Loading Signal work…", error_label: "Project tasks could not be loaded.", preserve_content: true) { List(class: "task_list", items: tasks.data, key: |task| task.id, list_type: "single", span_count: 1, scroll_orientation: "vertical", enable_scroll: false, enable_nested_scroll: true, item_recyclable: true, item_reuse_identifier: task.id, item_estimated_main_axis_size_px: 172) { task => TaskCard(task: task, on_open: open_timeline) } } }
+              View(class: "detail_brief") { Text("PROJECT BRIEF", class: "rail_kicker") Text("Turn raw customer evidence into a decisive roadmap.", class: "brief_quote") View(class: "brief_rule") {} Text("Scoped evidence", class: "rail_title") Text("• One live blocked research task", class: "brief_item") Text("• Relationship-filtered query", class: "brief_item") Text("• Reviewable contract lineage", class: "brief_item") }
+            }
+          }
+        }
+      }
+    }
+  }
+}

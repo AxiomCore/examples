@@ -1,0 +1,17 @@
+module examples.shopping.storefront.ui
+
+use contract Shop from "shop" audience "shopper"
+use extension MemberPricing from "pricing" export "apply_member_price"
+
+use page Home from "./pages/home.acore"
+
+styles {
+  @import "styles/base.acss"
+  @import "styles/summary.acss"
+  @import "styles/motion.acss"
+  @import "styles/responsive.acss"
+}
+
+app StillStore {
+  route "/" => Home
+}

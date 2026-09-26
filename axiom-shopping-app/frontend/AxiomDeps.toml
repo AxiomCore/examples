@@ -1,0 +1,48 @@
+format = "axiom-deps/v2"
+targets = [
+    "android",
+    "ios",
+    "web",
+    "server",
+]
+
+[application]
+name = "example.shopping.storefront"
+version = "0.1.0"
+
+[contracts.shop]
+artifact = "../backend/axiom.axiom"
+baseUrl = "http://127.0.0.1:8080"
+audience = "shopper"
+operations = [
+    "create_order",
+    "list_products",
+]
+
+[dependencyPolicy]
+approvedRegistries = []
+forbiddenLicenses = ["AGPL-3.0-only", "GPL-3.0-only"]
+allowedAdvisories = []
+allowPackageScripts = false
+allowDuplicateVersions = false
+allowUnsupportedPackageForms = false
+
+[extensions.pricing]
+language = "rust"
+source = "sandbox/member_pricing.rs"
+exports = ["apply_member_price"]
+targets = [
+    "android",
+    "ios",
+    "web",
+    "server",
+]
+
+[extensions.pricing.permissions.ui-state.cart]
+read = ["subtotal_cents"]
+write = [
+    "discount_cents",
+    "discount_label",
+    "pricing_status",
+    "total_label",
+]

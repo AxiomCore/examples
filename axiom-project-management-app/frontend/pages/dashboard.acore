@@ -1,0 +1,262 @@
+module examples.flowspace.project_management.ui.pages.dashboard
+
+use component AppMark from "../components/app_mark.acore"
+use component MetricTile from "../components/metric_tile.acore"
+use component ProjectCard from "../components/project_card.acore"
+use component TaskCard from "../components/task_card.acore"
+use component ActivityItem from "../components/activity_item.acore"
+
+page Dashboard {
+  state forecast {
+    risk_score: Int = 0
+    risk_label: String = "Not evaluated"
+    risk_summary: String = "Run the same bounded forecast in Rust, TypeScript, or Python."
+    engine_label: String = "Current profile · Rust"
+  }
+  state risk_requested: Bool = false
+
+  query overview = Workspace.get_workspace()
+  query projects = Workspace.list_projects()
+  query tasks = Workspace.list_tasks()
+  query activity = Workspace.list_activity()
+  stream presence = Workspace.watch_presence()
+  mutation resolve_blocker = Workspace.update_task(
+    id: "task-api",
+    status: "Done",
+    progress: 100,
+    completed: true
+  )
+
+  action open_create() { navigate("/create") }
+  action open_timeline() { navigate("/timeline") }
+  action open_home() { navigate("/") }
+  action open_projects() { navigate("/projects") }
+  action open_project() { navigate("/projects/orbit") }
+  action complete_focus() {
+    resolve_blocker.run()
+    forecast.risk_score = 0
+    forecast.risk_label = "State changed"
+    forecast.risk_summary = "Workspace facts changed. Rerun the deterministic assessment for a fresh score."
+    forecast.engine_label = "Previous assessment invalidated by a verified mutation"
+    risk_requested = false
+  }
+  action assess_risk() {
+    RiskAnalyzer.assess_delivery_risk(overview.data)
+    risk_requested = true
+  }
+
+  view {
+    Page(accessibility_label: "Flowspace project dashboard") {
+      AppScreen(class: "app_shell", accessibility_label: "Flowspace project dashboard") {
+        View(class: "desktop_sidebar") {
+          AppMark()
+          View(class: "sidebar_nav") {
+            Button(class: "nav_item nav_item_active", label: "Overview", on_press: open_home, accessibility_label: "Dashboard overview")
+            Button(class: "nav_item", label: "Timeline", on_press: open_timeline, accessibility_label: "Open timeline")
+            Button(class: "nav_item", label: "Projects", on_press: open_projects, accessibility_label: "Open all projects")
+            Button(class: "nav_item", label: "New task", on_press: open_create, accessibility_label: "Create a task")
+          }
+          View(class: "sidebar_footer") {
+            Text("VERIFIED DELIVERY", class: "sidebar_kicker")
+            Text("Contract-driven UI", class: "sidebar_value")
+            Text("Every action is inspectable.", class: "sidebar_note")
+          }
+        }
+
+        ScrollView(class: "main_scroll", scroll_orientation: "vertical", enable_scroll: true) {
+          View(class: "page_content") {
+            View(class: "topbar") {
+              View(class: "mobile_brand") { AppMark() }
+              View(class: "topbar_actions") {
+                if presence.pending {
+                  Text("● Live presence syncing", class: "presence_pill")
+                } else if presence.error {
+                  Text("Presence offline", class: "presence_pill presence_offline")
+                } else {
+                  Text("● Team collaboration live", class: "presence_pill")
+                }
+                Button(class: "primary_button compact_button", label: "+ New task", on_press: open_create, accessibility_label: "Create a task")
+              }
+            }
+            View(class: "mobile_nav") {
+              Button(class: "mobile_nav_item mobile_nav_active", label: "Overview", on_press: open_home, accessibility_label: "Dashboard overview")
+              Button(class: "mobile_nav_item", label: "Projects", on_press: open_projects, accessibility_label: "Open all projects")
+              Button(class: "mobile_nav_item", label: "Timeline", on_press: open_timeline, accessibility_label: "Open timeline")
+            }
+
+            View(class: "hero_panel") {
+              View(class: "hero_copy") {
+                Text("SPRINT 14 · NORTHSTAR STUDIO", class: "eyebrow")
+                Text("Make the important work feel obvious.", class: "hero_title")
+                Text("One calm command center for projects, tasks, delivery risk, and the evidence behind every interaction.", class: "hero_description")
+                View(class: "hero_actions") {
+                  Button(class: "dark_button", label: "Open timeline", on_press: open_timeline, accessibility_label: "Open project timeline")
+                  Button(class: "ghost_button", label: "View flagship project", on_press: open_project, accessibility_label: "Open Orbit mobile project")
+                }
+              }
+              View(class: "hero_orbit") {
+                Text("68%", class: "orbit_value")
+                Text("SPRINT COMPLETE", class: "orbit_label")
+              }
+            }
+
+            if overview.pending {
+              View(class: "metric_grid") {
+                View(class: "metric_tile loading_block") {}
+                View(class: "metric_tile loading_block") {}
+                View(class: "metric_tile loading_block") {}
+                View(class: "metric_tile loading_block") {}
+              }
+            } else if overview.error {
+              View(class: "notice error_notice") { Text("Workspace summary is temporarily unavailable.") }
+            } else {
+              View(class: "metric_grid") {
+                MetricTile(label: "Active projects", value: overview.data.active_projects, meta: "Across one workspace")
+                MetricTile(label: "Tasks", value: overview.data.total_tasks, meta: "Live backend total")
+                MetricTile(label: "Blocked", value: overview.data.blocked_tasks, meta: "Needs attention today")
+                MetricTile(label: "Team", value: overview.data.team_members, meta: "6 currently online")
+              }
+            }
+
+            View(class: "content_grid") {
+              View(class: "content_primary") {
+                View(class: "section_header") {
+                  View {
+                    Text("Portfolio", class: "section_title")
+                    Text("The work that moves this sprint", class: "section_subtitle")
+                  }
+                  Button(class: "text_button", label: "View all projects →", on_press: open_projects, accessibility_label: "View all projects")
+                }
+                AsyncBoundary(
+                  pending: projects.pending,
+                  error: projects.error,
+                  loading_label: "Loading projects…",
+                  error_label: "Projects could not be refreshed.",
+                  preserve_content: true
+                ) {
+                  ResponsiveGrid(
+                    class: "project_grid",
+                    items: projects.data,
+                    key: |project| project.id,
+                    span_count: responsive(compact: 1, regular: 2, wide: 3),
+                    scroll_orientation: "vertical",
+                    enable_scroll: false,
+                    enable_nested_scroll: true,
+                    item_recyclable: true,
+                    item_reuse_identifier: project.id,
+                    item_estimated_main_axis_size_px: 216
+                  ) { project =>
+                    ProjectCard(project: project, on_open: open_projects)
+                  }
+                }
+
+                View(class: "section_header task_section_header") {
+                  View {
+                    Text("Today", class: "section_title")
+                    Text("A focused, ordered task list", class: "section_subtitle")
+                  }
+                  Button(class: "text_button", label: "Full timeline →", on_press: open_timeline, accessibility_label: "Open full timeline")
+                }
+                AsyncBoundary(
+                  pending: tasks.pending,
+                  error: tasks.error,
+                  loading_label: "Loading today's tasks…",
+                  error_label: "Tasks could not be refreshed.",
+                  preserve_content: true
+                ) {
+                  List(
+                    class: "task_list",
+                    items: tasks.data,
+                    key: |task| task.id,
+                    list_type: "single",
+                    span_count: 1,
+                    scroll_orientation: "vertical",
+                    enable_scroll: false,
+                    enable_nested_scroll: true,
+                    item_recyclable: true,
+                    item_reuse_identifier: task.id,
+                    item_estimated_main_axis_size_px: 172
+                  ) { task =>
+                    TaskCard(task: task, on_open: open_timeline)
+                  }
+                }
+              }
+
+              View(class: "content_rail") {
+                View(class: "forecast_card") {
+                  View(class: "forecast_header") {
+                    View {
+                      Text("Delivery forecast", class: "rail_title")
+                      Text("DETERMINISTIC SANDBOX", class: "rail_kicker")
+                    }
+                    Text(value: forecast.risk_score, class: "forecast_score")
+                  }
+                  Text(forecast.risk_label, class: "forecast_label")
+                  Text(forecast.risk_summary, class: "forecast_summary")
+                  Text(forecast.engine_label, class: "engine_label")
+                  if risk_requested {
+                    Text("Assessment complete · rerun after contract state changes.", class: "forecast_status")
+                  } else {
+                    Button(class: "coral_button", label: "Assess delivery risk", on_press: assess_risk, accessibility_label: "Assess delivery risk in sandbox")
+                  }
+                }
+
+                View(class: "focus_card") {
+                  Text("NEXT BEST ACTION", class: "rail_kicker")
+                  if overview.data.blocked_tasks > 1 {
+                    Text("Review component contracts", class: "focus_title")
+                    Text("This task is blocking the Atlas design system release.", class: "focus_copy")
+                    ActionButton(
+                      class: "mint_button",
+                      label: "Resolve blocker",
+                      on_press: complete_focus,
+                      disabled: resolve_blocker.pending,
+                      pending: resolve_blocker.pending,
+                      progress_label: "Updating contract state",
+                      accessibility_label: "Resolve the focused blocker"
+                    )
+                  } else {
+                    Text("Component contracts resolved", class: "focus_title")
+                    Text("The next blocker is research synthesis in Signal. The completed action cannot run twice.", class: "focus_copy")
+                    Button(class: "mint_button", label: "Review projects", on_press: open_projects, accessibility_label: "Review project portfolio")
+                  }
+                  if resolve_blocker.error {
+                    Text("The transition was rejected. Inspect the contract trace.", class: "inline_error")
+                  }
+                }
+
+                View(class: "activity_card") {
+                  Text("Activity", class: "rail_title")
+                  Text("Normalized backend events", class: "section_subtitle")
+                  AsyncBoundary(
+                    pending: activity.pending,
+                    error: activity.error,
+                    loading_label: "Loading activity…",
+                    error_label: "Activity is unavailable.",
+                    preserve_content: true
+                  ) {
+                    List(
+                      class: "activity_list",
+                      items: activity.data,
+                      key: |entry| entry.id,
+                      list_type: "single",
+                      span_count: 1,
+                      scroll_orientation: "vertical",
+                      enable_scroll: false,
+                      enable_nested_scroll: true,
+                      item_recyclable: true,
+                      item_reuse_identifier: entry.type,
+                      item_estimated_main_axis_size_px: 88
+                    ) { entry =>
+                      ActivityItem(activity: entry)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

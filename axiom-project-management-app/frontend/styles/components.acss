@@ -1,0 +1,487 @@
+@import "tokens.acss"
+
+.desktop_sidebar {
+  box-sizing: border-box
+  width: 232px
+  height: 100vh
+  padding: 28px 20px
+  gap: 28px
+  background-color: var(paper)
+  border-right-width: 1px
+  border-right-style: solid
+  border-right-color: var(line)
+}
+
+.sidebar_nav {
+  gap: 6px
+}
+
+.nav_item {
+  width: 100%
+  min-height: 44px
+  text-align: left
+  background-color: transparent
+  color: var(muted)
+}
+
+.nav_item_active {
+  background-color: var(ink)
+  color: #ffffff
+}
+
+.sidebar_footer {
+  margin-top: 300px
+  padding: 16px
+  gap: 6px
+  background-color: var(sky)
+  border-radius: 16px
+}
+
+.sidebar_kicker, .rail_kicker {
+  color: #3a5360
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1.2px
+}
+
+.sidebar_value {
+  color: var(ink)
+  font-size: 13px
+  font-weight: 700
+}
+
+.sidebar_note {
+  color: #526474
+  font-size: 10px
+}
+
+.hero_panel {
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  min-height: 254px
+  padding: 30px 34px
+  gap: 28px
+  background-image: linear-gradient(135deg, #bceaf6, #d9c7ff), radial-gradient(circle, #ffffff, transparent)
+  background-position: center, right top
+  border-radius: 28px
+  box-shadow: 0 14px 34px rgba(35, 38, 58, .09)
+  overflow: hidden
+}
+
+.hero_copy {
+  width: 72%
+  gap: 9px
+}
+
+.eyebrow {
+  color: #315767
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1.6px
+}
+
+.dark_eyebrow { color: #555d72 }
+
+.hero_title {
+  max-width: 720px
+  color: var(ink)
+  font-size: 38px
+  font-weight: 700
+  line-height: 1.02
+  letter-spacing: -1.4px
+}
+
+.hero_description {
+  max-width: 690px
+  color: #485365
+  font-size: 12px
+  line-height: 18px
+}
+
+.hero_actions {
+  margin-top: 7px
+  gap: 9px
+}
+
+.hero_orbit {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 160px
+  height: 160px
+  gap: 4px
+  background-color: rgba(255, 255, 255, .68)
+  border-width: 16px
+  border-style: solid
+  border-color: rgba(16, 19, 34, .9)
+  border-radius: 50%
+  box-shadow: 0 12px 28px rgba(16, 19, 34, .14)
+}
+
+.orbit_value {
+  color: var(ink)
+  font-size: 34px
+  font-weight: 700
+}
+
+.orbit_label {
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1px
+}
+
+.metric_grid {
+  display: flex
+  flex-direction: row
+  width: 100%
+  gap: 12px
+}
+
+.metric_grid > .axiom-scope-MetricTile {
+  width: 25%
+  min-width: 0
+}
+
+.metric_grid > .metric_tile {
+  width: 25%
+  min-width: 0
+}
+
+.metric_tile {
+  box-sizing: border-box
+  width: 100%
+  min-height: 112px
+  padding: 16px
+  gap: 4px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 17px
+}
+
+.metric_label {
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: .7px
+}
+
+.metric_value {
+  color: var(ink)
+  font-size: 27px
+  font-weight: 700
+}
+
+.metric_meta {
+  color: #7d8190
+  font-size: 10px
+}
+
+.content_grid {
+  display: flex
+  flex-direction: row
+  align-items: flex-start
+  width: 100%
+  gap: 18px
+}
+
+.content_primary {
+  width: 70%
+  min-width: 0
+  gap: 14px
+}
+
+.content_rail {
+  width: 30%
+  min-width: 0
+  gap: 14px
+}
+
+.section_title, .rail_title {
+  color: var(ink)
+  font-size: 18px
+  font-weight: 700
+  letter-spacing: -.3px
+}
+
+.rail_title { font-size: 15px }
+
+.section_subtitle {
+  margin-top: 3px
+  color: var(muted)
+  font-size: 10px
+}
+
+.project_grid {
+  width: 100%
+  min-height: 216px
+  list-main-axis-gap: 12px
+  list-cross-axis-gap: 12px
+}
+
+.project_card {
+  box-sizing: border-box
+  min-height: 208px
+  padding: 17px
+  gap: 8px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 18px
+  box-shadow: 0 7px 18px rgba(22, 25, 42, .05)
+}
+
+.project_code {
+  display: flex
+  width: 38px
+  height: 38px
+  padding: 10px 8px
+  box-sizing: border-box
+  background-color: var(sky)
+  border-radius: 12px
+  color: var(ink)
+  font-size: 11px
+  font-weight: 700
+  text-align: center
+}
+
+.status_pill {
+  background-color: #edf8f1
+  color: #286041
+  font-size: 10px
+}
+
+.project_name {
+  color: var(ink)
+  font-size: 16px
+  font-weight: 700
+}
+
+.project_description {
+  color: var(muted)
+  font-size: 10px
+  line-height: 15px
+}
+
+.project_card_meta { margin-top: 3px }
+
+.project_percent {
+  display: flex
+  flex-direction: row
+  align-items: center
+}
+
+.meta_text, .meta_text_strong, .member_stack, .comment_count {
+  color: var(muted)
+  font-size: 10px
+}
+
+.meta_text_strong, .member_stack {
+  color: var(ink-soft)
+  font-weight: 700
+}
+
+.task_section_header { margin-top: 8px }
+
+.task_list, .activity_list {
+  width: 100%
+  list-main-axis-gap: 8px
+}
+
+.task_card {
+  box-sizing: border-box
+  width: 100%
+  min-height: 112px
+  padding: 14px
+  gap: 12px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 16px
+}
+
+.task_check {
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 36px
+  height: 36px
+  background-color: var(lilac)
+  border-radius: 12px
+}
+
+.task_check_mark, .task_initials {
+  color: var(ink)
+  font-size: 11px
+  font-weight: 700
+}
+
+.task_content {
+  width: 100%
+  min-width: 0
+  gap: 3px
+}
+.task_project {
+  color: #6d5c9a
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: .7px
+}
+.priority_pill {
+  padding: 4px 7px
+  background-color: #fff0ef
+  color: #a3423e
+  font-size: 10px
+}
+.task_title {
+  color: var(ink)
+  font-size: 13px
+  font-weight: 700
+}
+.task_description {
+  color: var(muted)
+  font-size: 10px
+  line-height: 15px
+}
+.task_meta {
+  margin-top: 4px
+  gap: 12px
+}
+.comment_badge {
+  display: flex
+  flex-direction: row
+  align-items: center
+  padding: 3px 7px
+  gap: 4px
+  background-color: #f0f0ef
+  border-radius: 8px
+}
+
+.comment_label {
+  color: var(muted)
+  font-size: 10px
+  font-weight: 700
+}
+
+.comment_count { padding: 0px }
+
+.card_action, .task_action {
+  min-height: 44px
+  padding: 10px 12px
+  background-color: #f2f2ef
+  border-radius: 12px
+  color: var(ink)
+  font-size: 10px
+  font-weight: 700
+}
+
+.task_action {
+  margin-top: 6px
+  width: 100%
+}
+
+.forecast_card, .focus_card, .activity_card, .form_card, .form_context_card, .detail_brief {
+  box-sizing: border-box
+  width: 100%
+  padding: 18px
+  gap: 9px
+  background-color: var(paper)
+  border-width: 1px
+  border-style: solid
+  border-color: var(line)
+  border-radius: 18px
+}
+
+.forecast_card { background-color: var(coral) }
+.forecast_score {
+  color: var(ink)
+  font-size: 29px
+  font-weight: 700
+}
+.forecast_label {
+  color: var(ink)
+  font-size: 22px
+  font-weight: 700
+}
+.forecast_summary {
+  color: #5d454d
+  font-size: 10px
+  line-height: 15px
+}
+.forecast_status {
+  padding: 10px
+  background-color: rgba(255, 255, 255, .48)
+  border-radius: 10px
+  color: #5d454d
+  font-size: 10px
+  font-weight: 700
+}
+.engine_label {
+  color: #744b50
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: .5px
+}
+.coral_button {
+  width: 100%
+  margin-top: 4px
+  background-color: var(ink)
+  color: #ffffff
+}
+
+.focus_card { background-color: var(mint) }
+.focus_title {
+  color: var(ink)
+  font-size: 15px
+  font-weight: 700
+}
+.focus_copy {
+  color: #476052
+  font-size: 10px
+  line-height: 15px
+}
+.mint_button {
+  width: 100%
+  background-color: #ffffff
+  color: var(ink)
+}
+
+.activity_card { gap: 7px }
+.activity_item {
+  min-height: 72px
+  gap: 9px
+  border-bottom-width: 1px
+  border-bottom-style: solid
+  border-bottom-color: var(line)
+}
+.activity_dot {
+  width: 8px
+  height: 8px
+  background-color: var(coral-strong)
+  border-radius: 50%
+}
+.activity_copy {
+  width: 100%
+  min-width: 0
+  gap: 3px
+}
+.activity_title {
+  color: var(ink)
+  font-size: 10px
+  font-weight: 700
+}
+.activity_detail {
+  color: var(muted)
+  font-size: 10px
+  line-height: 14px
+}
+.activity_time {
+  color: #989baa
+  font-size: 10px
+}

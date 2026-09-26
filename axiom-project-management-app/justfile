@@ -1,0 +1,55 @@
+axiom := env_var_or_default("AXIOM", "laxiom")
+
+default:
+    @just --list
+
+# Select one implementation behind the stable `risk` extension alias. The
+# Acore UI and capability policy do not change when the language changes.
+profile language:
+    test -f "frontend/profiles/{{language}}.toml"
+    cp "frontend/profiles/{{language}}.toml" frontend/AxiomDeps.toml
+    @echo "Selected {{language}} risk extension profile."
+
+use-rust:
+    just profile rust
+
+use-typescript:
+    just profile typescript
+
+use-python:
+    just profile python
+
+backend:
+    cd backend && {{axiom}} run axiom.acore
+
+mock:
+    cd backend && {{axiom}} run axiom.acore --mode mock --debug
+
+web:
+    cd frontend && {{axiom}} run main.acore --target web
+
+android:
+    cd frontend && {{axiom}} run main.acore --target android
+
+ios:
+    cd frontend && {{axiom}} run main.acore --target ios
+
+check:
+    cd frontend && {{axiom}} run main.acore --target web --once
+    cd frontend && {{axiom}} run main.acore --target android --once
+    cd frontend && {{axiom}} run main.acore --target ios --once
+
+inspect:
+    cd frontend && {{axiom}} inspect serve .
+
+audit:
+    cd frontend && {{axiom}} dependencies check --deps AxiomDeps.toml
+    cd frontend && {{axiom}} inspect security .
+    cd frontend && {{axiom}} inspect authority .
+    cd frontend && {{axiom}} inspect provenance risk .
+
+ask question:
+    cd frontend && {{axiom}} inspect ask "{{question}}" .
+
+release-check:
+    cd frontend && {{axiom}} inspect release-check . --enforce

@@ -1,0 +1,11 @@
+**/.DS_Store
+**/.summary_files/
+**/node_modules/
+**/.dart_tool/
+**/.venv/
+**/build/
+**/dist/
+.env
+.env.*
+**/.axiom/extensions/keys/
+**/.axiom/extensions/cache/

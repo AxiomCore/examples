@@ -1,0 +1,14 @@
+module examples.flowspace.project_management.ui.components.activity_item
+
+component ActivityItem(activity: Activity) {
+  view {
+    View(class: "activity_item") {
+      View(class: "activity_dot") {}
+      View(class: "activity_copy") {
+        Text(activity.title, class: "activity_title")
+        Text(activity.detail, class: "activity_detail")
+      }
+      Text(activity.occurredLabel, class: "activity_time")
+    }
+  }
+}

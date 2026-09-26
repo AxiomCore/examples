@@ -1,0 +1,20 @@
+module examples.flowspace.project_management.ui.components.project_card
+
+component ProjectCard(project: Project, on_open: Action) {
+  view {
+    View(class: "project_card") {
+      View(class: "project_card_top") {
+        Text(project.code, class: "project_code")
+        Text(project.status, class: "status_pill")
+      }
+      Text(project.name, class: "project_name")
+      Text(project.description, class: "project_description")
+      View(class: "project_card_meta") {
+        Text(project.due_label, class: "meta_text")
+        Text(project.members_label, class: "member_stack")
+        View(class: "project_percent") { Text(project.progress, class: "meta_text_strong") Text("%", class: "meta_text_strong") }
+      }
+      Button(class: "card_action", label: "Open project", on_press: on_open, accessibility_label: "Open project details")
+    }
+  }
+}

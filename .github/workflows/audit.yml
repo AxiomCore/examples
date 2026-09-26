@@ -1,0 +1,25 @@
+name: Example source audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  public-source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject generated and private files
+        run: |
+          if git ls-files | grep -E '(^|/)(\.DS_Store|\.summary_files/|node_modules/|\.dart_tool/|\.env($|\.)|.*\.(pem|p12|pfx|key|jks))' ; then
+            echo 'Generated or credential file is tracked' >&2
+            exit 1
+          fi
+          if git grep -I -l -E '/Users/[A-Za-z0-9._-]+|/Volumes/AxiomReleaseBuild|Phase [0-9]|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9_]{20,}|npm_[A-Za-z0-9]{20,}' -- . ':!.github/workflows/audit.yml' ; then
+            echo 'Private path, internal milestone, or credential pattern found' >&2
+            exit 1
+          fi

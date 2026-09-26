@@ -1,0 +1,15 @@
+format = "axiom-package-deps/v1"
+targets = ["android", "ios", "web", "server"]
+
+[extensions.checkout]
+language = "rust"
+source = "extension-code/interaction.rs"
+exports = ["recalculate"]
+targets = ["android", "ios", "web", "server"]
+
+[extensions.checkout.permissions]
+runtime = ["logging.info"]
+
+[extensions.checkout.permissions.ui-state.checkout]
+read = ["subtotal"]
+write = ["discount", "status"]

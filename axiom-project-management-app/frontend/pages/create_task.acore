@@ -1,0 +1,234 @@
+module examples.flowspace.project_management.ui.pages.create_task
+
+use component AppMark from "../components/app_mark.acore"
+
+page CreateTask {
+  state form {
+    project_id: String = ""
+    project_name: String = ""
+    title: String = ""
+    description: String = ""
+    priority: String = "High"
+    due_label: String = "Friday"
+    time_label: String = "10:00 – 11:00"
+    assignee_name: String = "Aisha Malik"
+    assignee_initials: String = "AM"
+  }
+
+  mutation create = Workspace.create_task(
+    project_id: form.project_id,
+    project_name: form.project_name,
+    title: form.title,
+    description: form.description,
+    priority: form.priority,
+    due_label: form.due_label,
+    time_label: form.time_label,
+    assignee_name: form.assignee_name,
+    assignee_initials: form.assignee_initials
+  )
+
+  action go_back() { back() }
+  action go_home() { navigate("/") }
+  action set_low() { form.priority = "Low" }
+  action set_medium() { form.priority = "Medium" }
+  action set_high() { form.priority = "High" }
+  action select_orbit() {
+    form.project_id = "orbit-mobile"
+    form.project_name = "Orbit mobile"
+  }
+  action select_atlas() {
+    form.project_id = "atlas-system"
+    form.project_name = "Atlas design system"
+  }
+  action select_signal() {
+    form.project_id = "signal-research"
+    form.project_name = "Signal research"
+  }
+  action assign_aisha() {
+    form.assignee_name = "Aisha Malik"
+    form.assignee_initials = "AM"
+  }
+  action assign_jon() {
+    form.assignee_name = "Jon Kim"
+    form.assignee_initials = "JK"
+  }
+  action assign_maya() {
+    form.assignee_name = "Maya Khan"
+    form.assignee_initials = "MK"
+  }
+  action submit() {
+    create.run()
+    form.title = ""
+    form.description = ""
+  }
+
+  view {
+    Page(accessibility_label: "Create a project task") {
+      AppScreen(class: "form_shell", accessibility_label: "Create task") {
+        ScrollView(class: "form_scroll", scroll_orientation: "vertical", enable_scroll: true) {
+          View(class: "form_page") {
+            View(class: "form_topbar") {
+              Button(class: "icon_button", label: "←", on_press: go_back, accessibility_label: "Go back")
+              AppMark()
+              Button(class: "text_button", label: "Dashboard", on_press: go_home, accessibility_label: "Go to dashboard")
+            }
+
+            View(class: "form_intro") {
+              Text("CREATE TASK", class: "eyebrow dark_eyebrow")
+              Text("Turn a clear decision into visible progress.", class: "form_title")
+              Text("The form is generated from a typed contract mutation. Fields, writable surface, security, and invalidation stay inspectable.", class: "form_lead")
+            }
+
+            View(class: "form_layout") {
+              View(class: "form_card") {
+                View(class: "field_group") {
+                  Text("Task title", class: "field_label")
+                  Input(
+                    id: "task-title",
+                    class: "input_field",
+                    value: form.title,
+                    placeholder: "e.g. Validate launch checklist",
+                    input_type: "text",
+                    max_length: 72,
+                    accessibility_label: "Task title"
+                  )
+                }
+
+                View(class: "field_group") {
+                  Text("Description", class: "field_label")
+                  TextArea(
+                    id: "task-description",
+                    class: "textarea_field",
+                    value: form.description,
+                    placeholder: "What outcome should be true when this is done?",
+                    input_type: "text",
+                    max_length: 240,
+                    max_lines: 5,
+                    enable_scroll_bar: true,
+                    accessibility_label: "Task description"
+                  )
+                }
+
+                View(class: "field_group") {
+                  Text("Project · required", class: "field_label")
+                  View(class: "choice_grid") {
+                    if form.project_id == "orbit-mobile" {
+                      Button(class: "choice_button choice_selected", label: "Orbit mobile", on_press: select_orbit, accessibility_label: "Orbit mobile selected")
+                    } else {
+                      Button(class: "choice_button", label: "Orbit mobile", on_press: select_orbit, accessibility_label: "Select Orbit mobile")
+                    }
+                    if form.project_id == "atlas-system" {
+                      Button(class: "choice_button choice_selected", label: "Atlas system", on_press: select_atlas, accessibility_label: "Atlas design system selected")
+                    } else {
+                      Button(class: "choice_button", label: "Atlas system", on_press: select_atlas, accessibility_label: "Select Atlas design system")
+                    }
+                    if form.project_id == "signal-research" {
+                      Button(class: "choice_button choice_selected", label: "Signal research", on_press: select_signal, accessibility_label: "Signal research selected")
+                    } else {
+                      Button(class: "choice_button", label: "Signal research", on_press: select_signal, accessibility_label: "Select Signal research")
+                    }
+                  }
+                }
+
+                View(class: "form_row") {
+                  View(class: "field_group half_field") {
+                    Text("Due", class: "field_label")
+                    Input(class: "input_field", value: form.due_label, placeholder: "Due date", accessibility_label: "Due date")
+                  }
+                  View(class: "field_group half_field") {
+                    Text("Time", class: "field_label")
+                    Input(class: "input_field", value: form.time_label, placeholder: "Time window", accessibility_label: "Time window")
+                  }
+                }
+
+                View(class: "field_group") {
+                  Text("Assignee", class: "field_label")
+                  View(class: "choice_grid") {
+                    if form.assignee_initials == "AM" {
+                      Button(class: "choice_button choice_selected", label: "Aisha Malik", on_press: assign_aisha, accessibility_label: "Aisha Malik selected")
+                    } else {
+                      Button(class: "choice_button", label: "Aisha Malik", on_press: assign_aisha, accessibility_label: "Assign Aisha Malik")
+                    }
+                    if form.assignee_initials == "JK" {
+                      Button(class: "choice_button choice_selected", label: "Jon Kim", on_press: assign_jon, accessibility_label: "Jon Kim selected")
+                    } else {
+                      Button(class: "choice_button", label: "Jon Kim", on_press: assign_jon, accessibility_label: "Assign Jon Kim")
+                    }
+                    if form.assignee_initials == "MK" {
+                      Button(class: "choice_button choice_selected", label: "Maya Khan", on_press: assign_maya, accessibility_label: "Maya Khan selected")
+                    } else {
+                      Button(class: "choice_button", label: "Maya Khan", on_press: assign_maya, accessibility_label: "Assign Maya Khan")
+                    }
+                  }
+                }
+
+                View(class: "field_group") {
+                  Text("Priority", class: "field_label")
+                  View(class: "segmented_control") {
+                    if form.priority == "Low" {
+                      Button(class: "segment_button segment_selected", label: "Low", on_press: set_low, accessibility_label: "Low priority selected")
+                    } else {
+                      Button(class: "segment_button", label: "Low", on_press: set_low, accessibility_label: "Set low priority")
+                    }
+                    if form.priority == "Medium" {
+                      Button(class: "segment_button segment_selected", label: "Medium", on_press: set_medium, accessibility_label: "Medium priority selected")
+                    } else {
+                      Button(class: "segment_button", label: "Medium", on_press: set_medium, accessibility_label: "Set medium priority")
+                    }
+                    if form.priority == "High" {
+                      Button(class: "segment_button segment_selected", label: "High", on_press: set_high, accessibility_label: "High priority selected")
+                    } else {
+                      Button(class: "segment_button", label: "High", on_press: set_high, accessibility_label: "Set high priority")
+                    }
+                  }
+                  Text(form.priority, class: "selected_value")
+                }
+
+                if create.data {
+                  View(class: "success_panel") {
+                    Text("Task created", class: "context_title")
+                    Text("The task, project count, workspace total, and activity feed were updated atomically.", class: "inline_success")
+                    Button(class: "submit_button", label: "Return to dashboard", on_press: go_home, accessibility_label: "Return to dashboard")
+                  }
+                } else {
+                  ActionButton(
+                    class: "submit_button",
+                    label: "Create task",
+                    on_press: submit,
+                    disabled: create.pending || form.project_id == "" || form.title == "" || form.description == "",
+                    pending: create.pending,
+                    progress_label: "Creating task",
+                    accessibility_label: "Create task"
+                  )
+                }
+                if create.error {
+                  Text("The contract rejected this task. Check required fields and inspect the trace.", class: "inline_error")
+                }
+              }
+
+              View(class: "form_context_card") {
+                Text("WHAT HAPPENS NEXT", class: "rail_kicker")
+                View(class: "context_step") {
+                  Text("01", class: "context_number")
+                  View { Text("Validated", class: "context_title") Text("Projection and domain invariants check the write.", class: "context_copy") }
+                }
+                View(class: "context_step") {
+                  Text("02", class: "context_number")
+                  View { Text("Persisted", class: "context_title") Text("The mock state store appends one typed task.", class: "context_copy") }
+                }
+                View(class: "context_step") {
+                  Text("03", class: "context_number")
+                  View { Text("Observed", class: "context_title") Text("A normalized activity event and causal trace are emitted.", class: "context_copy") }
+                }
+                View(class: "context_step") {
+                  Text("04", class: "context_number")
+                  View { Text("Revalidated", class: "context_title") Text("Task, activity, and workspace cache identities invalidate.", class: "context_copy") }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

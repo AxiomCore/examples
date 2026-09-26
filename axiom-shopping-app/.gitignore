@@ -1,0 +1,6 @@
+backend/axiom.axiom
+backend/axiom.acore.lockfile
+frontend/axiom.ui.lock.json
+frontend/AxiomExtensions.toml
+frontend/AxiomPackages.lock
+frontend/.axiom/

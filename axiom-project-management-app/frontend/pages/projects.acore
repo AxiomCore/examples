@@ -1,0 +1,50 @@
+module examples.flowspace.project_management.ui.pages.projects
+
+use component AppMark from "../components/app_mark.acore"
+use component ProjectCard from "../components/project_card.acore"
+
+page Projects {
+  query orbit = Workspace.get_project(id: "orbit-mobile")
+  query atlas = Workspace.get_project(id: "atlas-system")
+  query signal = Workspace.get_project(id: "signal-research")
+
+  action go_back() { back() }
+  action go_home() { navigate("/") }
+  action open_orbit() { navigate("/projects/orbit") }
+  action open_atlas() { navigate("/projects/atlas") }
+  action open_signal() { navigate("/projects/signal") }
+  action open_create() { navigate("/create") }
+
+  view {
+    Page(accessibility_label: "Project portfolio") {
+      AppScreen(class: "detail_shell", accessibility_label: "Project portfolio") {
+        ScrollView(class: "detail_scroll", scroll_orientation: "vertical", enable_scroll: true) {
+          View(class: "detail_page") {
+            View(class: "form_topbar") {
+              Button(class: "icon_button", label: "←", on_press: go_back, accessibility_label: "Go back")
+              AppMark()
+              Button(class: "primary_button compact_button", label: "+ Task", on_press: open_create, accessibility_label: "Create task")
+            }
+            View(class: "form_intro") {
+              Text("PROJECT PORTFOLIO", class: "eyebrow dark_eyebrow")
+              Text("Three initiatives. One source of truth.", class: "form_title")
+              Text("Each project opens a scoped view whose task query is constrained by the contract relationship.", class: "form_lead")
+              Button(class: "ghost_button portfolio_home", label: "Dashboard", on_press: go_home, accessibility_label: "Go to dashboard")
+            }
+            View(class: "portfolio_grid") {
+              AsyncBoundary(pending: orbit.pending, error: orbit.error, loading_label: "Loading Orbit…", error_label: "Orbit is unavailable.", preserve_content: true) {
+                ProjectCard(project: orbit.data, on_open: open_orbit)
+              }
+              AsyncBoundary(pending: atlas.pending, error: atlas.error, loading_label: "Loading Atlas…", error_label: "Atlas is unavailable.", preserve_content: true) {
+                ProjectCard(project: atlas.data, on_open: open_atlas)
+              }
+              AsyncBoundary(pending: signal.pending, error: signal.error, loading_label: "Loading Signal…", error_label: "Signal is unavailable.", preserve_content: true) {
+                ProjectCard(project: signal.data, on_open: open_signal)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

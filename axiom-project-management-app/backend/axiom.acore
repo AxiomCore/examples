@@ -1,0 +1,368 @@
+// Flowspace is a stateful project-management contract designed to make Axiom's
+// deterministic backend semantics visible in a product-quality demo.
+
+project {
+  id = "flowspace-project-management"
+  version = "v0.1.0"
+}
+
+variants {
+  ["default"] { include = Listing { "*" } }
+}
+
+models {
+  ["WorkspaceSummary"] = ModelDef {
+    name = "WorkspaceSummary"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["workspace_name"] = ModelField { name = "workspace_name" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["active_projects"] = ModelField { name = "active_projects" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["total_tasks"] = ModelField { name = "total_tasks" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["completed_tasks"] = ModelField { name = "completed_tasks" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["blocked_tasks"] = ModelField { name = "blocked_tasks" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["team_members"] = ModelField { name = "team_members" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["week_label"] = ModelField { name = "week_label" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+  }
+
+  ["Project"] = ModelDef {
+    name = "Project"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["name"] = ModelField { name = "name" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["code"] = ModelField { name = "code" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["description"] = ModelField { name = "description" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["status"] = ModelField { name = "status" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["progress"] = ModelField { name = "progress" typeRef = TypeRefPrimitive { kind = "int64" } validate = { type = "number" int = true min = 0 max = 100 } }
+      ["task_count"] = ModelField { name = "task_count" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["members_label"] = ModelField { name = "members_label" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["due_label"] = ModelField { name = "due_label" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["accent_label"] = ModelField { name = "accent_label" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+  }
+
+  ["Task"] = ModelDef {
+    name = "Task"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["project_id"] = ModelField { name = "project_id" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 64 } }
+      ["project_name"] = ModelField { name = "project_name" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 72 } }
+      ["title"] = ModelField { name = "title" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 72 regex = "\S" } }
+      ["description"] = ModelField { name = "description" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 240 regex = "\S" } }
+      ["status"] = ModelField { name = "status" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "enum" values = Listing { "To do" "In progress" "Blocked" "Done" } } }
+      ["priority"] = ModelField { name = "priority" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "enum" values = Listing { "Low" "Medium" "High" } } }
+      ["due_label"] = ModelField { name = "due_label" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 48 } }
+      ["time_label"] = ModelField { name = "time_label" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 48 } }
+      ["assignee_name"] = ModelField { name = "assignee_name" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 72 } }
+      ["assignee_initials"] = ModelField { name = "assignee_initials" typeRef = TypeRefPrimitive { kind = "string" } validate = { type = "string" min = 1 max = 4 } }
+      ["progress"] = ModelField { name = "progress" typeRef = TypeRefPrimitive { kind = "int64" } validate = { type = "number" int = true min = 0 max = 100 } }
+      ["comments"] = ModelField { name = "comments" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["completed"] = ModelField { name = "completed" typeRef = TypeRefPrimitive { kind = "bool" } }
+    }
+  }
+
+  ["Activity"] = ModelDef {
+    name = "Activity"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["type"] = ModelField { name = "type" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["title"] = ModelField { name = "title" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["detail"] = ModelField { name = "detail" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["tone"] = ModelField { name = "tone" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["projectId"] = ModelField { name = "projectId" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["projectName"] = ModelField { name = "projectName" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["occurredAt"] = ModelField { name = "occurredAt" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["occurredLabel"] = ModelField { name = "occurredLabel" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+  }
+
+  ["Presence"] = ModelDef {
+    name = "Presence"
+    fields = Mapping {
+      ["id"] = ModelField { name = "id" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["online_count"] = ModelField { name = "online_count" typeRef = TypeRefPrimitive { kind = "int64" } }
+      ["online_label"] = ModelField { name = "online_label" typeRef = TypeRefPrimitive { kind = "string" } }
+      ["focus_label"] = ModelField { name = "focus_label" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+  }
+}
+
+hidden Models = {
+  WorkspaceSummary = TypeRefNamed { value = "WorkspaceSummary" }
+  Project = TypeRefNamed { value = "Project" }
+  Task = TypeRefNamed { value = "Task" }
+  Activity = TypeRefNamed { value = "Activity" }
+  Presence = TypeRefNamed { value = "Presence" }
+}
+
+Entities = Entities {
+  workspace = extend Models.WorkspaceSummary { key = Listing { "id" } doc = "A project-management workspace summary." }
+  project = extend Models.Project { key = Listing { "id" } doc = "A durable initiative owned by one workspace." }
+  task = extend Models.Task { key = Listing { "id" } doc = "A schedulable unit of project work." }
+  activity = extend Models.Activity { key = Listing { "id" } doc = "An immutable normalized project activity event." }
+  presence = extend Models.Presence { key = Listing { "id" } doc = "A bounded live collaboration snapshot." }
+}
+
+domain {
+  entities = Entities
+  relationships = Relationships {
+    ["taskProject"] = DomainRelationship { from = Entities.task to = Entities.project via = "project_id" required = true }
+    ["activityProject"] = DomainRelationship { from = Entities.activity to = Entities.project via = "projectId" required = false }
+  }
+  invariants = Invariants {
+    ["projectProgressBounded"] = DomainInvariant { scope = Entities.project expression = "progress >= 0 && progress <= 100" fields = Listing { "progress" } }
+    ["taskProgressBounded"] = DomainInvariant { scope = Entities.task expression = "progress >= 0 && progress <= 100" fields = Listing { "progress" } }
+    ["taskTitlePresent"] = DomainInvariant { scope = Entities.task expression = "title.trim().length > 0" fields = Listing { "title" } }
+  }
+  projections = Projections {
+    ["workspaceMemberSummary"] = DomainProjection { entity = Entities.workspace fields = Listing { "id" "workspace_name" "active_projects" "total_tasks" "completed_tasks" "blocked_tasks" "team_members" "week_label" } audience = "workspace-member" }
+    ["projectMemberCard"] = DomainProjection { entity = Entities.project fields = Listing { "id" "name" "code" "description" "status" "progress" "task_count" "members_label" "due_label" "accent_label" } audience = "workspace-member" }
+    ["taskMemberCard"] = DomainProjection { entity = Entities.task fields = Listing { "id" "project_id" "project_name" "title" "description" "status" "priority" "due_label" "time_label" "assignee_name" "assignee_initials" "progress" "comments" "completed" } audience = "workspace-member" }
+    ["taskCreate"] = DomainProjection { entity = Entities.task fields = Listing { "project_id" "project_name" "title" "description" "priority" "due_label" "time_label" "assignee_name" "assignee_initials" } audience = "workspace-member" }
+    ["taskStatusUpdate"] = DomainProjection { entity = Entities.task fields = Listing { "status" "progress" "completed" } audience = "workspace-member" }
+    ["activityMemberFeed"] = DomainProjection { entity = Entities.activity fields = Listing { "id" "type" "title" "detail" "tone" "projectId" "projectName" "occurredAt" "occurredLabel" } audience = "workspace-member" }
+    ["presenceMemberFeed"] = DomainProjection { entity = Entities.presence fields = Listing { "id" "online_count" "online_label" "focus_label" } audience = "workspace-member" }
+  }
+}
+
+endpoints {
+  ["GetWorkspace"] = EndpointDef {
+    id = 1
+    name = "get_workspace"
+    method = "GET"
+    path = "/workspace"
+    returnType = Entities.workspace
+    responseProjection = "workspaceMemberSummary"
+    cacheIdentity = "workspace:summary"
+    cache = CachePolicy { strategy = "stale_while_revalidate" ttlSeconds = 0 }
+    errors = Listing { "workspace_unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        initial = Mapping {
+          ["workspace"] = Listing {
+            { id = "northstar" workspace_name = "Northstar Studio" active_projects = 3 total_tasks = 5 completed_tasks = 1 blocked_tasks = 2 team_members = 8 week_label = "Sprint 14 · live contract state" }
+          }
+          ["projects"] = Listing {
+            { id = "orbit-mobile" name = "Orbit mobile" code = "OM" description = "Launch the new mobile planning experience." status = "On track" progress = 72 task_count = 2 members_label = "AM · JK · +3" due_label = "Launch · 18 Oct" accent_label = "SKY" }
+            { id = "atlas-system" name = "Atlas design system" code = "AD" description = "Unify product foundations across every surface." status = "Review" progress = 54 task_count = 2 members_label = "LS · NO · +2" due_label = "Review · Friday" accent_label = "LILAC" }
+            { id = "signal-research" name = "Signal research" code = "SR" description = "Turn customer interviews into a clear roadmap." status = "At risk" progress = 38 task_count = 1 members_label = "MK · +4" due_label = "Decision · 22 Oct" accent_label = "CORAL" }
+          }
+          ["tasks"] = Listing {
+            { id = "task-design-system" project_id = "orbit-mobile" project_name = "Orbit mobile" title = "Create the visual system" description = "Finish spacing, typography, motion and accessibility tokens." status = "In progress" priority = "High" due_label = "Today" time_label = "09:00 – 10:30" assignee_name = "Aisha Malik" assignee_initials = "AM" progress = 70 comments = 12 completed = false }
+            { id = "task-prototype" project_id = "orbit-mobile" project_name = "Orbit mobile" title = "Validate the onboarding prototype" description = "Run the final usability pass with five customers." status = "To do" priority = "Medium" due_label = "Tomorrow" time_label = "10:30 – 11:30" assignee_name = "Jon Kim" assignee_initials = "JK" progress = 30 comments = 7 completed = false }
+            { id = "task-api" project_id = "atlas-system" project_name = "Atlas design system" title = "Review component contracts" description = "Approve the public component API before release." status = "Blocked" priority = "High" due_label = "Friday" time_label = "11:30 – 12:30" assignee_name = "Lena Stone" assignee_initials = "LS" progress = 45 comments = 9 completed = false }
+            { id = "task-dashboard" project_id = "atlas-system" project_name = "Atlas design system" title = "Ship dashboard foundations" description = "Publish the responsive card and navigation primitives." status = "Done" priority = "Low" due_label = "Completed" time_label = "13:00 – 14:00" assignee_name = "Noah Olsen" assignee_initials = "NO" progress = 100 comments = 4 completed = true }
+            { id = "task-insights" project_id = "signal-research" project_name = "Signal research" title = "Synthesize interview insights" description = "Cluster the strongest product opportunities." status = "Blocked" priority = "High" due_label = "22 Oct" time_label = "14:00 – 15:00" assignee_name = "Maya Khan" assignee_initials = "MK" progress = 20 comments = 15 completed = false }
+          }
+          ["activity"] = Listing {
+            { id = "evt-seed-1" type = "task.completed" title = "Dashboard foundations completed" detail = "Noah moved the task to Done." tone = "mint" projectId = "atlas-system" projectName = "Atlas design system" occurredAt = "2026-09-23T03:52:00.000Z" occurredLabel = "8 min ago" }
+            { id = "evt-seed-2" type = "comment.added" title = "New prototype feedback" detail = "Jon added 3 customer notes." tone = "lilac" projectId = "orbit-mobile" projectName = "Orbit mobile" occurredAt = "2026-09-23T03:36:00.000Z" occurredLabel = "24 min ago" }
+            { id = "evt-seed-3" type = "risk.detected" title = "Research milestone needs attention" detail = "Two linked tasks are currently blocked." tone = "coral" projectId = "signal-research" projectName = "Signal research" occurredAt = "2026-09-23T03:00:00.000Z" occurredLabel = "1 hr ago" }
+          }
+          ["focusOpen"] = true
+        }
+      }
+      fallback = MockResponse { status = 200 data = StoreQueryData { key = "workspace" filterKey = "id" filterValue = "northstar" } }
+    }
+  }
+
+  ["ListProjects"] = EndpointDef {
+    id = 2
+    name = "list_projects"
+    method = "GET"
+    path = "/projects"
+    returnType = TypeRefList { value = Entities.project }
+    responseProjection = "projectMemberCard"
+    cacheIdentity = "projects:list"
+    cache = CachePolicy { strategy = "cache_first" ttlSeconds = 120 }
+    retry = RetryPolicy { maxAttempts = 3 backoff = ExponentialBackoff { initialDelay = "250ms" maxDelay = "2s" useJitter = true multiplier = 2.0 } retryOnCodes = Listing { 502 503 504 } retryOnTimeout = true }
+    errors = Listing { "projects_unavailable" }
+    mock = MockConfig { fallback = MockResponse { status = 200 delayMs = 120 data = StoreQueryData { key = "projects" filterKey = "id" filterValue = "" returnAll = true } } }
+  }
+
+  ["GetProject"] = EndpointDef {
+    id = 3
+    name = "get_project"
+    method = "GET"
+    path = "/projects/{id}"
+    parameters = Listing { EndpointParameter { name = "id" source = "path" typeRef = TypeRefPrimitive { kind = "string" } } }
+    returnType = Entities.project
+    responseProjection = "projectMemberCard"
+    cacheIdentity = "projects:detail"
+    cache = CachePolicy { strategy = "network_first" ttlSeconds = 30 }
+    errors = Listing { "project_not_found" "projects_unavailable" }
+    mock = MockConfig { fallback = MockResponse { status = 200 data = StoreQueryData { key = "projects" filterKey = "id" filterValue = "{{request.path.id}}" } } }
+  }
+
+  ["ListTasks"] = EndpointDef {
+    id = 4
+    name = "list_tasks"
+    method = "GET"
+    path = "/tasks"
+    returnType = TypeRefList { value = Entities.task }
+    responseProjection = "taskMemberCard"
+    cacheIdentity = "tasks:list"
+    cache = CachePolicy { strategy = "stale_while_revalidate" ttlSeconds = 0 }
+    retry = RetryPolicy { maxAttempts = 3 backoff = ExponentialBackoff { initialDelay = "250ms" maxDelay = "2s" useJitter = true multiplier = 2.0 } retryOnCodes = Listing { 502 503 504 } retryOnTimeout = true }
+    errors = Listing { "tasks_unavailable" }
+    mock = MockConfig { fallback = MockResponse { status = 200 delayMs = 160 data = StoreQueryData { key = "tasks" filterKey = "id" filterValue = "" returnAll = true } } }
+  }
+
+  ["ListProjectTasks"] = EndpointDef {
+    id = 9
+    name = "list_project_tasks"
+    method = "GET"
+    path = "/projects/{project_id}/tasks"
+    parameters = Listing { EndpointParameter { name = "project_id" source = "path" typeRef = TypeRefPrimitive { kind = "string" } } }
+    returnType = TypeRefList { value = Entities.task }
+    responseProjection = "taskMemberCard"
+    cacheIdentity = "tasks:project"
+    cache = CachePolicy { strategy = "stale_while_revalidate" ttlSeconds = 0 }
+    errors = Listing { "project_not_found" "tasks_unavailable" }
+    mock = MockConfig { fallback = MockResponse { status = 200 delayMs = 120 data = StoreQueryData { key = "tasks" filterKey = "project_id" filterValue = "{{request.path.project_id}}" returnAll = true } } }
+  }
+
+  ["CreateTask"] = EndpointDef {
+    id = 5
+    name = "create_task"
+    method = "POST"
+    path = "/tasks"
+    parameters = Listing {
+      EndpointParameter { name = "project_id" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "project_name" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "title" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "description" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "priority" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "due_label" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "time_label" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "assignee_name" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "assignee_initials" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+    }
+    returnType = Entities.task
+    requestProjection = "taskCreate"
+    responseProjection = "taskMemberCard"
+    cacheIdentity = "tasks:detail"
+    invalidates = Listing { "tasks:list" "tasks:project" "projects:list" "projects:detail" "activity:list" "workspace:summary" }
+    errors = Listing { "invalid_task" "tasks_unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        activityKey = "activity"
+        changes = Listing {
+          StateChange {
+            name = "materialize-created-task"
+            mutations = Listing { StoreMutation { type = "set" key = "createdTask" value = { id = "{{faker.uuid}}" project_id = "{{request.body.project_id}}" project_name = "{{request.body.project_name}}" title = "{{request.body.title}}" description = "{{request.body.description}}" status = "To do" priority = "{{request.body.priority}}" due_label = "{{request.body.due_label}}" time_label = "{{request.body.time_label}}" assignee_name = "{{request.body.assignee_name}}" assignee_initials = "{{request.body.assignee_initials}}" progress = 0 comments = 0 completed = false } } }
+          }
+          StateChange {
+            name = "persist-created-task"
+            mutations = Listing {
+              StoreMutation { type = "append" key = "tasks" value = "{{store.createdTask}}" }
+              StoreMutation { type = "increment_fields" key = "workspace" filterKey = "id" filterValue = "northstar" value = { total_tasks = 1 } }
+              StoreMutation { type = "increment_fields" key = "projects" filterKey = "id" filterValue = "{{request.body.project_id}}" value = { task_count = 1 } }
+            }
+            events = Listing { StateEvent { type = "task.created" title = "{{request.body.title}} created" detail = "Assigned to {{request.body.assignee_name}} · {{request.body.due_label}}" tone = "sky" projectId = "{{request.body.project_id}}" projectName = "{{request.body.project_name}}" } }
+          }
+        }
+      }
+      fallback = MockResponse { status = 201 data = TemplateData { body = "{{store.createdTask}}" } }
+    }
+  }
+
+  ["UpdateTask"] = EndpointDef {
+    id = 6
+    name = "update_task"
+    method = "PATCH"
+    path = "/tasks/{id}"
+    parameters = Listing {
+      EndpointParameter { name = "id" source = "path" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "status" source = "body" typeRef = TypeRefPrimitive { kind = "string" } }
+      EndpointParameter { name = "progress" source = "body" typeRef = TypeRefPrimitive { kind = "int64" } }
+      EndpointParameter { name = "completed" source = "body" typeRef = TypeRefPrimitive { kind = "bool" } }
+    }
+    returnType = Entities.task
+    requestProjection = "taskStatusUpdate"
+    responseProjection = "taskMemberCard"
+    cacheIdentity = "tasks:detail"
+    invalidates = Listing { "tasks:list" "tasks:project" "projects:list" "projects:detail" "activity:list" "workspace:summary" }
+    errors = Listing { "task_not_found" "invalid_status" "tasks_unavailable" }
+    mock = MockConfig {
+      state = MockStateConfig {
+        activityKey = "activity"
+        changes = Listing {
+          StateChange {
+            name = "update-task-status"
+            when = Listing { StoreCondition { key = "focusOpen" op = "eq" value = "true" } }
+            mutations = Listing {
+              StoreMutation { type = "update" key = "tasks" filterKey = "id" filterValue = "{{request.path.id}}" value = { status = "{{request.body.status}}" progress = "{{request.body.progress}}" completed = "{{request.body.completed}}" } }
+              StoreMutation { type = "increment_fields" key = "workspace" filterKey = "id" filterValue = "northstar" value = { blocked_tasks = -1 completed_tasks = 1 } }
+              StoreMutation { type = "set" key = "focusOpen" value = false }
+            }
+            events = Listing { StateEvent { type = "task.updated" title = "Task moved to {{request.body.status}}" detail = "Progress is now {{request.body.progress}}%." tone = "mint" projectId = "atlas-system" projectName = "Atlas design system" } }
+          }
+        }
+      }
+      fallback = MockResponse { status = 200 data = StoreQueryData { key = "tasks" filterKey = "id" filterValue = "{{request.path.id}}" } }
+    }
+  }
+
+  ["ListActivity"] = EndpointDef {
+    id = 7
+    name = "list_activity"
+    method = "GET"
+    path = "/activity"
+    returnType = TypeRefList { value = Entities.activity }
+    responseProjection = "activityMemberFeed"
+    cacheIdentity = "activity:list"
+    cache = CachePolicy { strategy = "network_first" ttlSeconds = 10 }
+    errors = Listing { "activity_unavailable" }
+    mock = MockConfig { fallback = MockResponse { status = 200 data = StoreQueryData { key = "activity" filterKey = "id" filterValue = "" returnAll = true } } }
+  }
+
+  ["WatchPresence"] = EndpointDef {
+    id = 8
+    name = "watch_presence"
+    method = "WS"
+    path = "/presence"
+    returnType = Entities.presence
+    responseProjection = "presenceMemberFeed"
+    streaming = WebSocketDef { direction = "server_to_client" server = WsMessageDef { model = TypeRefNamed { value = "Presence" } } reconnect = "auto" }
+    errors = Listing { "presence_unavailable" }
+    mock = MockConfig { fallback = MockResponse { status = 200 delayMs = 1600 data = StaticData { body = { id = "workspace-presence" online_count = 6 online_label = "6 teammates online" focus_label = "3 reviewing · 2 designing · 1 planning" } } } }
+  }
+}
+
+security {
+  mode = "strict"
+  permissions {
+    ["readWorkspace"] = Permission { requiresRateLimit = true doc = "Read the local demo workspace." }
+    ["manageTasks"] = Permission { requiresRateLimit = true requiresIdempotency = true doc = "Create or transition a task." }
+  }
+  resources {
+    ["workspace"] = ProtectedResource { entity = Entities.workspace }
+    ["task"] = ProtectedResource { entity = Entities.task }
+  }
+  rateLimits {
+    ["reads"] = RateLimit { maxRequests = 180 windowSeconds = 60 key = "client" }
+    ["writes"] = RateLimit { maxRequests = 30 windowSeconds = 60 key = "client" }
+  }
+  endpoints {
+    ["GetWorkspace"] = EndpointGuard { public = true rateLimit = "reads" }
+    ["ListProjects"] = EndpointGuard { public = true rateLimit = "reads" }
+    ["GetProject"] = EndpointGuard { public = true rateLimit = "reads" }
+    ["ListTasks"] = EndpointGuard { public = true rateLimit = "reads" }
+    ["ListProjectTasks"] = EndpointGuard { public = true rateLimit = "reads" }
+    ["CreateTask"] = EndpointGuard { public = true rateLimit = "writes" idempotent = true writableFields = Listing { "project_id" "project_name" "title" "description" "priority" "due_label" "time_label" "assignee_name" "assignee_initials" } }
+    ["UpdateTask"] = EndpointGuard { public = true rateLimit = "writes" idempotent = true writableFields = Listing { "status" "progress" "completed" } }
+    ["ListActivity"] = EndpointGuard { public = true rateLimit = "reads" }
+    ["WatchPresence"] = EndpointGuard { public = true rateLimit = "reads" }
+  }
+  classifications {
+    ["assigneeIdentity"] = SensitiveData { target = "Task.assignee_name" classification = "PersonalData" audiences = Listing { "workspace-member" } redact = true }
+  }
+  cors = CorsPolicy { origins = Listing { "http://127.0.0.1" "http://localhost" } credentials = false methods = Listing { "GET" "POST" "PATCH" } }
+  cache = CacheSecurityPolicy { sharedAuthenticatedResponses = false requireVaryByPrincipal = false }
+  observability = ObservabilitySecurityPolicy { redactClasses = Listing { "PersonalData" } allowPayloads = false }
+  invariants {
+    ["taskWritesIdempotent"] = SecurityRequirement { kind = "require_idempotency" target = "CreateTask, UpdateTask" }
+    ["assigneesRedacted"] = SecurityRequirement { kind = "no_secret_exposure" target = "Task.assignee_name in logs and traces" }
+  }
+}

@@ -1,0 +1,10 @@
+.axiom/extensions/cache/
+.axiom/extensions/keys/
+.axiom/evidence/
+.axiom/*.json
+.axiom/*.txt
+conformance/**/.axiom/
+dist/
+
+# The signed release workflow and its content-addressed release inputs are
+# intentionally reviewable/committable. Only compiler build caches are ignored.

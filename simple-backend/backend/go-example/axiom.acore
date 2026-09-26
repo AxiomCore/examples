@@ -1,0 +1,6 @@
+amends "axiom-go:./main.go"
+
+project {
+  id = "go-example"
+  version = "v0.0.1"
+}

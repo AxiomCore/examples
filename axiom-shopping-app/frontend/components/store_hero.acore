@@ -1,0 +1,23 @@
+module examples.shopping.storefront.ui.components.store_hero
+
+component StoreHero() {
+  view {
+    View(class: "hero") {
+      View(class: "hero_top") {
+        Text("THE SLOW EDIT · AUTUMN 04", class: "eyebrow")
+        Text("MEMBERS SAVE 15%", class: "hero_chip")
+      }
+      Text("Keep the things that slow time down.", class: "hero_title")
+      Text("A considered collection of tactile essentials, made in small batches for quieter rooms and unhurried mornings.", class: "hero_copy")
+      View(class: "trust_row") {
+        Text("SMALL-BATCH MADE", class: "trust_item")
+        Text("FREE DELIVERY", class: "trust_item")
+        Text("30-DAY RETURNS", class: "trust_item")
+      }
+    }
+  }
+}
+
+styles StoreHero {
+  @import "styles/store-hero.acss"
+}

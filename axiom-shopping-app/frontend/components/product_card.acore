@@ -1,0 +1,19 @@
+module examples.shopping.storefront.ui.components.product_card
+
+component ProductCard(product: Product) {
+  view {
+    View(class: "product") {
+      View(class: "product_top") {
+        Text(product.icon, class: "product_icon")
+        Text(product.badge, class: "product_badge")
+      }
+      Text(product.name, class: "product_name")
+      Text(product.description, class: "product_copy")
+      Text(product.price_label, class: "product_price")
+    }
+  }
+}
+
+styles ProductCard {
+  @import "styles/product-card.acss"
+}

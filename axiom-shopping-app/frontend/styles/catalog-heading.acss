@@ -1,0 +1,28 @@
+@import "tokens.acss"
+
+.section_heading {
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  width: 100%
+}
+
+.section_title {
+  color: var(ink)
+  font-size: 18px
+  font-weight: 700
+}
+
+.section_meta {
+  color: var(muted)
+  font-size: 11px
+}
+
+viewport compact {
+  .section_heading {
+    min-height: 28px
+    margin-top: 6px
+    margin-bottom: 6px
+  }
+}

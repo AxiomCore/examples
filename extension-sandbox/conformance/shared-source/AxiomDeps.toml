@@ -1,0 +1,22 @@
+format = "axiom-package-deps/v1"
+targets = ["web"]
+
+[extensions.reader]
+language = "rust"
+source = "logic/reader.rs"
+sharedSources = ["logic/shared"]
+exports = ["echo"]
+targets = ["web"]
+
+[extensions.reader.permissions]
+runtime = ["logging.info"]
+
+[extensions.writer]
+language = "rust"
+source = "logic/writer.rs"
+sharedSources = ["logic/shared"]
+exports = ["echo"]
+targets = ["web"]
+
+[extensions.writer.permissions]
+runtime = ["logging.warn"]

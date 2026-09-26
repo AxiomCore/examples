@@ -1,0 +1,46 @@
+viewport compact {
+  .screen {
+    padding: 10px 14px 18px 14px
+    gap: 8px
+  }
+
+  .catalog {
+    height: 512px
+    list-main-axis-gap: 8px
+  }
+
+  .summary {
+    margin-top: 8px
+    padding: 14px
+    gap: 0px
+    border-radius: 18px
+  }
+
+  .summary_actions {
+    margin-top: 6px
+    flex-direction: column
+    gap: 0px
+  }
+
+  .member_button, .checkout_button {
+    width: 100%
+    min-height: 36px
+    padding: 9px
+  }
+
+  .checkout_button {
+    margin-top: 6px
+  }
+}
+
+viewport regular {
+  .screen {
+    padding: 18px 20px 22px 20px
+  }
+}
+
+viewport wide {
+  .screen {
+    padding: 20px 24px 24px 24px
+  }
+}

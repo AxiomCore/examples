@@ -1,0 +1,29 @@
+@import "tokens.acss"
+
+Page {
+  min-height: 100vh
+  background-color: var(canvas)
+}
+
+.screen {
+  display: flex
+  flex-flow: column nowrap
+  box-sizing: border-box
+  width: 100%
+  height: 100vh
+  padding: 20px 24px 24px 24px
+  gap: 12px
+  background-color: var(canvas)
+}
+
+.catalog {
+  width: 100%
+  height: 284px
+  list-main-axis-gap: 12px
+  list-cross-axis-gap: 12px
+}
+
+.error {
+  color: #b42318
+  font-size: 11px
+}

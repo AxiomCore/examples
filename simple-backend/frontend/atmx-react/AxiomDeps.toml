@@ -1,0 +1,6 @@
+framework = "atmx-react"
+
+[contracts]
+
+[contracts.py-example]
+source = "../../backend/py-example/axiom.axiom"

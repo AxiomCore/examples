@@ -1,0 +1,31 @@
+module examples.flowspace.project_management.ui
+
+use contract Workspace from "workspace" audience "workspace-member"
+use extension RiskAnalyzer from "risk" export "assess_delivery_risk"
+
+use page Dashboard from "./pages/dashboard.acore"
+use page CreateTask from "./pages/create_task.acore"
+use page Timeline from "./pages/timeline.acore"
+use page ProjectDetails from "./pages/project_details.acore"
+use page Projects from "./pages/projects.acore"
+use page AtlasDetails from "./pages/atlas_details.acore"
+use page SignalDetails from "./pages/signal_details.acore"
+
+styles {
+  @import "styles/tokens.acss"
+  @import "styles/base.acss"
+  @import "styles/components.acss"
+  @import "styles/pages.acss"
+  @import "styles/responsive.acss"
+  @import "styles/motion.acss"
+}
+
+app Flowspace {
+  route "/" => Dashboard
+  route "/create" => CreateTask
+  route "/timeline" => Timeline
+  route "/projects" => Projects
+  route "/projects/orbit" => ProjectDetails
+  route "/projects/atlas" => AtlasDetails
+  route "/projects/signal" => SignalDetails
+}

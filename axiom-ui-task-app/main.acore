@@ -1,0 +1,27 @@
+module tasks.app.ui
+
+use contract Tasks from "tasks" audience "mobile"
+
+app TasksApp { route "/" => Home }
+
+page Home {
+  state draft: String = ""
+  query tasks = Tasks.list_tasks()
+  mutation create = Tasks.create_task(title: draft)
+
+  action submit() {
+    create.run()
+    draft = ""
+  }
+
+  view {
+    View {
+      Input(value: draft, placeholder: "Add a task")
+      Button(label: "Add", on_press: submit)
+
+      if tasks.pending { Text("Loading...") }
+      else if tasks.error { Text("aauld noot load tasks") }
+      else { List(items: tasks.data, key: |task| task.id, list_type: "single", span_count: 1, scroll_orientation: "vertical") { task => Text(task.title) } }
+    }
+  }
+}

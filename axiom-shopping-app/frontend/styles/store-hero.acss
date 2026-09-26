@@ -1,0 +1,111 @@
+@import "tokens.acss"
+
+.hero {
+  min-height: 158px
+  padding: 22px
+  gap: 7px
+  background-image: linear-gradient(135deg, #162b22, #2f6049), radial-gradient(circle, #5f8d72, transparent)
+  background-position: center, right top
+  border-width: 1px
+  border-style: solid
+  border-color: #315743
+  border-radius: 22px
+  box-shadow: 0 12px 28px rgba(23, 32, 28, .17)
+  overflow: hidden
+}
+
+.hero_top, .trust_row {
+  display: flex
+  flex-direction: row
+  align-items: center
+  width: 100%
+}
+
+.hero_top {
+  justify-content: space-between
+}
+
+.eyebrow {
+  color: var(acid)
+  font-size: 10px
+  font-weight: 700
+  letter-spacing: 1.7px
+}
+
+.hero_chip {
+  padding: 6px 10px
+  background-color: rgba(255, 255, 255, .12)
+  border-radius: 14px
+  color: #ffffff
+  font-size: 10px
+  font-weight: 700
+}
+
+.hero_title {
+  max-width: 520px
+  color: #ffffff
+  font-size: 34px
+  font-weight: 700
+  line-height: 1.02
+  letter-spacing: -1.2px
+}
+
+.hero_copy {
+  max-width: 610px
+  color: #d8e6dd
+  font-size: 12px
+  line-height: 17px
+}
+
+.trust_row {
+  gap: 8px
+}
+
+.trust_item {
+  padding: 5px 8px
+  background-color: rgba(217, 255, 134, .12)
+  border-radius: 10px
+  color: #e9f4ec
+  font-size: 9px
+  letter-spacing: .4px
+}
+
+viewport compact {
+  .hero {
+    min-height: 164px
+    margin-top: 4px
+    padding: 16px
+    gap: 0px
+    border-radius: 18px
+  }
+
+  .hero_title {
+    margin-top: 6px
+    font-size: 26px
+    line-height: 1.04
+    letter-spacing: -.8px
+  }
+
+  .hero_copy {
+    margin-top: 6px
+    font-size: 11px
+    line-height: 15px
+  }
+
+  .trust_row {
+    margin-top: 6px
+    flex-wrap: wrap
+    gap: 6px
+  }
+
+  .trust_item {
+    padding: 4px 6px
+    font-size: 8px
+  }
+}
+
+viewport regular {
+  .hero_title {
+    font-size: 31px
+  }
+}

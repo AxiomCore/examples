@@ -1,0 +1,15 @@
+module examples.flowspace.project_management.ui.components.app_mark
+
+component AppMark() {
+  view {
+    View(class: "brand_lockup") {
+      View(class: "brand_mark") {
+        Text("F", class: "brand_letter")
+      }
+      View {
+        Text("FLOWSPACE", class: "brand_name")
+        Text("PROJECT OPERATING SYSTEM", class: "brand_caption")
+      }
+    }
+  }
+}
