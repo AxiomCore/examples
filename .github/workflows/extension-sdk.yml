@@ -35,8 +35,10 @@ jobs:
           path: axiom-extension-sdk
           persist-credentials: false
       - uses: actions/setup-python@v6
+        id: python
         with:
-          python-version: '3.12'
+          # The released Axiom Python frontend requires this exact patch level.
+          python-version: '3.12.11'
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -52,6 +54,8 @@ jobs:
             --bin-dir "$RUNNER_TEMP/axiom-bin" \
             --extractor-dir "$HOME/.acore/bin"
       - name: Install and check all extension example SDKs
+        env:
+          AXIOM_PYTHON_COMPILER: ${{ steps.python.outputs.python-path }}
         run: |
           python examples/scripts/verify_extension_sdks.py \
             --sdk-root axiom-extension-sdk \
