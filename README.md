@@ -82,7 +82,9 @@ python3.12 scripts/verify_extension_sdks.py --sdk-root ../axiom-extension-sdk --
 ```
 
 The setup script writes generated Rust bindings under `.axiom/ide`, TypeScript
-declarations under `node_modules`, and Python stubs beside the source. Those
+declarations under `node_modules`, and Python stubs beside the source. The
+Python stubs come directly from the SDK's read-only `.acore` boundary scan;
+the released CLI still validates Python source at production build time. Those
 generated files are ignored; rerun setup when an `.acore` boundary or
 `AxiomDeps.toml` permission changes. After SDK packages reach their registries,
 replace local-path dependencies with exact published versions and update the
