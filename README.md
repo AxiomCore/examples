@@ -39,7 +39,8 @@ The second contract intentionally removes a projected field; treat that as a con
 
 ## Release verification
 
-The [example workflow](.github/workflows/smoke.yml) runs after each release
+The [Acore smoke workflow](.github/workflows/smoke.yml) and
+[extension SDK workflow](.github/workflows/extension-sdk.yml) run after each release
 train (including subset releases), on pull requests, and on pushes to `main`.
 It selects the newest stable CLI release with a macOS ARM64 archive, verifies
 the published SHA-256 digest, and does the same for the Go and FastAPI
@@ -52,18 +53,40 @@ web entry point, HTTP-probes every Acore web UI, validates both domain
 examples, and checks the strict-security fixture fails for the expected
 reason. The npm and Flutter demo clients remain available for manual or
 target-specific checks, but are not part of this release-triggered test.
-Native-only gallery variants are not treated as web examples; the
-extension-language source fixtures still require a development CLI and
-receive a source-presence audit only.
+Native-only gallery variants are not treated as web examples. The extension
+SDK job checks the three live Rust projects plus the TypeScript and Python
+source fixtures against installed SDKs, generated editor bindings, committed
+locks, and their language type-checkers. This is not a runtime WASM test.
 
 Three Acore web examples (`axiom-project-management-app`,
 `axiom-shopping-app`, and `extension-sandbox`) use authored Rust extensions.
-The currently published CLI resolves the Rust SDK from a build-machine path,
-so clean hosted runners validate their dependency manifests and Acore UI
-source but cannot run their web hosts. This is explicitly marked
+The currently published CLI may still use a build-machine SDK path, so the
+Acore smoke job validates manifests and Acore UI source but does not claim
+those web hosts ran. This is explicitly marked
 `SOURCE-ONLY` in CI, not reported as a runtime pass. Local `laxiom` checks
 exercise the full extension builds and web hosts. Remove the temporary
 `AXIOM_EXTENSION_TEST_MODE` setting once a portable CLI is published.
+
+## Extension SDK development setup
+
+Until the first SDK registry publication, clone
+[`axiom-extension-sdk`](https://github.com/AxiomCore/axiom-extension-sdk)
+beside this `examples` checkout. The five live extension examples have ordinary
+Cargo, npm, or uv manifests with relative paths to that sibling checkout;
+their lockfiles are committed. Install and regenerate editor bindings with:
+
+```sh
+npm ci --prefix ../axiom-extension-sdk/typescript
+npm run build --prefix ../axiom-extension-sdk/typescript
+python3.12 scripts/verify_extension_sdks.py --sdk-root ../axiom-extension-sdk --cli laxiom
+```
+
+The setup script writes generated Rust bindings under `.axiom/ide`, TypeScript
+declarations under `node_modules`, and Python stubs beside the source. Those
+generated files are ignored; rerun setup when an `.acore` boundary or
+`AxiomDeps.toml` permission changes. After SDK packages reach their registries,
+replace local-path dependencies with exact published versions and update the
+locks together.
 
 For local reproduction with the workspace CLI:
 

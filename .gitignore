@@ -3,6 +3,11 @@
 **/node_modules/
 **/.dart_tool/
 **/.venv/
+**/__pycache__/
+**/*.pyc
+**/target/
+**/.axiom/ide/
+**/axiom_bindings.pyi
 /.local-generated/
 **/build/
 **/dist/

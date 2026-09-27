@@ -1,0 +1,59 @@
+name: Verify extension SDK examples
+
+on:
+  repository_dispatch:
+    types: [axiom-release-verified]
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: extension-examples-${{ github.event.client_payload.train_id || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  installed-sdks:
+    runs-on: macos-15
+    timeout-minutes: 45
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_INCREMENTAL: '0'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: examples
+          persist-credentials: false
+      - uses: actions/checkout@v6
+        with:
+          repository: AxiomCore/axiom-extension-sdk
+          ref: 9bdd53f3c8b720752c325d844f973d9e5d0755ad
+          path: axiom-extension-sdk
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: astral-sh/setup-uv@v6
+      - name: Build the local TypeScript SDK package
+        run: |
+          npm ci --ignore-scripts --prefix axiom-extension-sdk/typescript
+          npm run build --prefix axiom-extension-sdk/typescript
+      - name: Install latest verified CLI
+        run: |
+          python examples/scripts/install_released_toolchain.py \
+            --bin-dir "$RUNNER_TEMP/axiom-bin" \
+            --extractor-dir "$HOME/.acore/bin"
+      - name: Install and check all extension example SDKs
+        run: |
+          python examples/scripts/verify_extension_sdks.py \
+            --sdk-root axiom-extension-sdk \
+            --cli "$RUNNER_TEMP/axiom-bin/axiom"
+          git -C examples diff --exit-code

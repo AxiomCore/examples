@@ -1,0 +1,1 @@
+{"name":"axiom-extension-project","private":true,"type":"module","devDependencies":{"@axiomcore/extension-sdk":"file:../../../axiom-extension-sdk/typescript","typescript":"7.0.2"}}

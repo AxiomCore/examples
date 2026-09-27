@@ -1,0 +1,15 @@
+module examples.extensions.python.boundary.ui
+
+page PricingBoundary {
+  state cart {
+    subtotal_cents: Int = 1000
+    discount_cents: Int = 0
+    total_cents: Int = 1000
+  }
+
+  view {
+    Page {
+      Text("Python extension boundary")
+    }
+  }
+}

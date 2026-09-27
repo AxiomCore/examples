@@ -1,0 +1,19 @@
+version = 1
+revision = 3
+requires-python = ">=3.12"
+
+[[package]]
+name = "axiom-extension-project"
+version = "0.0.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "axiom-extension-sdk" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "axiom-extension-sdk", directory = "../../../axiom-extension-sdk/python" }]
+
+[[package]]
+name = "axiom-extension-sdk"
+version = "0.1.0"
+source = { directory = "../../../axiom-extension-sdk/python" }

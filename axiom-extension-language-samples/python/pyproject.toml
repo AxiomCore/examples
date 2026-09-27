@@ -1,0 +1,8 @@
+[project]
+name = "axiom-extension-project"
+version = "0.0.0"
+requires-python = ">=3.12"
+dependencies = ["axiom-extension-sdk==0.1.0"]
+
+[tool.uv.sources]
+axiom-extension-sdk = { path = "../../../axiom-extension-sdk/python" }

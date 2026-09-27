@@ -1,0 +1,12 @@
+[package]
+name = "axiom-extension-project"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+axiom-extension-sdk = { path = "../../axiom-extension-sdk/rust/sdk", version = "=0.1.0" }
+
+[[example]]
+name = "axiom-checkout"
+path = ".axiom/ide/checkout/main.rs"
