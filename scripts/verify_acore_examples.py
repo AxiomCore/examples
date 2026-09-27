@@ -149,9 +149,8 @@ def main() -> int:
                        "security", "check", "axiom.acore"))
     results.append(run("security-mode-v1/expected-strict-rejection", ROOT / "security-mode-v1",
                        "security", "check", "axiom.unsafe.acore", expect="AXSEC-001"))
-    # Language-source extension fixtures require an unpublished development
-    # CLI. Their files are content-audited separately; they are not silently
-    # treated as released-CLI smoke tests.
+    # TypeScript/Python extension fixtures are compiled and type-checked in
+    # extension-sdk.yml; they are not silently counted as Acore web smoke tests.
     extension = ROOT / "axiom-extension-language-samples"
     results.append(all((extension / name).is_file() for name in (
         "python/pricing.py", "typescript/pricing.ts",

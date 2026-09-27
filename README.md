@@ -54,9 +54,9 @@ examples, and checks the strict-security fixture fails for the expected
 reason. The npm and Flutter demo clients remain available for manual or
 target-specific checks, but are not part of this release-triggered test.
 Native-only gallery variants are not treated as web examples. The extension
-SDK job checks the three live Rust projects plus the TypeScript and Python
-source fixtures against installed SDKs, generated editor bindings, committed
-locks, and their language type-checkers. This is not a runtime WASM test.
+SDK job installs the three Rust, one TypeScript, and one Python SDK examples
+from crates.io, npm, and PyPI using committed locks. It checks generated editor
+bindings and language compilation. This is not a runtime WASM test.
 
 Three Acore web examples (`axiom-project-management-app`,
 `axiom-shopping-app`, and `extension-sandbox`) use authored Rust extensions.
@@ -67,17 +67,16 @@ those web hosts ran. This is explicitly marked
 exercise the full extension builds and web hosts. Remove the temporary
 `AXIOM_EXTENSION_TEST_MODE` setting once a portable CLI is published.
 
-## Extension SDK development setup
+## Extension SDK verification
 
-Until the first SDK registry publication, clone
+The five live extension examples pin published SDK versions in their Cargo,
+npm, and uv manifests and lockfiles. The
 [`axiom-extension-sdk`](https://github.com/AxiomCore/axiom-extension-sdk)
-beside this `examples` checkout. The five live extension examples have ordinary
-Cargo, npm, or uv manifests with relative paths to that sibling checkout;
-their lockfiles are committed. Install and regenerate editor bindings with:
+checkout is needed only for its binding-generation helper, not as a package
+source. From a workspace with that checkout beside `examples`, install the
+registry packages and regenerate editor bindings with:
 
 ```sh
-npm ci --prefix ../axiom-extension-sdk/typescript
-npm run build --prefix ../axiom-extension-sdk/typescript
 python3.12 scripts/verify_extension_sdks.py --sdk-root ../axiom-extension-sdk --cli laxiom
 ```
 
@@ -86,9 +85,8 @@ declarations under `node_modules`, and Python stubs beside the source. The
 Python stubs come directly from the SDK's read-only `.acore` boundary scan;
 the released CLI still validates Python source at production build time. Those
 generated files are ignored; rerun setup when an `.acore` boundary or
-`AxiomDeps.toml` permission changes. After SDK packages reach their registries,
-replace local-path dependencies with exact published versions and update the
-locks together.
+`AxiomDeps.toml` permission changes. Update exact package versions and all
+affected lockfiles together when testing a new SDK release.
 
 For local reproduction with the workspace CLI:
 

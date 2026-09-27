@@ -5,7 +5,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-axiom-extension-sdk = { path = "../../../axiom-extension-sdk/rust/sdk", version = "=0.1.0" }
+axiom-extension-sdk = "=0.1.0"
 
 [[example]]
 name = "axiom-risk"

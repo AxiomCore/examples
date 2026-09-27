@@ -31,6 +31,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           repository: AxiomCore/axiom-extension-sdk
+          # The helper is pinned; package bytes come from Cargo, npm and PyPI.
           ref: f4c5ac2818b4d49a36b11b7de31e766e598db646
           path: axiom-extension-sdk
           persist-credentials: false
@@ -42,10 +43,6 @@ jobs:
           node-version: '24'
       - uses: dtolnay/rust-toolchain@stable
       - uses: astral-sh/setup-uv@v6
-      - name: Build the local TypeScript SDK package
-        run: |
-          npm ci --ignore-scripts --prefix axiom-extension-sdk/typescript
-          npm run build --prefix axiom-extension-sdk/typescript
       - name: Install latest verified CLI
         run: |
           python examples/scripts/install_released_toolchain.py \

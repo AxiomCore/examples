@@ -5,6 +5,8 @@ version = 4
 [[package]]
 name = "axiom-extension-abi"
 version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "89be520a3998770c2b74bd6a2f3b408461cff0efc88b2d6e489f4e81d6164edc"
 dependencies = [
  "postcard",
  "serde",
@@ -20,6 +22,8 @@ dependencies = [
 [[package]]
 name = "axiom-extension-sdk"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "63c3cc1824919dd24a7b95a70c6e3461e3b77298ebf6415c60cc7f684f4fe513"
 dependencies = [
  "axiom-extension-abi",
  "axiom-extension-sdk-derive",
@@ -28,6 +32,8 @@ dependencies = [
 [[package]]
 name = "axiom-extension-sdk-derive"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9988d895032c2b1cffb2181237c9f726704d8c2ad2df69e7d528389cc617cfd"
 dependencies = [
  "proc-macro2",
  "quote",

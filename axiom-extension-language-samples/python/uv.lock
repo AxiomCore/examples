@@ -11,9 +11,13 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "axiom-extension-sdk", directory = "../../../axiom-extension-sdk/python" }]
+requires-dist = [{ name = "axiom-extension-sdk", specifier = "==0.1.0" }]
 
 [[package]]
 name = "axiom-extension-sdk"
 version = "0.1.0"
-source = { directory = "../../../axiom-extension-sdk/python" }
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/59/00/5996035cb034414912cb15766cfa0a71061c8f62e5a0a5025a24520d83ae/axiom_extension_sdk-0.1.0.tar.gz", hash = "sha256:092c8b90921228d6d07c50e5bc8e3b8f8b593cd6ac43a17226aa9e898d2c9ebb", size = 6263, upload-time = "2026-09-27T06:37:14.422Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/86/38/f4a0cc09e5956551a10de366f996a419e2315f902c4677e1547ea922864c/axiom_extension_sdk-0.1.0-py3-none-any.whl", hash = "sha256:deb21ecaa8d872225426e7725e79e76bf63867aab3b0cdeb8dd303172d6f1800", size = 7294, upload-time = "2026-09-27T06:37:13.471Z" },
+]
