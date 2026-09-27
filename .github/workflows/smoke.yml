@@ -23,9 +23,6 @@ jobs:
     env:
       AXIOM_CLOUD_URL: http://127.0.0.1:8000
       AXIOM_UI_WEB_NO_OPEN: '1'
-      # The portable CLI fetches only the SDK's pinned crates, then builds
-      # extension guests offline in the sandbox.
-      AXIOM_EXTENSION_FETCH_LOCKED_DEPS: '1'
       # The current published CLI resolves Rust extension SDK sources from its
       # build machine. Keep source/manifest checks until a portable CLI ships.
       AXIOM_EXTENSION_TEST_MODE: source-only
