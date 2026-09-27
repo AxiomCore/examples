@@ -62,7 +62,9 @@ Three Acore web examples (`axiom-project-management-app`,
 `axiom-shopping-app`, and `extension-sandbox`) use authored Rust extensions.
 Since CLI v0.147.2, the released-CLI Acore smoke job compiles and exercises
 these three web hosts instead of using a source-only check. A failed extension
-build is a failed release smoke test.
+build is a failed release smoke test. CI first fetches each project's committed
+Cargo lockfile dependencies from crates.io because the CLI compiles guests
+offline; that fetch does not change the locks or substitute local SDK sources.
 
 ## Extension SDK verification
 
