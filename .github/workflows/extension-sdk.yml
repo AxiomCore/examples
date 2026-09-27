@@ -35,15 +35,19 @@ jobs:
           path: axiom-extension-sdk
           persist-credentials: false
       - uses: actions/setup-python@v6
-        id: python
         with:
-          # The released Axiom Python frontend requires this exact patch level.
-          python-version: '3.12.11'
+          python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
       - uses: dtolnay/rust-toolchain@stable
       - uses: astral-sh/setup-uv@v6
+      - name: Install the pinned Axiom Python compiler
+        run: |
+          uv python install 3.12.11
+          compiler="$(uv python find 3.12.11)"
+          test "$("$compiler" --version)" = 'Python 3.12.11'
+          echo "AXIOM_PYTHON_COMPILER=$compiler" >> "$GITHUB_ENV"
       - name: Build the local TypeScript SDK package
         run: |
           npm ci --ignore-scripts --prefix axiom-extension-sdk/typescript
@@ -54,8 +58,6 @@ jobs:
             --bin-dir "$RUNNER_TEMP/axiom-bin" \
             --extractor-dir "$HOME/.acore/bin"
       - name: Install and check all extension example SDKs
-        env:
-          AXIOM_PYTHON_COMPILER: ${{ steps.python.outputs.python-path }}
         run: |
           python examples/scripts/verify_extension_sdks.py \
             --sdk-root axiom-extension-sdk \
