@@ -60,12 +60,9 @@ bindings and language compilation. This is not a runtime WASM test.
 
 Three Acore web examples (`axiom-project-management-app`,
 `axiom-shopping-app`, and `extension-sandbox`) use authored Rust extensions.
-The currently published CLI may still use a build-machine SDK path, so the
-Acore smoke job validates manifests and Acore UI source but does not claim
-those web hosts ran. This is explicitly marked
-`SOURCE-ONLY` in CI, not reported as a runtime pass. Local `laxiom` checks
-exercise the full extension builds and web hosts. Remove the temporary
-`AXIOM_EXTENSION_TEST_MODE` setting once a portable CLI is published.
+Since CLI v0.147.2, the released-CLI Acore smoke job compiles and exercises
+these three web hosts instead of using a source-only check. A failed extension
+build is a failed release smoke test.
 
 ## Extension SDK verification
 
