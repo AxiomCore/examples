@@ -39,7 +39,7 @@ override endpoint Routes.protected_multi {
       required: true,
       condition: "or",
       methods: [
-        AuthMethodDef(type: "bearer", name: "Authorization", location: "header"),
+        AuthMethodDef(type: "bearer", name: "Authorization", scheme: "Bearer", location: "header"),
         AuthMethodDef(type: "api_key", name: "x-api-key", location: "header")
       ]
     ))

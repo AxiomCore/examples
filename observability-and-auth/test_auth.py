@@ -112,6 +112,7 @@ class AuthTests(unittest.TestCase):
         self.assertEqual(endpoints['protected_jwt']['auth']['scopes'], ['items:read'])
         self.assertEqual(endpoints['protected_jwt']['auth']['methods'][0]['validation']['secret'], server.SECRET_KEY)
         self.assertEqual(endpoints['protected_multi']['auth']['condition'], 'or')
+        self.assertEqual(endpoints['protected_multi']['auth']['methods'][0]['scheme'], 'Bearer')
         generated = (root / 'example/lib/axiom_generated/axiom_sdk.dart').read_text()
         self.assertIn('endpointId: ' + str(endpoints['login']['id']) + ',', generated)
         ui = (root / 'example/lib/main.dart').read_text()
