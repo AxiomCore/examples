@@ -91,13 +91,13 @@ class _AuthTesterScreenState extends State<AuthTesterScreen> {
   }
 
   void _setApiKeyHeader() {
-    sdk.authObsTest.setAuthToken('x-api-key', 'secret-key-123');
+    sdk.authObsTest.setAuthToken('x-api-key', 'development-only-api-key');
     _clearLog();
     _log("API Key Header set in Rust engine.");
   }
 
   void _setApiKeyQuery() {
-    sdk.authObsTest.setAuthToken('api_key', 'secret-key-123');
+    sdk.authObsTest.setAuthToken('api_key', 'development-only-api-key');
     _clearLog();
     _log("API Key Query set in Rust engine.");
   }

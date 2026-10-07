@@ -1,0 +1,5 @@
+# Python 3.12; local fixture runtime and direct-HTTP tests
+fastapi==0.142.2
+PyJWT==2.15.1
+httpx==0.28.1
+uvicorn==0.54.0
