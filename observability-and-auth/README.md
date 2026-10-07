@@ -29,6 +29,6 @@ Run direct HTTP regressions (they bypass every Axiom client):
 .venv/bin/python -m unittest discover -s . -p test_auth.py -v
 ```
 
-Keep client validation separate: `axiom check axiom.acore --json` checks the current contract; the Flutter widget test remains under `example/test/`. Generate/rebuild the contract and SDK for the selected runtime before a client integration run. A widget rendering test alone does not prove network authorization. The committed historical `.axiom` is legacy example data and is not a certification of current reader support.
+Keep client validation separate: `axiom check axiom.acore --json` checks the current contract; the Flutter widget test remains under `example/test/`. Generate/rebuild the contract and SDK for the selected runtime before a client integration run. A widget rendering test alone does not prove network authorization. The committed `.axiom` was rebuilt from this contract with the corrected CLI; its login endpoint ID is aligned in the generated Dart adapter. Rebuild to a named output such as `backend.axiom`, then copy the exact bytes to `.axiom` for this example’s asset configuration.
 
 Dependency references: [PyJWT verification](https://pyjwt.readthedocs.io/en/stable/usage.html), [FastAPI lifespan testing](https://fastapi.tiangolo.com/advanced/testing-events/).

@@ -1,5 +1,7 @@
 """Direct HTTP regression tests; these intentionally bypass all Axiom clients."""
 import copy
+import json
+from pathlib import Path
 import logging
 import os
 import time
@@ -102,6 +104,18 @@ class AuthTests(unittest.TestCase):
                     response = self.client.get("/protected/multi", headers=headers)
                     self.assertEqual(response.status_code, 200 if bi == 2 or ki == 2 else 401)
                     self.assertNotIn(server.API_KEY, response.text)
+
+    def test_committed_contract_client_alignment(self):
+        root = Path(__file__).parent
+        artifact = json.loads((root / '.axiom').read_text())
+        endpoints = artifact['ir']['endpoints']
+        self.assertEqual(endpoints['protected_jwt']['auth']['scopes'], ['items:read'])
+        self.assertEqual(endpoints['protected_jwt']['auth']['methods'][0]['validation']['secret'], server.SECRET_KEY)
+        self.assertEqual(endpoints['protected_multi']['auth']['condition'], 'or')
+        generated = (root / 'example/lib/axiom_generated/axiom_sdk.dart').read_text()
+        self.assertIn('endpointId: ' + str(endpoints['login']['id']) + ',', generated)
+        ui = (root / 'example/lib/main.dart').read_text()
+        self.assertEqual(ui.count("'" + server.API_KEY + "'"), 2)
 
     def test_login_issues_verifiable_synthetic_token(self):
         response = self.client.post("/login")
