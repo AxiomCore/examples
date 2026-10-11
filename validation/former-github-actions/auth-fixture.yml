@@ -1,0 +1,20 @@
+name: Auth fixture direct HTTP checks
+on:
+  push:
+    paths: ['observability-and-auth/**', '.github/workflows/auth-fixture.yml']
+  pull_request:
+    paths: ['observability-and-auth/**', '.github/workflows/auth-fixture.yml']
+permissions:
+  contents: read
+jobs:
+  direct-http:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12.11'
+      - run: python -m pip install --require-hashes -r observability-and-auth/requirements.lock
+      - run: python -m unittest discover -s observability-and-auth -p test_auth.py -v
