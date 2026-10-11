@@ -92,7 +92,7 @@ def smoke_server(label: str, directory: Path, source: str, *, web: bool) -> bool
 
 def main() -> int:
     roots = {path.name for path in ROOT.iterdir() if path.is_dir() and not path.name.startswith(".")
-             and path.name != "scripts"}
+             and path.name not in {"scripts", "validation"}}
     if roots != EXPECTED_ROOTS:
         print(f"Example coverage changed: added={sorted(roots - EXPECTED_ROOTS)}, "
               f"removed={sorted(EXPECTED_ROOTS - roots)}", flush=True)
