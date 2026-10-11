@@ -70,7 +70,7 @@ class AuthObsTestModule {
       };
       return _runtime.send<dynamic>(
         namespace: _namespace,
-        endpointId: 0,
+        endpointId: 4166688716,
         method: 'POST',
         path: '/login',
         args: argsMap,
