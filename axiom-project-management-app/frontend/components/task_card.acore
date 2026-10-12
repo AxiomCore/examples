@@ -1,6 +1,6 @@
 module examples.flowspace.project_management.ui.components.task_card
 
-component TaskCard(task: Task, on_open: Action) {
+component TaskCard(task: Workspace.taskMemberCard, on_open: Action) {
   view {
     View(class: "task_card") {
       View(class: "task_check") {

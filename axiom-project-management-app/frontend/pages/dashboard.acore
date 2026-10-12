@@ -111,10 +111,10 @@ page Dashboard {
               View(class: "notice error_notice") { Text("Workspace summary is temporarily unavailable.") }
             } else {
               View(class: "metric_grid") {
-                MetricTile(label: "Active projects", value: overview.data.active_projects, meta: "Across one workspace")
-                MetricTile(label: "Tasks", value: overview.data.total_tasks, meta: "Live backend total")
-                MetricTile(label: "Blocked", value: overview.data.blocked_tasks, meta: "Needs attention today")
-                MetricTile(label: "Team", value: overview.data.team_members, meta: "6 currently online")
+                MetricTile(label: "Active projects", value: (overview.data?.active_projects ?? 0), meta: "Across one workspace")
+                MetricTile(label: "Tasks", value: (overview.data?.total_tasks ?? 0), meta: "Live backend total")
+                MetricTile(label: "Blocked", value: (overview.data?.blocked_tasks ?? 0), meta: "Needs attention today")
+                MetricTile(label: "Team", value: (overview.data?.team_members ?? 0), meta: "6 currently online")
               }
             }
 
@@ -203,7 +203,7 @@ page Dashboard {
 
                 View(class: "focus_card") {
                   Text("NEXT BEST ACTION", class: "rail_kicker")
-                  if overview.data.blocked_tasks > 1 {
+                  if (overview.data?.blocked_tasks ?? 0) > 1 {
                     Text("Review component contracts", class: "focus_title")
                     Text("This task is blocking the Atlas design system release.", class: "focus_copy")
                     ActionButton(

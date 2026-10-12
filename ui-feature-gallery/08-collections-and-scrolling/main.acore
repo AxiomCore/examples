@@ -1,5 +1,7 @@
 module phase2.collections.scrolling.ui
 
+model Task {id: String, title: String, kind: String}
+
 styles {
   variables {
     ink: #10223a

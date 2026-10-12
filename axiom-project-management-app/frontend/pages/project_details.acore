@@ -30,11 +30,11 @@ page ProjectDetails {
               View(class: "detail_hero") {
                 View(class: "detail_hero_copy") {
                   View(class: "project_card_top") {
-                    Text(project.data.code, class: "detail_code")
-                    Text(project.data.status, class: "status_pill light_status")
+                    Text((project.data?.code ?? ""), class: "detail_code")
+                    Text((project.data?.status ?? ""), class: "status_pill light_status")
                   }
-                  Text(project.data.name, class: "detail_title")
-                  Text(project.data.description, class: "detail_description")
+                  Text((project.data?.name ?? ""), class: "detail_title")
+                  Text((project.data?.description ?? ""), class: "detail_description")
                   View(class: "detail_actions") {
                     Button(class: "light_button", label: "Open timeline", on_press: open_timeline, accessibility_label: "Open project timeline")
                     Button(class: "outline_light_button", label: "+ Add task", on_press: open_create, accessibility_label: "Add project task")
@@ -42,17 +42,17 @@ page ProjectDetails {
                 }
                 View(class: "detail_progress") {
                   View(class: "progress_value_row") {
-                    Text(value: project.data.progress, class: "detail_progress_value")
+                    Text(value: (project.data?.progress ?? 0), class: "detail_progress_value")
                     Text("%", class: "detail_progress_suffix")
                   }
                   Text("PERCENT COMPLETE", class: "detail_progress_label")
-                  Text(project.data.members_label, class: "detail_members")
+                  Text((project.data?.members_label ?? ""), class: "detail_members")
                 }
               }
               View(class: "detail_metrics") {
-                View(class: "detail_metric") { Text("OPEN TASKS", class: "metric_label") Text(value: project.data.task_count, class: "detail_metric_value") }
-                View(class: "detail_metric") { Text("NEXT MILESTONE", class: "metric_label") Text(project.data.due_label, class: "detail_metric_text") }
-                View(class: "detail_metric") { Text("DELIVERY", class: "metric_label") Text(project.data.status, class: "detail_metric_text") }
+                View(class: "detail_metric") { Text("OPEN TASKS", class: "metric_label") Text(value: (project.data?.task_count ?? 0), class: "detail_metric_value") }
+                View(class: "detail_metric") { Text("NEXT MILESTONE", class: "metric_label") Text((project.data?.due_label ?? ""), class: "detail_metric_text") }
+                View(class: "detail_metric") { Text("DELIVERY", class: "metric_label") Text((project.data?.status ?? ""), class: "detail_metric_text") }
               }
             }
 

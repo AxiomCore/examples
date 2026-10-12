@@ -1,5 +1,7 @@
 module phase2.closure.catalog.ui
 
+model Task {id: String, title: String}
+
 styles {
   .screen {
     width: 100%

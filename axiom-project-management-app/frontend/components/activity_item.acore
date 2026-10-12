@@ -1,6 +1,6 @@
 module examples.flowspace.project_management.ui.components.activity_item
 
-component ActivityItem(activity: Activity) {
+component ActivityItem(activity: Workspace.activityMemberFeed) {
   view {
     View(class: "activity_item") {
       View(class: "activity_dot") {}

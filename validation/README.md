@@ -19,6 +19,14 @@ python3.12 -m unittest discover -s scripts -p "test_*.py"
 # locally after verified publication, using an isolated release-SSD workspace.
 ```
 
+Frontend component props use the contract alias's audience-visible models
+(for example, `Workspace.taskMemberCard` and `Shop.productShopper`). A query's
+nullable `data` is read with optional access and explicit defaults. Gallery
+collection fixtures declare their local `Task` models before using them in
+typed lists. The package composition example uses neutral accessibility
+metadata supported by the package reader and pins the matching export and
+artifact hashes in `AxiomPackages.lock`.
+
 `former-github-actions/` preserves the previous command recipes for reference;
 these files are outside GitHub's workflow directory and cannot start Actions.
 Setup steps and GitHub expressions in those recipes are historical, not a
