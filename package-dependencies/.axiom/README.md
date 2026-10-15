@@ -1,0 +1,1 @@
+This directory is reserved for Axiom-generated project state. Keeping the directory in a clean example checkout lets the package development server watch its lock-file location before the first generated lock is written.

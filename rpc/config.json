@@ -1,7 +1,7 @@
 {
   "contracts": {
     "rpc": {
-      "file": "./.axiom",
+      "file": "./backend.axiom",
       "baseUrl": "http://localhost:8000"
     }
   }

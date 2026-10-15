@@ -107,7 +107,7 @@ class AuthTests(unittest.TestCase):
 
     def test_committed_contract_client_alignment(self):
         root = Path(__file__).parent
-        artifact = json.loads((root / '.axiom').read_text())
+        artifact = json.loads((root / 'backend.axiom').read_text())
         endpoints = artifact['ir']['endpoints']
         self.assertEqual(endpoints['protected_jwt']['auth']['scopes'], ['items:read'])
         self.assertEqual(endpoints['protected_jwt']['auth']['methods'][0]['validation']['secret'], server.SECRET_KEY)

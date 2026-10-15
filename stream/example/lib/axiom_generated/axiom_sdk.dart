@@ -14,7 +14,7 @@ class AxiomDefaultConfig {
     contracts: {
       'streamTest': AxiomContractConfig(
         baseUrl: 'http://localhost:8000',
-        assetPath: '../.axiom',
+        assetPath: '../backend.axiom',
       ),
     },
   );

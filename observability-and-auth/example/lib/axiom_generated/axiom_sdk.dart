@@ -14,7 +14,7 @@ class AxiomDefaultConfig {
     contracts: {
       'authObsTest': AxiomContractConfig(
         baseUrl: 'http://localhost:8000',
-        assetPath: '../.axiom',
+        assetPath: '../backend.axiom',
       ),
     },
   );

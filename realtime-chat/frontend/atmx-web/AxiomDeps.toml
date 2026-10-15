@@ -3,4 +3,4 @@ framework = "atmx-web"
 [contracts]
 
 [contracts.realtime-chat]
-source = "../../backend/go-chat/.axiom"
+source = "../../backend/go-chat/backend.axiom"

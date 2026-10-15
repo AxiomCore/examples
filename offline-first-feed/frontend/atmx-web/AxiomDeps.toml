@@ -1,5 +1,5 @@
 framework = "atmx-web"
 
 [contracts.feed]
-source = "../../backend/.axiom"
+source = "../../backend/backend.axiom"
 base_url = "http://localhost:8080"
