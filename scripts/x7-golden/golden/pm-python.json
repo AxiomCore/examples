@@ -1,5 +1,9 @@
 {
- "derivedExports": {},
+ "derivedExports": {
+  "risk": [
+   "assess_delivery_risk"
+  ]
+ },
  "format": "axiom-examples-x7-golden-record/v1",
  "interface": {
   "format": "axiom-sdk-interface-artifact/v1",
@@ -1650,10 +1654,10 @@
   "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9"
  },
  "moduleSha256": {
-  "android": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-  "ios": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-  "server": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-  "web": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2"
+  "android": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+  "ios": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+  "server": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+  "web": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93"
  },
  "scenarios": {
   "alias": "risk",
@@ -1664,7 +1668,7 @@
   "format": "axiom-examples-x7-golden/v1",
   "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
   "language": "python",
-  "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+  "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
   "scenarios": [
    {
     "host": {
@@ -1676,7 +1680,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -1687,7 +1691,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -1696,11 +1700,11 @@
       },
       {
        "authoritySha256": "<key-dependent>",
-       "event": "invocation-failed",
+       "event": "invocation-completed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-       "outcome": "failed",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+       "outcome": "completed",
        "profile": "backend",
        "sequence": 3,
        "target": "server",
@@ -1711,7 +1715,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -1719,8 +1723,32 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
-      "status": "rejected"
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Healthy"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 28
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "1 blocked · 5 open · deterministic score 28/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
      },
      "provenance": {
       "adapterVersion": "0.1.0",
@@ -1732,40 +1760,67 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
       "target": "server"
      },
-     "stateAudit": [],
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
      "teardown": "ok",
      "uiStateAfter": {
-      "revision": 1,
+      "revision": 2,
       "value": {
        "Record": [
         {
          "name": "engine_label",
          "value": {
-          "String": "Current profile · Rust"
+          "String": "Python · verified AOT WASM"
          }
         },
         {
          "name": "risk_label",
          "value": {
-          "String": "Not evaluated"
+          "String": "Healthy"
          }
         },
         {
          "name": "risk_score",
          "value": {
-          "Unsigned": 0
+          "Unsigned": 28
          }
         },
         {
          "name": "risk_summary",
          "value": {
-          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+          "String": "1 blocked · 5 open · deterministic score 28/100"
          }
         }
        ]
@@ -1773,13 +1828,82 @@
      }
     },
     "kernel": {
-     "error": {
-      "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
-      "retryable": false
-     },
+     "events": [],
      "invocationWireSha256": "8ffbe9f9a333310e27136521cea2209671b6d59725489857bcd666cafffa9455",
-     "step": "guest-failed"
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Healthy"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 28
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "1 blocked · 5 open · deterministic score 28/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 28
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Healthy"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "1 blocked · 5 open · deterministic score 28/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "Python · verified AOT WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 263,
+     "resultWireSha256": "66ff6346662f8711c6854d966a57fc33ec9cdc0e1963dc34e23defd31ec7d13e",
+     "step": "completed",
+     "transactions": []
     },
     "name": "healthy"
    },
@@ -1793,7 +1917,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -1804,7 +1928,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -1813,11 +1937,11 @@
       },
       {
        "authoritySha256": "<key-dependent>",
-       "event": "invocation-failed",
+       "event": "invocation-completed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-       "outcome": "failed",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+       "outcome": "completed",
        "profile": "backend",
        "sequence": 3,
        "target": "server",
@@ -1828,7 +1952,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -1836,8 +1960,32 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
-      "status": "rejected"
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Watch"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 56
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "2 blocked · 10 open · deterministic score 56/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
      },
      "provenance": {
       "adapterVersion": "0.1.0",
@@ -1849,40 +1997,67 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
       "target": "server"
      },
-     "stateAudit": [],
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
      "teardown": "ok",
      "uiStateAfter": {
-      "revision": 1,
+      "revision": 2,
       "value": {
        "Record": [
         {
          "name": "engine_label",
          "value": {
-          "String": "Current profile · Rust"
+          "String": "Python · verified AOT WASM"
          }
         },
         {
          "name": "risk_label",
          "value": {
-          "String": "Not evaluated"
+          "String": "Watch"
          }
         },
         {
          "name": "risk_score",
          "value": {
-          "Unsigned": 0
+          "Unsigned": 56
          }
         },
         {
          "name": "risk_summary",
          "value": {
-          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+          "String": "2 blocked · 10 open · deterministic score 56/100"
          }
         }
        ]
@@ -1890,13 +2065,82 @@
      }
     },
     "kernel": {
-     "error": {
-      "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
-      "retryable": false
-     },
+     "events": [],
      "invocationWireSha256": "c9ab6873653e334a702f18cb6c021a8ac5d56d1474b6b903aca7c6ff009f3608",
-     "step": "guest-failed"
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Watch"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 56
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "2 blocked · 10 open · deterministic score 56/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 56
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Watch"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "2 blocked · 10 open · deterministic score 56/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "Python · verified AOT WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 261,
+     "resultWireSha256": "fd07baf3bcd883207d71420d604e58600166a22a1d741a1356988213668d5005",
+     "step": "completed",
+     "transactions": []
     },
     "name": "watch"
    },
@@ -1910,7 +2154,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -1921,7 +2165,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -1930,11 +2174,11 @@
       },
       {
        "authoritySha256": "<key-dependent>",
-       "event": "invocation-failed",
+       "event": "invocation-completed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-       "outcome": "failed",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+       "outcome": "completed",
        "profile": "backend",
        "sequence": 3,
        "target": "server",
@@ -1945,7 +2189,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -1953,8 +2197,32 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
-      "status": "rejected"
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Critical"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 96
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "5 blocked · 3 open · deterministic score 96/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
      },
      "provenance": {
       "adapterVersion": "0.1.0",
@@ -1966,40 +2234,67 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
       "target": "server"
      },
-     "stateAudit": [],
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
      "teardown": "ok",
      "uiStateAfter": {
-      "revision": 1,
+      "revision": 2,
       "value": {
        "Record": [
         {
          "name": "engine_label",
          "value": {
-          "String": "Current profile · Rust"
+          "String": "Python · verified AOT WASM"
          }
         },
         {
          "name": "risk_label",
          "value": {
-          "String": "Not evaluated"
+          "String": "Critical"
          }
         },
         {
          "name": "risk_score",
          "value": {
-          "Unsigned": 0
+          "Unsigned": 96
          }
         },
         {
          "name": "risk_summary",
          "value": {
-          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+          "String": "5 blocked · 3 open · deterministic score 96/100"
          }
         }
        ]
@@ -2007,13 +2302,82 @@
      }
     },
     "kernel": {
-     "error": {
-      "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
-      "retryable": false
-     },
+     "events": [],
      "invocationWireSha256": "0dfdb482869401a4d0b0a51d21f8b9e3ce5f010ac75bdb5c1e2d6e0e2df3d914",
-     "step": "guest-failed"
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Critical"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 96
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "5 blocked · 3 open · deterministic score 96/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 96
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Critical"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "5 blocked · 3 open · deterministic score 96/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "Python · verified AOT WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 265,
+     "resultWireSha256": "9370688edd6e55c75606f6449ef613fa5bd283e5627762ec4b707c4a2753bc73",
+     "step": "completed",
+     "transactions": []
     },
     "name": "critical"
    },
@@ -2027,7 +2391,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -2038,7 +2402,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -2047,11 +2411,11 @@
       },
       {
        "authoritySha256": "<key-dependent>",
-       "event": "invocation-failed",
+       "event": "invocation-completed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-       "outcome": "failed",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+       "outcome": "completed",
        "profile": "backend",
        "sequence": 3,
        "target": "server",
@@ -2062,7 +2426,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -2070,8 +2434,32 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
-      "status": "rejected"
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Critical"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 96
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "10 blocked · 50 open · deterministic score 96/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
      },
      "provenance": {
       "adapterVersion": "0.1.0",
@@ -2083,40 +2471,67 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
       "target": "server"
      },
-     "stateAudit": [],
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
      "teardown": "ok",
      "uiStateAfter": {
-      "revision": 1,
+      "revision": 2,
       "value": {
        "Record": [
         {
          "name": "engine_label",
          "value": {
-          "String": "Current profile · Rust"
+          "String": "Python · verified AOT WASM"
          }
         },
         {
          "name": "risk_label",
          "value": {
-          "String": "Not evaluated"
+          "String": "Critical"
          }
         },
         {
          "name": "risk_score",
          "value": {
-          "Unsigned": 0
+          "Unsigned": 96
          }
         },
         {
          "name": "risk_summary",
          "value": {
-          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+          "String": "10 blocked · 50 open · deterministic score 96/100"
          }
         }
        ]
@@ -2124,13 +2539,82 @@
      }
     },
     "kernel": {
-     "error": {
-      "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
-      "retryable": false
-     },
+     "events": [],
      "invocationWireSha256": "a702f53c3c12608da3440a8011a2b7e540c2ee4b984221e9a9a34d3e7994e57b",
-     "step": "guest-failed"
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Critical"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 96
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "10 blocked · 50 open · deterministic score 96/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 96
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Critical"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "10 blocked · 50 open · deterministic score 96/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "Python · verified AOT WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 269,
+     "resultWireSha256": "20a70f01877a8d5e08a54050b394a103ea832e3bd68aeebb59045dbadd1cd92f",
+     "step": "completed",
+     "transactions": []
     },
     "name": "score clamped at 96"
    },
@@ -2144,7 +2628,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -2155,7 +2639,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -2164,11 +2648,11 @@
       },
       {
        "authoritySha256": "<key-dependent>",
-       "event": "invocation-failed",
+       "event": "invocation-completed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-       "outcome": "failed",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+       "outcome": "completed",
        "profile": "backend",
        "sequence": 3,
        "target": "server",
@@ -2179,7 +2663,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -2187,41 +2671,13 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
-      "status": "rejected"
-     },
-     "provenance": {
-      "adapterVersion": "0.1.0",
-      "application": "example.flowspace.project-management",
-      "applicationVersion": "0.1.0",
-      "authoritySha256": "<key-dependent>",
-      "engine": "axiom-python-aot-javy",
-      "engineVersion": "9.1.0+wasmi-2.0.0",
-      "extension": "local.risk",
-      "extensionVersion": "0.0.0-dev.0",
-      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
-      "profile": "backend",
-      "runtimeVersion": "0.1.0",
-      "schema": "axiom-extension-host/v1",
-      "target": "server"
-     },
-     "stateAudit": [],
-     "teardown": "ok",
-     "uiStateAfter": {
-      "revision": 1,
-      "value": {
+      "events": [],
+      "output": {
        "Record": [
-        {
-         "name": "engine_label",
-         "value": {
-          "String": "Current profile · Rust"
-         }
-        },
         {
          "name": "risk_label",
          "value": {
-          "String": "Not evaluated"
+          "String": "Healthy"
          }
         },
         {
@@ -2233,7 +2689,86 @@
         {
          "name": "risk_summary",
          "value": {
-          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+          "String": "0 blocked · 0 open · deterministic score 0/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "axiom-python-aot-javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "Python · verified AOT WASM"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Healthy"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "0 blocked · 0 open · deterministic score 0/100"
          }
         }
        ]
@@ -2241,13 +2776,82 @@
      }
     },
     "kernel": {
-     "error": {
-      "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
-      "retryable": false
-     },
+     "events": [],
      "invocationWireSha256": "fee81b129beceee720e1db46e88d18b1641229593b7337b4d230fbaf5c86f1cb",
-     "step": "guest-failed"
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Healthy"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 0
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "0 blocked · 0 open · deterministic score 0/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 0
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Healthy"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "0 blocked · 0 open · deterministic score 0/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "Python · verified AOT WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 261,
+     "resultWireSha256": "94af93c05e6824dbfd4a5a2f6e277d264abdfeef2182defcbcd195b752ec1c5a",
+     "step": "completed",
+     "transactions": []
     },
     "name": "more completed than total saturates at zero open"
    },
@@ -2261,7 +2865,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -2272,7 +2876,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -2284,7 +2888,7 @@
        "event": "invocation-failed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "failed",
        "profile": "backend",
        "sequence": 3,
@@ -2296,7 +2900,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -2304,7 +2908,7 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
+      "error": "guest extension failed: ExtensionError { code: Guest, message: \"authorized snapshot ui:forecast was not supplied\", retryable: false }",
       "status": "rejected"
      },
      "provenance": {
@@ -2317,7 +2921,7 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
@@ -2330,7 +2934,7 @@
     "kernel": {
      "error": {
       "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
+      "message": "authorized snapshot ui:forecast was not supplied",
       "retryable": false
      },
      "invocationWireSha256": "50cd191b7df20e08dc4a433e73eaadc4d3118fa568ae0c98c0344d4f3c2baf5e",
@@ -2348,7 +2952,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -2359,7 +2963,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -2371,7 +2975,7 @@
        "event": "invocation-failed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "failed",
        "profile": "backend",
        "sequence": 3,
@@ -2383,7 +2987,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -2404,7 +3008,7 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
@@ -2465,7 +3069,7 @@
        "event": "loaded",
        "invocationId": null,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "verified-python-and-loaded",
        "profile": "backend",
        "sequence": 1,
@@ -2476,7 +3080,7 @@
        "event": "invocation-started",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "accepted",
        "profile": "backend",
        "sequence": 2,
@@ -2488,7 +3092,7 @@
        "event": "invocation-failed",
        "invocationId": 1,
        "lifecycle": null,
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "failed",
        "profile": "backend",
        "sequence": 3,
@@ -2500,7 +3104,7 @@
        "event": "lifecycle-applied",
        "invocationId": null,
        "lifecycle": "app-shutdown",
-       "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+       "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
        "outcome": "cancelled-drained-and-torn-down",
        "profile": "backend",
        "sequence": 4,
@@ -2508,7 +3112,7 @@
       }
      ],
      "outcome": {
-      "error": "guest extension failed: ExtensionError { code: Guest, message: \"module initialisation failed: ModuleNotFoundError: No module named 'sandbox'\", retryable: false }",
+      "error": "AXIOM_EXTENSION_BROKER_CONFLICT: state/store revision conflict",
       "status": "rejected"
      },
      "provenance": {
@@ -2521,13 +3125,35 @@
       "extension": "local.risk",
       "extensionVersion": "0.0.0-dev.0",
       "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
-      "moduleSha256": "7580cc171c629b711a30b7b91d7c2b6f711a669e778e75e0c23040ed9b2908d2",
+      "moduleSha256": "1090a6dde73777a0aee3b8487349c4c8c6f17ea0febafe69775fd822d413bb93",
       "profile": "backend",
       "runtimeVersion": "0.1.0",
       "schema": "axiom-extension-host/v1",
       "target": "server"
      },
-     "stateAudit": [],
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "conflict",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
      "teardown": "ok",
      "uiStateAfter": {
       "revision": 1,
@@ -2562,13 +3188,82 @@
      }
     },
     "kernel": {
-     "error": {
-      "code": "Guest",
-      "message": "module initialisation failed: ModuleNotFoundError: No module named 'sandbox'",
-      "retryable": false
-     },
+     "events": [],
      "invocationWireSha256": "c77fec8887e40bcf84ad3b3ef2b3a19b7766e268bb4a3f5b99176236c5488d9d",
-     "step": "guest-failed"
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Healthy"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 28
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "1 blocked · 5 open · deterministic score 28/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 3,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 28
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Healthy"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "1 blocked · 5 open · deterministic score 28/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "Python · verified AOT WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 263,
+     "resultWireSha256": "06015c3d0512a1b9331ca3923937aa7416194f23d47faaec06b3e9eb0ed78585",
+     "step": "completed",
+     "transactions": []
     },
     "name": "stale snapshot revision is rejected by the host"
    }
