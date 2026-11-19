@@ -16,7 +16,7 @@
       },
       "ui": {
         "scope": "forecast",
-        "revision": 3,
+        "revision": 1,
         "read": [
           "engine_label",
           "risk_label",
@@ -46,7 +46,7 @@
       },
       "ui": {
         "scope": "forecast",
-        "revision": 3,
+        "revision": 1,
         "read": [
           "engine_label",
           "risk_label",
@@ -76,7 +76,7 @@
       },
       "ui": {
         "scope": "forecast",
-        "revision": 3,
+        "revision": 1,
         "read": [
           "engine_label",
           "risk_label",
@@ -106,7 +106,7 @@
       },
       "ui": {
         "scope": "forecast",
-        "revision": 3,
+        "revision": 1,
         "read": [
           "engine_label",
           "risk_label",
@@ -136,7 +136,7 @@
       },
       "ui": {
         "scope": "forecast",
-        "revision": 3,
+        "revision": 1,
         "read": [
           "engine_label",
           "risk_label",
@@ -169,6 +169,36 @@
     {
       "name": "unknown export is rejected",
       "export": "assess",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 20,
+        "completed_tasks": 15,
+        "blocked_tasks": 1,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 1,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    },
+    {
+      "name": "stale snapshot revision is rejected by the host",
+      "export": "assess_delivery_risk",
       "input": {
         "id": "northstar",
         "workspace_name": "Northstar Studio",
