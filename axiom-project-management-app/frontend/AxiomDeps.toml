@@ -22,9 +22,8 @@ allowUnsupportedPackageForms = false
 [extensions.risk]
 language = "rust"
 source = "sandbox/risk_forecast.rs"
-exports = ["assess_delivery_risk"]
 targets = ["android", "ios", "web", "server"]
 
-[extensions.risk.permissions.ui-state.forecast]
+[extensions.risk.permissions.ui.forecast]
 read = ["engine_label", "risk_label", "risk_score", "risk_summary"]
 write = ["engine_label", "risk_label", "risk_score", "risk_summary"]

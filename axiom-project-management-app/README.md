@@ -41,11 +41,22 @@ The local `.axiom` artifact is intentionally unsigned for development, so `AUI05
 
 ## Switch the extension language
 
-The UI always imports:
+The UI always imports the extension once, by its `AxiomDeps.toml` alias, and
+names the fields the call may write:
 
 ```acore
-use extension RiskAnalyzer from "risk" export "assess_delivery_risk"
+use extension risk
+
+action assess_risk() writes forecast { engine_label, risk_label, risk_score, risk_summary } {
+  risk.assess_delivery_risk(overview.data)
+  risk_requested = true
+}
 ```
+
+The Rust and Python profiles list no `exports`: the build derives them from the
+guest (`#[export]` methods, `@extension.export` functions) and records them in
+`AxiomDeps.lock`. TypeScript exports are dispatched dynamically, so
+`profiles/typescript.toml` keeps `exports = ["assess_delivery_risk"]`.
 
 Choose the implementation before launching:
 

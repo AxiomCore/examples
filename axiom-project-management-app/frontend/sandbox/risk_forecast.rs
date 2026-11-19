@@ -1,3 +1,5 @@
+#![deny(deprecated)]
+
 use crate::axiom_bindings::ui::Forecast;
 use axiom_extension_sdk::prelude::*;
 

@@ -40,7 +40,7 @@ page Dashboard {
     forecast.engine_label = "Previous assessment invalidated by a verified mutation"
     risk_requested = false
   }
-  action assess_risk() {
+  action assess_risk() writes forecast { engine_label, risk_label, risk_score, risk_summary } {
     risk.assess_delivery_risk(overview.data)
     risk_requested = true
   }

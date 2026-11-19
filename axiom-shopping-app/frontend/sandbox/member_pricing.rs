@@ -1,3 +1,5 @@
+#![deny(deprecated)]
+
 use crate::axiom_bindings::ui::Cart;
 use axiom_extension_sdk::prelude::*;
 

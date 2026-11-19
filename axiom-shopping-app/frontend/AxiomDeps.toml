@@ -30,7 +30,6 @@ allowUnsupportedPackageForms = false
 [extensions.pricing]
 language = "rust"
 source = "sandbox/member_pricing.rs"
-exports = ["apply_member_price"]
 targets = [
     "android",
     "ios",
@@ -38,7 +37,7 @@ targets = [
     "server",
 ]
 
-[extensions.pricing.permissions.ui-state.cart]
+[extensions.pricing.permissions.ui.cart]
 read = ["subtotal_cents"]
 write = [
     "discount_cents",
