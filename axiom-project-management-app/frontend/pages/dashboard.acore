@@ -41,7 +41,7 @@ page Dashboard {
     risk_requested = false
   }
   action assess_risk() {
-    RiskAnalyzer.assess_delivery_risk(overview.data)
+    risk.assess_delivery_risk(overview.data)
     risk_requested = true
   }
 

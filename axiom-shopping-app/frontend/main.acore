@@ -1,7 +1,7 @@
 module examples.shopping.storefront.ui
 
 use contract Shop from "shop" audience "shopper"
-use extension MemberPricing from "pricing" export "apply_member_price"
+use extension pricing
 
 use page Home from "./pages/home.acore"
 

@@ -1,7 +1,7 @@
 module examples.flowspace.project_management.ui
 
 use contract Workspace from "workspace" audience "workspace-member"
-use extension RiskAnalyzer from "risk" export "assess_delivery_risk"
+use extension risk
 
 use page Dashboard from "./pages/dashboard.acore"
 use page CreateTask from "./pages/create_task.acore"

@@ -21,7 +21,7 @@ page Home {
     discount_cents: cart.discount_cents
   )
 
-  action apply_member_price = MemberPricing.apply_member_price(cart.subtotal_cents)
+  action apply_member_price = pricing.apply_member_price(cart.subtotal_cents)
   action place_order = checkout.run()
 
   view {
