@@ -1,0 +1,200 @@
+{
+  "alias": "risk",
+  "scenarios": [
+    {
+      "name": "healthy",
+      "export": "assess_delivery_risk",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 20,
+        "completed_tasks": 15,
+        "blocked_tasks": 1,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 3,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    },
+    {
+      "name": "watch",
+      "export": "assess_delivery_risk",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 30,
+        "completed_tasks": 20,
+        "blocked_tasks": 2,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 3,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    },
+    {
+      "name": "critical",
+      "export": "assess_delivery_risk",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 18,
+        "completed_tasks": 15,
+        "blocked_tasks": 5,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 3,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    },
+    {
+      "name": "score clamped at 96",
+      "export": "assess_delivery_risk",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 80,
+        "completed_tasks": 30,
+        "blocked_tasks": 10,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 3,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    },
+    {
+      "name": "more completed than total saturates at zero open",
+      "export": "assess_delivery_risk",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 4,
+        "completed_tasks": 9,
+        "blocked_tasks": 0,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 3,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    },
+    {
+      "name": "no forecast snapshot",
+      "export": "assess_delivery_risk",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 20,
+        "completed_tasks": 15,
+        "blocked_tasks": 1,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": null
+    },
+    {
+      "name": "unknown export is rejected",
+      "export": "assess",
+      "input": {
+        "id": "northstar",
+        "workspace_name": "Northstar Studio",
+        "active_projects": 3,
+        "total_tasks": 20,
+        "completed_tasks": 15,
+        "blocked_tasks": 1,
+        "team_members": 8,
+        "week_label": "Sprint 14"
+      },
+      "ui": {
+        "scope": "forecast",
+        "revision": 3,
+        "read": [
+          "engine_label",
+          "risk_label",
+          "risk_score",
+          "risk_summary"
+        ],
+        "value": {
+          "risk_score": 0,
+          "risk_label": "Not evaluated",
+          "risk_summary": "Run the same bounded forecast in Rust, TypeScript, or Python.",
+          "engine_label": "Current profile · Rust"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "alias": "pricing",
+  "scenarios": [
+    {
+      "name": "initial cart, action input = cart.subtotal_cents",
+      "export": "apply_member_price",
+      "input": 23700,
+      "ui": {
+        "scope": "cart",
+        "revision": 1,
+        "read": [
+          "subtotal_cents"
+        ],
+        "value": {
+          "subtotal_cents": 23700,
+          "discount_cents": 0,
+          "discount_label": "$0.00",
+          "total_label": "$237.00",
+          "pricing_status": "Member pricing runs inside a capability-scoped Rust sandbox."
+        }
+      }
+    },
+    {
+      "name": "discount capped at $40",
+      "export": "apply_member_price",
+      "input": 50000,
+      "ui": {
+        "scope": "cart",
+        "revision": 1,
+        "read": [
+          "subtotal_cents"
+        ],
+        "value": {
+          "subtotal_cents": 50000,
+          "discount_cents": 0,
+          "discount_label": "$0.00",
+          "total_label": "$237.00",
+          "pricing_status": "Member pricing runs inside a capability-scoped Rust sandbox."
+        }
+      }
+    },
+    {
+      "name": "zero subtotal",
+      "export": "apply_member_price",
+      "input": 0,
+      "ui": {
+        "scope": "cart",
+        "revision": 1,
+        "read": [
+          "subtotal_cents"
+        ],
+        "value": {
+          "subtotal_cents": 0,
+          "discount_cents": 0,
+          "discount_label": "$0.00",
+          "total_label": "$237.00",
+          "pricing_status": "Member pricing runs inside a capability-scoped Rust sandbox."
+        }
+      }
+    },
+    {
+      "name": "recorded pricing-audit.json input, no UI snapshot",
+      "export": "apply_member_price",
+      "input": 12000,
+      "ui": null
+    },
+    {
+      "name": "null input falls back to the cart snapshot",
+      "export": "apply_member_price",
+      "input": null,
+      "ui": {
+        "scope": "cart",
+        "revision": 1,
+        "read": [
+          "subtotal_cents"
+        ],
+        "value": {
+          "subtotal_cents": 9999,
+          "discount_cents": 0,
+          "discount_label": "$0.00",
+          "total_label": "$237.00",
+          "pricing_status": "Member pricing runs inside a capability-scoped Rust sandbox."
+        }
+      }
+    },
+    {
+      "name": "null input and no snapshot is rejected",
+      "export": "apply_member_price",
+      "input": null,
+      "ui": null
+    },
+    {
+      "name": "percentage overflow is rejected",
+      "export": "apply_member_price",
+      "input": 18446744073709551615,
+      "ui": {
+        "scope": "cart",
+        "revision": 1,
+        "read": [
+          "subtotal_cents"
+        ],
+        "value": {
+          "subtotal_cents": 18446744073709551615,
+          "discount_cents": 0,
+          "discount_label": "$0.00",
+          "total_label": "$237.00",
+          "pricing_status": "Member pricing runs inside a capability-scoped Rust sandbox."
+        }
+      }
+    }
+  ]
+}

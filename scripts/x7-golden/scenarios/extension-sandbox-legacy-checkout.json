@@ -1,0 +1,17 @@
+{
+  "alias": "checkout",
+  "scenarios": [
+    {
+      "name": "positional outcome after a logging yield",
+      "export": "recalculate",
+      "input": 120,
+      "ui": {"scope": "checkout", "revision": 1, "read": ["subtotal"], "value": {"subtotal": 120, "discount": 0, "status": "Waiting for sandbox"}}
+    },
+    {
+      "name": "discount capped at 50",
+      "export": "recalculate",
+      "input": 900,
+      "ui": {"scope": "checkout", "revision": 1, "read": ["subtotal"], "value": {"subtotal": 900, "discount": 0, "status": "Waiting for sandbox"}}
+    }
+  ]
+}

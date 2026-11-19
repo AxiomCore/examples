@@ -1,0 +1,12 @@
+axiom := env_var_or_default("AXIOM", "laxiom")
+
+default:
+    @just --list
+
+# Builds the deprecated X7 forms on purpose and prints their warnings.
+check:
+    {{axiom}} extensions source-build checkout --deps AxiomDeps.toml --target web
+    {{axiom}} ui check main.acore --target web
+
+web:
+    {{axiom}} run main.acore --target web

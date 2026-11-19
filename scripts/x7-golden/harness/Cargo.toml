@@ -1,0 +1,22 @@
+[package]
+name = "axiom-examples-x7-golden-harness"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Runs example extension scenarios through the real kernels and host and prints canonical results (X7 migration golden test)"
+
+[workspace]
+
+[dependencies]
+anyhow = "1"
+axiom-extension-abi = { path = "../../../../axiom-runtime/extensions/abi" }
+axiom-extension-broker = { path = "../../../../axiom-runtime/extensions/broker" }
+axiom-extension-host = { path = "../../../../axiom-runtime/extensions/host" }
+axiom-extension-kernel = { path = "../../../../axiom-runtime/extensions/kernel" }
+axiom-extension-typescript-kernel = { path = "../../../../axiom-runtime/extensions/typescript" }
+axiom-lib = { path = "../../../../axiom-lib" }
+serde = { version = "1", features = ["derive"] }
+serde_jcs = "0.1"
+serde_json = "1"
+sha2 = "0.10"
+tokio = { version = "1", features = ["rt", "macros"] }
