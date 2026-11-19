@@ -113,6 +113,7 @@ dependencies = [
  "sha2",
  "thiserror 1.0.69",
  "wasmi",
+ "wasmparser 0.228.0",
 ]
 
 [[package]]
