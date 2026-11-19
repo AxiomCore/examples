@@ -9,6 +9,7 @@ class FetchExtensionCratesTests(unittest.TestCase):
             "axiom-project-management-app/frontend",
             "axiom-shopping-app/frontend",
             "extension-sandbox",
+            "extension-sandbox-legacy",
         })
 
 
