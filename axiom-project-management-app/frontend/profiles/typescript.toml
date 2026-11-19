@@ -22,6 +22,8 @@ allowUnsupportedPackageForms = false
 [extensions.risk]
 language = "typescript"
 source = "sandbox/risk_forecast.ts"
+# TypeScript exports cannot be derived at build time (the guest dispatches
+# them dynamically), so this profile lists them; Rust and Python derive them.
 exports = ["assess_delivery_risk"]
 targets = ["android", "ios", "web", "server"]
 

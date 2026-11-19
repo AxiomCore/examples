@@ -18,14 +18,14 @@ copy of the app, so the checkout is never modified:
 It then compares the normalised results with `scripts/x7-golden/golden/`.
 Signing keys are generated per run, so key-dependent digests (authority
 locks, signed documents) are masked; module digests are compared only with
-`--strict-modules`: they depend on the exact toolchain and, while the SDK is a
-path dependency, on the checkout location (its absolute path is embedded).
+`--strict-modules`: they depend on the exact toolchain (not on the checkout or
+SDK location: the build stages a path-pinned SDK and remaps its paths).
 
-The Rust guests pin `axiom-extension-sdk` through a path dependency on the
-sibling SDK checkout (0.1.5 is unpublished). The Linux compiler sandbox cannot
-read a path dependency outside the project, so the temporary copy places the
-SDK's `rust/` directory inside the project (`vendor-sdk/`) and points
-`Cargo.toml` there; `Cargo.lock` is unchanged by this, which is checked.
+The Rust guests pin `axiom-extension-sdk` through a relative path dependency on
+the sibling SDK checkout (0.1.5 is unpublished). The temporary copy no longer
+sits beside that checkout, so the path is rewritten to the absolute `--sdk-root`
+location (outside the project, which the source build supports); `Cargo.lock`
+is unchanged by this (path packages carry no source line), which is checked.
 
 Usage:
   scripts/verify_x7_golden.py --cli <axiom> --harness <harness-binary> \\
@@ -100,13 +100,11 @@ def prepare(app: str, sdk_root: Path, temp: Path) -> Path:
     text = manifest.read_text()
     pinned = re.search(r'path = "([^"]*axiom-extension-sdk/rust/sdk)"', text)
     if pinned:
-        shutil.copytree(sdk_root / "rust", frontend / "vendor-sdk/rust",
-                        ignore=shutil.ignore_patterns("target"))
-        manifest.write_text(text.replace(pinned.group(0), 'path = "vendor-sdk/rust/sdk"'))
+        manifest.write_text(text.replace(pinned.group(0), f'path = "{sdk_root / "rust/sdk"}"'))
         lock = (frontend / "Cargo.lock").read_bytes()
         run(["cargo", "metadata", "--locked", "--offline", "--format-version", "1"], frontend)
         if (frontend / "Cargo.lock").read_bytes() != lock:
-            raise RuntimeError("vendoring the SDK changed Cargo.lock")
+            raise RuntimeError("re-pointing the SDK path changed Cargo.lock")
     return frontend
 
 
@@ -128,7 +126,10 @@ def capture(variant: str, cli: str, harness: str, sdk_root: Path, strict: bool) 
             view = json.loads(run([cli, "ui", "inspect", "extensions", "main.acore", "--target", target,
                                    "--lock", ".axiom/dev/axiom.ui.lock.json"], frontend))
             bindings[target] = view
-        lock = frontend / "AxiomDeps.lock"
+        # The build records derived exports in the generated `.axiom/AxiomDeps.lock`
+        # (the historical `<frontend>/AxiomDeps.lock` is still read as a fallback).
+        lock = next((p for p in (frontend / ".axiom/AxiomDeps.lock", frontend / "AxiomDeps.lock") if p.is_file()),
+                    frontend / ".axiom/AxiomDeps.lock")
         derived = json.loads(lock.read_text()).get("extensionExports", {}) if lock.is_file() else {}
         golden = json.loads(run([harness, str(SCENARIOS / scenarios), str(frontend / "AxiomExtensions.toml")],
                                 frontend))

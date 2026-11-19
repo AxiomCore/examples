@@ -4,3 +4,4 @@ frontend/axiom.ui.lock.json
 frontend/AxiomExtensions.toml
 frontend/AxiomPackages.lock
 frontend/.axiom/
+frontend/AxiomDeps.lock
