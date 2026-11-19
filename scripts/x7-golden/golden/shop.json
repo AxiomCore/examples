@@ -1,0 +1,3199 @@
+{
+ "derivedExports": {},
+ "format": "axiom-examples-x7-golden-record/v1",
+ "interface": {
+  "format": "axiom-sdk-interface-artifact/v1",
+  "generator": {
+   "inputSchema": "axiom-sdk-interface-ir/v1",
+   "name": "axiom-sdk-binding-generator",
+   "outputContract": "language-source/sha256",
+   "version": "1.0.0"
+  },
+  "generatorInputSha256": "baa4c493416a23acea01e0e95acdc691a0459f262fc7a03e516c46b42f314dc5",
+  "interface": {
+   "abi": {
+    "canonicalEncodingRequired": true,
+    "name": "axiom-extension-abi",
+    "version": "1.0.0",
+    "wireEncoding": "postcard",
+    "wireMagicHex": "41584531"
+   },
+   "exports": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "input": {
+      "kind": "named",
+      "value": "Invocation"
+     },
+     "name": "apply_member_price",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     }
+    }
+   ],
+   "format": "axiom-sdk-interface-ir/v1",
+   "imports": [
+    {
+     "input": {
+      "kind": "named",
+      "value": "StateReadRequest"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "read_cart_c2a3040ff9bc94f6",
+     "output": {
+      "kind": "named",
+      "value": "StateSnapshot"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_cart_02691cb4c7dedf72",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_cart_06ceb69333d80c20",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_cart_56cf2ca9d3aeabe2",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_cart_959c741aa130d911",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    }
+   ],
+   "languageMappings": {
+    "python": {
+     "asyncCall": "collections.abc.Awaitable[T]",
+     "asyncStream": "collections.abc.AsyncIterator[T]",
+     "bytes": "bytes",
+     "error": "AxiomResult[T] / ExtensionError",
+     "handle": "AxiomHandle (opaque)",
+     "list": "list[T]",
+     "optional": "T | None",
+     "record": "@dataclass(frozen=True)",
+     "revision": "int (checked u64)",
+     "signed64": "int (checked i64)",
+     "unsigned64": "int (checked u64)",
+     "variant": "typing.Union tagged by case"
+    },
+    "rust": {
+     "asyncCall": "Future<Output = Result<T, ExtensionError>>",
+     "asyncStream": "Stream<Item = Result<T, ExtensionError>>",
+     "bytes": "Vec<u8>",
+     "error": "Result<T, ExtensionError>",
+     "handle": "Handle (opaque)",
+     "list": "Vec<T>",
+     "optional": "Option<T>",
+     "record": "struct",
+     "revision": "u64",
+     "signed64": "i64",
+     "unsigned64": "u64",
+     "variant": "enum"
+    },
+    "typescript": {
+     "asyncCall": "Promise<T>",
+     "asyncStream": "AsyncIterable<T>",
+     "bytes": "Uint8Array",
+     "error": "AxiomResult<T> / ExtensionError",
+     "handle": "AxiomHandle (opaque branded type)",
+     "list": "ReadonlyArray<T>",
+     "optional": "T | null",
+     "record": "readonly interface",
+     "revision": "bigint (checked u64)",
+     "signed64": "bigint (checked i64)",
+     "unsigned64": "bigint (checked u64)",
+     "variant": "discriminated union by case"
+    }
+   },
+   "lifecycle": [
+    {
+     "continuation": "cancellation",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "RequestId"
+     },
+     "name": "cancel",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "immediate",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "drain",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "immediate",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "initialize",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "suspend-resume",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "Invocation"
+     },
+     "name": "invoke",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "immediate",
+     "direction": "bidirectional",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "negotiate",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "stream-batch",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "resume",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "terminal",
+     "direction": "bidirectional",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "shutdown",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": true
+    }
+   ],
+   "moduleAlias": "pricing",
+   "requestedAuthority": [
+    {
+     "namespace": "ui_state",
+     "operation": "read_cart_c2a3040ff9bc94f6",
+     "permission": {
+      "access": "read",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_cart_c2a3040ff9bc94f6"
+      },
+      "kind": "ui-state",
+      "path": "subtotal_cents",
+      "scope": "cart"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_cart_02691cb4c7dedf72",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_02691cb4c7dedf72"
+      },
+      "kind": "ui-state",
+      "path": "discount_label",
+      "scope": "cart"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_cart_06ceb69333d80c20",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_06ceb69333d80c20"
+      },
+      "kind": "ui-state",
+      "path": "discount_cents",
+      "scope": "cart"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_cart_56cf2ca9d3aeabe2",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_56cf2ca9d3aeabe2"
+      },
+      "kind": "ui-state",
+      "path": "pricing_status",
+      "scope": "cart"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_cart_959c741aa130d911",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_959c741aa130d911"
+      },
+      "kind": "ui-state",
+      "path": "total_label",
+      "scope": "cart"
+     }
+    }
+   ],
+   "targets": [
+    "android",
+    "ios",
+    "web",
+    "server"
+   ],
+   "types": {
+    "AbiVersion": {
+     "fields": [
+      {
+       "name": "major",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned16"
+       }
+      },
+      {
+       "name": "minor",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned16"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "BatchInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "BatchOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "CommandInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "CommandOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "Effect": {
+     "fields": [
+      {
+       "name": "input",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "namespace",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "operation",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "EffectOutcome": {
+     "fields": [
+      {
+       "name": "index",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned32"
+       }
+      },
+      {
+       "name": "result",
+       "valueType": {
+        "kind": "result",
+        "value": {
+         "error": {
+          "kind": "named",
+          "value": "ExtensionError"
+         },
+         "ok": {
+          "kind": "named",
+          "value": "Value"
+         }
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "EffectPlan": {
+     "fields": [
+      {
+       "name": "effects",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Effect"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "ErrorCode": {
+     "cases": [
+      {
+       "name": "cancelled"
+      },
+      {
+       "name": "conflict"
+      },
+      {
+       "name": "deadline"
+      },
+      {
+       "name": "denied"
+      },
+      {
+       "name": "exhausted"
+      },
+      {
+       "name": "guest"
+      },
+      {
+       "name": "host"
+      },
+      {
+       "name": "invalid-input"
+      },
+      {
+       "name": "protocol"
+      }
+     ],
+     "kind": "variant"
+    },
+    "Event": {
+     "fields": [
+      {
+       "name": "sequence",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "EventBatch": {
+     "fields": [
+      {
+       "name": "dropped",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned32"
+       }
+      },
+      {
+       "name": "events",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Event"
+        }
+       }
+      },
+      {
+       "name": "subscription",
+       "valueType": {
+        "kind": "named",
+        "value": "Handle"
+       }
+      },
+      {
+       "name": "terminal",
+       "valueType": {
+        "kind": "scalar",
+        "value": "boolean"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "ExtensionError": {
+     "fields": [
+      {
+       "name": "code",
+       "valueType": {
+        "kind": "named",
+        "value": "ErrorCode"
+       }
+      },
+      {
+       "name": "message",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "retryable",
+       "valueType": {
+        "kind": "scalar",
+        "value": "boolean"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Field": {
+     "fields": [
+      {
+       "name": "name",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestCancelled": {
+     "fields": [
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestCompleted": {
+     "fields": [
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      },
+      {
+       "name": "result",
+       "valueType": {
+        "kind": "named",
+        "value": "InvocationResult"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestFailed": {
+     "fields": [
+      {
+       "name": "error",
+       "valueType": {
+        "kind": "named",
+        "value": "ExtensionError"
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestFrame": {
+     "fields": [
+      {
+       "name": "abi",
+       "valueType": {
+        "kind": "named",
+        "value": "AbiVersion"
+       }
+      },
+      {
+       "name": "magic",
+       "valueType": {
+        "kind": "scalar",
+        "value": "bytes"
+       }
+      },
+      {
+       "name": "message",
+       "valueType": {
+        "kind": "named",
+        "value": "GuestMessage"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestMessage": {
+     "cases": [
+      {
+       "name": "cancelled",
+       "payload": {
+        "kind": "named",
+        "value": "GuestCancelled"
+       }
+      },
+      {
+       "name": "completed",
+       "payload": {
+        "kind": "named",
+        "value": "GuestCompleted"
+       }
+      },
+      {
+       "name": "drained"
+      },
+      {
+       "name": "failed",
+       "payload": {
+        "kind": "named",
+        "value": "GuestFailed"
+       }
+      },
+      {
+       "name": "initialized"
+      },
+      {
+       "name": "negotiated",
+       "payload": {
+        "kind": "named",
+        "value": "GuestNegotiated"
+       }
+      },
+      {
+       "name": "shutdown"
+      },
+      {
+       "name": "yielded",
+       "payload": {
+        "kind": "named",
+        "value": "GuestYielded"
+       }
+      }
+     ],
+     "kind": "variant"
+    },
+    "GuestNegotiated": {
+     "fields": [
+      {
+       "name": "selected",
+       "valueType": {
+        "kind": "named",
+        "value": "AbiVersion"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestYielded": {
+     "fields": [
+      {
+       "name": "plan",
+       "valueType": {
+        "kind": "named",
+        "value": "EffectPlan"
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Handle": {
+     "generation": {
+      "kind": "scalar",
+      "value": "unsigned32"
+     },
+     "id": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     },
+     "kind": "handle",
+     "kinds": [
+      "blob",
+      "file",
+      "secret",
+      "store-cursor",
+      "stream"
+     ]
+    },
+    "HandleKind": {
+     "cases": [
+      {
+       "name": "blob"
+      },
+      {
+       "name": "file"
+      },
+      {
+       "name": "secret"
+      },
+      {
+       "name": "store-cursor"
+      },
+      {
+       "name": "stream"
+      }
+     ],
+     "kind": "variant"
+    },
+    "HostCancel": {
+     "fields": [
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostFrame": {
+     "fields": [
+      {
+       "name": "abi",
+       "valueType": {
+        "kind": "named",
+        "value": "AbiVersion"
+       }
+      },
+      {
+       "name": "magic",
+       "valueType": {
+        "kind": "scalar",
+        "value": "bytes"
+       }
+      },
+      {
+       "name": "message",
+       "valueType": {
+        "kind": "named",
+        "value": "HostMessage"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostInitialize": {
+     "fields": [
+      {
+       "name": "application",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "extension",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "instanceId",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostInvoke": {
+     "fields": [
+      {
+       "name": "invocation",
+       "valueType": {
+        "kind": "named",
+        "value": "Invocation"
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostMessage": {
+     "cases": [
+      {
+       "name": "cancel",
+       "payload": {
+        "kind": "named",
+        "value": "HostCancel"
+       }
+      },
+      {
+       "name": "drain"
+      },
+      {
+       "name": "initialize",
+       "payload": {
+        "kind": "named",
+        "value": "HostInitialize"
+       }
+      },
+      {
+       "name": "invoke",
+       "payload": {
+        "kind": "named",
+        "value": "HostInvoke"
+       }
+      },
+      {
+       "name": "negotiate",
+       "payload": {
+        "kind": "named",
+        "value": "HostNegotiate"
+       }
+      },
+      {
+       "name": "resume",
+       "payload": {
+        "kind": "named",
+        "value": "HostResume"
+       }
+      },
+      {
+       "name": "shutdown"
+      }
+     ],
+     "kind": "variant"
+    },
+    "HostNegotiate": {
+     "fields": [
+      {
+       "name": "supported",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "AbiVersion"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostResume": {
+     "fields": [
+      {
+       "name": "events",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "EventBatch"
+        }
+       }
+      },
+      {
+       "name": "outcomes",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "EffectOutcome"
+        }
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Invocation": {
+     "fields": [
+      {
+       "name": "deadlineUnixMs",
+       "valueType": {
+        "kind": "named",
+        "value": "TimestampMs"
+       }
+      },
+      {
+       "name": "export",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "input",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "snapshots",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Snapshot"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "InvocationResult": {
+     "fields": [
+      {
+       "name": "emittedEvents",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Event"
+        }
+       }
+      },
+      {
+       "name": "output",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "patches",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Patch"
+        }
+       }
+      },
+      {
+       "name": "transactions",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "TransactionProposal"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "MutationInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "MutationOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "Patch": {
+     "fields": [
+      {
+       "name": "expectedRevision",
+       "valueType": {
+        "kind": "named",
+        "value": "Revision"
+       }
+      },
+      {
+       "name": "operations",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "PatchOperation"
+        }
+       }
+      },
+      {
+       "name": "resource",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchAppend": {
+     "fields": [
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchCompareAndSet": {
+     "fields": [
+      {
+       "name": "expected",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      },
+      {
+       "name": "replacement",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchDispatch": {
+     "fields": [
+      {
+       "name": "action",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "payload",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchIncrement": {
+     "fields": [
+      {
+       "name": "amount",
+       "valueType": {
+        "kind": "scalar",
+        "value": "signed64"
+       }
+      },
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchOperation": {
+     "cases": [
+      {
+       "name": "append",
+       "payload": {
+        "kind": "named",
+        "value": "PatchAppend"
+       }
+      },
+      {
+       "name": "compare-and-set",
+       "payload": {
+        "kind": "named",
+        "value": "PatchCompareAndSet"
+       }
+      },
+      {
+       "name": "dispatch",
+       "payload": {
+        "kind": "named",
+        "value": "PatchDispatch"
+       }
+      },
+      {
+       "name": "increment",
+       "payload": {
+        "kind": "named",
+        "value": "PatchIncrement"
+       }
+      },
+      {
+       "name": "set",
+       "payload": {
+        "kind": "named",
+        "value": "PatchSet"
+       }
+      },
+      {
+       "name": "unset",
+       "payload": {
+        "kind": "named",
+        "value": "PatchUnset"
+       }
+      }
+     ],
+     "kind": "variant"
+    },
+    "PatchPath": {
+     "kind": "alias",
+     "target": {
+      "kind": "list",
+      "value": {
+       "kind": "scalar",
+       "value": "string"
+      }
+     }
+    },
+    "PatchSet": {
+     "fields": [
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchUnset": {
+     "fields": [
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "QueryInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "QueryOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "RequestId": {
+     "kind": "alias",
+     "target": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     }
+    },
+    "Revision": {
+     "kind": "alias",
+     "target": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     }
+    },
+    "RuntimeInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "RuntimeOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "Snapshot": {
+     "fields": [
+      {
+       "name": "resource",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "revision",
+       "valueType": {
+        "kind": "named",
+        "value": "Revision"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "StateCommit": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateDispatch": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StatePatch": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateReadRequest": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateSnapshot": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateStream": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Handle"
+     }
+    },
+    "StateSubscription": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreAction": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreCommit": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreInsert": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StorePatch": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreReadRequest": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreRemove": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreSnapshot": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreStream": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Handle"
+     }
+    },
+    "StoreSubscription": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StreamInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StreamOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "TimestampMs": {
+     "kind": "alias",
+     "target": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     }
+    },
+    "TransactionProposal": {
+     "fields": [
+      {
+       "name": "patches",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Patch"
+        }
+       }
+      },
+      {
+       "name": "transactionId",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Value": {
+     "cases": [
+      {
+       "name": "bool",
+       "payload": {
+        "kind": "scalar",
+        "value": "boolean"
+       }
+      },
+      {
+       "name": "bytes",
+       "payload": {
+        "kind": "scalar",
+        "value": "bytes"
+       }
+      },
+      {
+       "name": "handle",
+       "payload": {
+        "kind": "named",
+        "value": "Handle"
+       }
+      },
+      {
+       "name": "list",
+       "payload": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Value"
+        }
+       }
+      },
+      {
+       "name": "null"
+      },
+      {
+       "name": "record",
+       "payload": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Field"
+        }
+       }
+      },
+      {
+       "name": "signed",
+       "payload": {
+        "kind": "scalar",
+        "value": "signed64"
+       }
+      },
+      {
+       "name": "string",
+       "payload": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "unsigned",
+       "payload": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      },
+      {
+       "name": "variant",
+       "payload": {
+        "kind": "named",
+        "value": "VariantValue"
+       }
+      }
+     ],
+     "kind": "variant"
+    },
+    "VariantValue": {
+     "fields": [
+      {
+       "name": "case",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "optional",
+        "value": {
+         "kind": "named",
+         "value": "Value"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    }
+   }
+  },
+  "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202"
+ },
+ "moduleSha256": {
+  "android": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+  "ios": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+  "server": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+  "web": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2"
+ },
+ "scenarios": {
+  "alias": "pricing",
+  "application": {
+   "name": "example.shopping.storefront",
+   "version": "0.1.0"
+  },
+  "format": "axiom-examples-x7-golden/v1",
+  "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+  "language": "rust",
+  "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+  "scenarios": [
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 3555
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$35.55"
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$201.45"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.shopping.storefront",
+       "auditId": "f431de3f43b7d424e03324fb59558f81d094f20955448b1f81de4ab066ffea86",
+       "decision": "committed",
+       "extension": "local.pricing",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "discount_cents",
+        "discount_label",
+        "pricing_status",
+        "total_label"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:cart"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:cart",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 3555
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$35.55"
+         }
+        },
+        {
+         "name": "pricing_status",
+         "value": {
+          "String": "Member price applied by verified Rust WASM · you saved 15%."
+         }
+        },
+        {
+         "name": "subtotal_cents",
+         "value": {
+          "Unsigned": 23700
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$201.45"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "f9c7ba7c2753175aef9244cf812c03386eba4e7af611e80a6e1703d0ebef6c6d",
+     "output": {
+      "Record": [
+       {
+        "name": "discount_cents",
+        "value": {
+         "Unsigned": 3555
+        }
+       },
+       {
+        "name": "discount_label",
+        "value": {
+         "String": "−$35.55"
+        }
+       },
+       {
+        "name": "total_label",
+        "value": {
+         "String": "$201.45"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "discount_cents"
+          ],
+          "value": {
+           "Unsigned": 3555
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "discount_label"
+          ],
+          "value": {
+           "String": "−$35.55"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "total_label"
+          ],
+          "value": {
+           "String": "$201.45"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "pricing_status"
+          ],
+          "value": {
+           "String": "Member price applied by verified Rust WASM · you saved 15%."
+          }
+         }
+        }
+       ],
+       "resource": "ui:cart"
+      }
+     ],
+     "resultWireBytes": 230,
+     "resultWireSha256": "a62ef9c3bea12efd28d67eae303a690797a456f8d0bee9737f0315006149d8df",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "initial cart, action input = cart.subtotal_cents"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 4000
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$40.00"
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$460.00"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.shopping.storefront",
+       "auditId": "f431de3f43b7d424e03324fb59558f81d094f20955448b1f81de4ab066ffea86",
+       "decision": "committed",
+       "extension": "local.pricing",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "discount_cents",
+        "discount_label",
+        "pricing_status",
+        "total_label"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:cart"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:cart",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 4000
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$40.00"
+         }
+        },
+        {
+         "name": "pricing_status",
+         "value": {
+          "String": "Member price applied by verified Rust WASM · you saved 15%."
+         }
+        },
+        {
+         "name": "subtotal_cents",
+         "value": {
+          "Unsigned": 50000
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$460.00"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "918ea5aae9fc7982551669ba4179756c1977b5df329cf26289dc7d2dfd1a7d91",
+     "output": {
+      "Record": [
+       {
+        "name": "discount_cents",
+        "value": {
+         "Unsigned": 4000
+        }
+       },
+       {
+        "name": "discount_label",
+        "value": {
+         "String": "−$40.00"
+        }
+       },
+       {
+        "name": "total_label",
+        "value": {
+         "String": "$460.00"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "discount_cents"
+          ],
+          "value": {
+           "Unsigned": 4000
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "discount_label"
+          ],
+          "value": {
+           "String": "−$40.00"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "total_label"
+          ],
+          "value": {
+           "String": "$460.00"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "pricing_status"
+          ],
+          "value": {
+           "String": "Member price applied by verified Rust WASM · you saved 15%."
+          }
+         }
+        }
+       ],
+       "resource": "ui:cart"
+      }
+     ],
+     "resultWireBytes": 230,
+     "resultWireSha256": "8029b4b4ac452d4a0adca99a0f1a2a205467d2a37af540b21673e12f93afac6a",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "discount capped at $40"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$0.00"
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$0.00"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.shopping.storefront",
+       "auditId": "f431de3f43b7d424e03324fb59558f81d094f20955448b1f81de4ab066ffea86",
+       "decision": "committed",
+       "extension": "local.pricing",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "discount_cents",
+        "discount_label",
+        "pricing_status",
+        "total_label"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:cart"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:cart",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$0.00"
+         }
+        },
+        {
+         "name": "pricing_status",
+         "value": {
+          "String": "Member price applied by verified Rust WASM · you saved 15%."
+         }
+        },
+        {
+         "name": "subtotal_cents",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$0.00"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "839b33068bdae34254210635e327ce53bd5414f34a642546dcaadc42323d43c8",
+     "output": {
+      "Record": [
+       {
+        "name": "discount_cents",
+        "value": {
+         "Unsigned": 0
+        }
+       },
+       {
+        "name": "discount_label",
+        "value": {
+         "String": "−$0.00"
+        }
+       },
+       {
+        "name": "total_label",
+        "value": {
+         "String": "$0.00"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "discount_cents"
+          ],
+          "value": {
+           "Unsigned": 0
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "discount_label"
+          ],
+          "value": {
+           "String": "−$0.00"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "total_label"
+          ],
+          "value": {
+           "String": "$0.00"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "pricing_status"
+          ],
+          "value": {
+           "String": "Member price applied by verified Rust WASM · you saved 15%."
+          }
+         }
+        }
+       ],
+       "resource": "ui:cart"
+      }
+     ],
+     "resultWireBytes": 222,
+     "resultWireSha256": "70d97a01473622cabde6c5c640800575d861ca66b7811eda2b38821b0626c39d",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "zero subtotal"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 1800
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$18.00"
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$102.00"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [],
+     "teardown": "ok",
+     "uiStateAfter": null
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "1738be57912dcf1b1cb56b4d34a694facd8095cd64826fffa0fda7675d544021",
+     "output": {
+      "Record": [
+       {
+        "name": "discount_cents",
+        "value": {
+         "Unsigned": 1800
+        }
+       },
+       {
+        "name": "discount_label",
+        "value": {
+         "String": "−$18.00"
+        }
+       },
+       {
+        "name": "total_label",
+        "value": {
+         "String": "$102.00"
+        }
+       }
+      ]
+     },
+     "patches": [],
+     "resultWireBytes": 70,
+     "resultWireSha256": "68ecc807ae65bcc5780ff47694273f8080f3e20c28619b04856d6a9364dd3330",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "recorded pricing-audit.json input, no UI snapshot"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 1499
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$14.99"
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$85.00"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.shopping.storefront",
+       "auditId": "f431de3f43b7d424e03324fb59558f81d094f20955448b1f81de4ab066ffea86",
+       "decision": "committed",
+       "extension": "local.pricing",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "discount_cents",
+        "discount_label",
+        "pricing_status",
+        "total_label"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:cart"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:cart",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 1499
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "−$14.99"
+         }
+        },
+        {
+         "name": "pricing_status",
+         "value": {
+          "String": "Member price applied by verified Rust WASM · you saved 15%."
+         }
+        },
+        {
+         "name": "subtotal_cents",
+         "value": {
+          "Unsigned": 9999
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$85.00"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "6770459a3253f2e9af542cc49cf705835d55e74795848e41d5f6d6da0c071dc1",
+     "output": {
+      "Record": [
+       {
+        "name": "discount_cents",
+        "value": {
+         "Unsigned": 1499
+        }
+       },
+       {
+        "name": "discount_label",
+        "value": {
+         "String": "−$14.99"
+        }
+       },
+       {
+        "name": "total_label",
+        "value": {
+         "String": "$85.00"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "discount_cents"
+          ],
+          "value": {
+           "Unsigned": 1499
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "discount_label"
+          ],
+          "value": {
+           "String": "−$14.99"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "total_label"
+          ],
+          "value": {
+           "String": "$85.00"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "pricing_status"
+          ],
+          "value": {
+           "String": "Member price applied by verified Rust WASM · you saved 15%."
+          }
+         }
+        }
+       ],
+       "resource": "ui:cart"
+      }
+     ],
+     "resultWireBytes": 228,
+     "resultWireSha256": "3cc1b260fcd77cc82b3ba5191460736fc08ddbcd2103eaa5e8f160d3e5c44c25",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "null input falls back to the cart snapshot"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-failed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "failed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "error": "guest extension failed: ExtensionError { code: InvalidInput, message: \"expected unsigned integer, received null\", retryable: false }",
+      "status": "rejected"
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [],
+     "teardown": "ok",
+     "uiStateAfter": null
+    },
+    "kernel": {
+     "error": {
+      "code": "InvalidInput",
+      "message": "expected unsigned integer, received null",
+      "retryable": false
+     },
+     "invocationWireSha256": "11ae7be574c54fb980bc4c9ec289de485c4529e3ce29a80994ef7d228f662e99",
+     "step": "guest-failed"
+    },
+    "name": "null input and no snapshot is rejected"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "verified-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-failed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "failed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.shopping.storefront:local.pricing:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "error": "guest extension failed: ExtensionError { code: InvalidInput, message: \"percentage calculation overflowed\", retryable: false }",
+      "status": "rejected"
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.shopping.storefront",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "wasmi",
+      "engineVersion": "2.0.0",
+      "extension": "local.pricing",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "4ea36f85c1f107a68e8b17a8d84bcf101db59f5f5e65e53672adece95a2857b2",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 1,
+      "value": {
+       "Record": [
+        {
+         "name": "discount_cents",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "discount_label",
+         "value": {
+          "String": "$0.00"
+         }
+        },
+        {
+         "name": "pricing_status",
+         "value": {
+          "String": "Member pricing runs inside a capability-scoped Rust sandbox."
+         }
+        },
+        {
+         "name": "subtotal_cents",
+         "value": {
+          "Unsigned": 18446744073709551615
+         }
+        },
+        {
+         "name": "total_label",
+         "value": {
+          "String": "$237.00"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "error": {
+      "code": "InvalidInput",
+      "message": "percentage calculation overflowed",
+      "retryable": false
+     },
+     "invocationWireSha256": "381510d36ed2891c2596b31a0e14cefad33de662a7f209d3b1fae4a3b7228efd",
+     "step": "guest-failed"
+    },
+    "name": "percentage overflow is rejected"
+   }
+  ]
+ },
+ "uiExtensionBindings": {
+  "android": {
+   "format": "axiom-ui-extension-bindings/v1",
+   "graphRevision": "f70fd8fafff5a25001ba6a53b554c8cea9437164cc12299a3a4c027f4ad1072e",
+   "imports": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "alias": "pricing",
+     "export": "apply_member_price",
+     "imports": [
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_cart_c2a3040ff9bc94f6",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_02691cb4c7dedf72",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_06ceb69333d80c20",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_56cf2ca9d3aeabe2",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_959c741aa130d911",
+       "outputType": "StateCommit"
+      }
+     ],
+     "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+     "language": "rust",
+     "localName": "pricing",
+     "permissions": {
+      "ui-state": {
+       "cart": {
+        "read": [
+         "subtotal_cents"
+        ],
+        "write": [
+         "discount_cents",
+         "discount_label",
+         "pricing_status",
+         "total_label"
+        ]
+       }
+      }
+     },
+     "sourceSha256": "0fd5fc48c00ae050a2554a2ca73b340e5b54d96038527e82f8c28bdd61c77069",
+     "span": {
+      "end": 110,
+      "start": 89
+     },
+     "stateScope": "cart"
+    }
+   ],
+   "invocations": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "action": "apply_member_price",
+     "actionSemanticId": {
+      "value": "action:d543cfbe1bbdecfb"
+     },
+     "alias": "pricing",
+     "export": "apply_member_price",
+     "inputExpression": "cart.subtotal_cents",
+     "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+     "localName": "pricing",
+     "page": "Home",
+     "pageSemanticId": {
+      "value": "page:3a78695388b38b5c"
+     },
+     "sourceSpan": {
+      "end": 881,
+      "start": 834
+     },
+     "stateScope": "cart"
+    }
+   ],
+   "module": "examples.shopping.storefront.ui",
+   "status": "compiled",
+   "target": "android"
+  },
+  "ios": {
+   "format": "axiom-ui-extension-bindings/v1",
+   "graphRevision": "f70fd8fafff5a25001ba6a53b554c8cea9437164cc12299a3a4c027f4ad1072e",
+   "imports": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "alias": "pricing",
+     "export": "apply_member_price",
+     "imports": [
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_cart_c2a3040ff9bc94f6",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_02691cb4c7dedf72",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_06ceb69333d80c20",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_56cf2ca9d3aeabe2",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_959c741aa130d911",
+       "outputType": "StateCommit"
+      }
+     ],
+     "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+     "language": "rust",
+     "localName": "pricing",
+     "permissions": {
+      "ui-state": {
+       "cart": {
+        "read": [
+         "subtotal_cents"
+        ],
+        "write": [
+         "discount_cents",
+         "discount_label",
+         "pricing_status",
+         "total_label"
+        ]
+       }
+      }
+     },
+     "sourceSha256": "0fd5fc48c00ae050a2554a2ca73b340e5b54d96038527e82f8c28bdd61c77069",
+     "span": {
+      "end": 110,
+      "start": 89
+     },
+     "stateScope": "cart"
+    }
+   ],
+   "invocations": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "action": "apply_member_price",
+     "actionSemanticId": {
+      "value": "action:d543cfbe1bbdecfb"
+     },
+     "alias": "pricing",
+     "export": "apply_member_price",
+     "inputExpression": "cart.subtotal_cents",
+     "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+     "localName": "pricing",
+     "page": "Home",
+     "pageSemanticId": {
+      "value": "page:3a78695388b38b5c"
+     },
+     "sourceSpan": {
+      "end": 881,
+      "start": 834
+     },
+     "stateScope": "cart"
+    }
+   ],
+   "module": "examples.shopping.storefront.ui",
+   "status": "compiled",
+   "target": "ios"
+  },
+  "web": {
+   "format": "axiom-ui-extension-bindings/v1",
+   "graphRevision": "f70fd8fafff5a25001ba6a53b554c8cea9437164cc12299a3a4c027f4ad1072e",
+   "imports": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "alias": "pricing",
+     "export": "apply_member_price",
+     "imports": [
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_cart_c2a3040ff9bc94f6",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_02691cb4c7dedf72",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_06ceb69333d80c20",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_56cf2ca9d3aeabe2",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_cart_959c741aa130d911",
+       "outputType": "StateCommit"
+      }
+     ],
+     "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+     "language": "rust",
+     "localName": "pricing",
+     "permissions": {
+      "ui-state": {
+       "cart": {
+        "read": [
+         "subtotal_cents"
+        ],
+        "write": [
+         "discount_cents",
+         "discount_label",
+         "pricing_status",
+         "total_label"
+        ]
+       }
+      }
+     },
+     "sourceSha256": "0fd5fc48c00ae050a2554a2ca73b340e5b54d96038527e82f8c28bdd61c77069",
+     "span": {
+      "end": 110,
+      "start": 89
+     },
+     "stateScope": "cart"
+    }
+   ],
+   "invocations": [
+    {
+     "abiSymbol": "axiom_extension__pricing__apply_member_price",
+     "action": "apply_member_price",
+     "actionSemanticId": {
+      "value": "action:d543cfbe1bbdecfb"
+     },
+     "alias": "pricing",
+     "export": "apply_member_price",
+     "inputExpression": "cart.subtotal_cents",
+     "interfaceSha256": "7284190ea6586c9ec8bc47190a5eda685906a683eb373b7b64d92999ec92f202",
+     "localName": "pricing",
+     "page": "Home",
+     "pageSemanticId": {
+      "value": "page:3a78695388b38b5c"
+     },
+     "sourceSpan": {
+      "end": 881,
+      "start": 834
+     },
+     "stateScope": "cart"
+    }
+   ],
+   "module": "examples.shopping.storefront.ui",
+   "status": "compiled",
+   "target": "web"
+  }
+ },
+ "variant": "shop"
+}

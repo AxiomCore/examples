@@ -1,0 +1,3637 @@
+{
+ "derivedExports": {},
+ "format": "axiom-examples-x7-golden-record/v1",
+ "interface": {
+  "format": "axiom-sdk-interface-artifact/v1",
+  "generator": {
+   "inputSchema": "axiom-sdk-interface-ir/v1",
+   "name": "axiom-sdk-binding-generator",
+   "outputContract": "language-source/sha256",
+   "version": "1.0.0"
+  },
+  "generatorInputSha256": "4a64a94ea3e2b3a74dcc9939866decbebaa5e0b93e4a16e2d0ea905e61854c12",
+  "interface": {
+   "abi": {
+    "canonicalEncodingRequired": true,
+    "name": "axiom-extension-abi",
+    "version": "1.0.0",
+    "wireEncoding": "postcard",
+    "wireMagicHex": "41584531"
+   },
+   "exports": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "input": {
+      "kind": "named",
+      "value": "Invocation"
+     },
+     "name": "assess_delivery_risk",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     }
+    }
+   ],
+   "format": "axiom-sdk-interface-ir/v1",
+   "imports": [
+    {
+     "input": {
+      "kind": "named",
+      "value": "StateReadRequest"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "read_forecast_33ab0f461591200f",
+     "output": {
+      "kind": "named",
+      "value": "StateSnapshot"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StateReadRequest"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "read_forecast_ba18b9c060918ec2",
+     "output": {
+      "kind": "named",
+      "value": "StateSnapshot"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StateReadRequest"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "read_forecast_e727fb7d0be09207",
+     "output": {
+      "kind": "named",
+      "value": "StateSnapshot"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StateReadRequest"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "read_forecast_ef34b2323059dca7",
+     "output": {
+      "kind": "named",
+      "value": "StateSnapshot"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_forecast_33ab0f461591200f",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_forecast_ba18b9c060918ec2",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_forecast_e727fb7d0be09207",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    },
+    {
+     "input": {
+      "kind": "named",
+      "value": "StatePatch"
+     },
+     "mode": "call",
+     "namespace": "ui_state",
+     "operation": "write_forecast_ef34b2323059dca7",
+     "output": {
+      "kind": "named",
+      "value": "StateCommit"
+     }
+    }
+   ],
+   "languageMappings": {
+    "python": {
+     "asyncCall": "collections.abc.Awaitable[T]",
+     "asyncStream": "collections.abc.AsyncIterator[T]",
+     "bytes": "bytes",
+     "error": "AxiomResult[T] / ExtensionError",
+     "handle": "AxiomHandle (opaque)",
+     "list": "list[T]",
+     "optional": "T | None",
+     "record": "@dataclass(frozen=True)",
+     "revision": "int (checked u64)",
+     "signed64": "int (checked i64)",
+     "unsigned64": "int (checked u64)",
+     "variant": "typing.Union tagged by case"
+    },
+    "rust": {
+     "asyncCall": "Future<Output = Result<T, ExtensionError>>",
+     "asyncStream": "Stream<Item = Result<T, ExtensionError>>",
+     "bytes": "Vec<u8>",
+     "error": "Result<T, ExtensionError>",
+     "handle": "Handle (opaque)",
+     "list": "Vec<T>",
+     "optional": "Option<T>",
+     "record": "struct",
+     "revision": "u64",
+     "signed64": "i64",
+     "unsigned64": "u64",
+     "variant": "enum"
+    },
+    "typescript": {
+     "asyncCall": "Promise<T>",
+     "asyncStream": "AsyncIterable<T>",
+     "bytes": "Uint8Array",
+     "error": "AxiomResult<T> / ExtensionError",
+     "handle": "AxiomHandle (opaque branded type)",
+     "list": "ReadonlyArray<T>",
+     "optional": "T | null",
+     "record": "readonly interface",
+     "revision": "bigint (checked u64)",
+     "signed64": "bigint (checked i64)",
+     "unsigned64": "bigint (checked u64)",
+     "variant": "discriminated union by case"
+    }
+   },
+   "lifecycle": [
+    {
+     "continuation": "cancellation",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "RequestId"
+     },
+     "name": "cancel",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "immediate",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "drain",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "immediate",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "initialize",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "suspend-resume",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "Invocation"
+     },
+     "name": "invoke",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "immediate",
+     "direction": "bidirectional",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "negotiate",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "stream-batch",
+     "direction": "host-to-guest",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "resume",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": false
+    },
+    {
+     "continuation": "terminal",
+     "direction": "bidirectional",
+     "input": {
+      "kind": "named",
+      "value": "HostMessage"
+     },
+     "name": "shutdown",
+     "output": {
+      "kind": "named",
+      "value": "GuestMessage"
+     },
+     "terminal": true
+    }
+   ],
+   "moduleAlias": "risk",
+   "requestedAuthority": [
+    {
+     "namespace": "ui_state",
+     "operation": "read_forecast_33ab0f461591200f",
+     "permission": {
+      "access": "read",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_33ab0f461591200f"
+      },
+      "kind": "ui-state",
+      "path": "risk_score",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "read_forecast_ba18b9c060918ec2",
+     "permission": {
+      "access": "read",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ba18b9c060918ec2"
+      },
+      "kind": "ui-state",
+      "path": "engine_label",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "read_forecast_e727fb7d0be09207",
+     "permission": {
+      "access": "read",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_e727fb7d0be09207"
+      },
+      "kind": "ui-state",
+      "path": "risk_label",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "read_forecast_ef34b2323059dca7",
+     "permission": {
+      "access": "read",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ef34b2323059dca7"
+      },
+      "kind": "ui-state",
+      "path": "risk_summary",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_forecast_33ab0f461591200f",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_33ab0f461591200f"
+      },
+      "kind": "ui-state",
+      "path": "risk_score",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_forecast_ba18b9c060918ec2",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ba18b9c060918ec2"
+      },
+      "kind": "ui-state",
+      "path": "engine_label",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_forecast_e727fb7d0be09207",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_e727fb7d0be09207"
+      },
+      "kind": "ui-state",
+      "path": "risk_label",
+      "scope": "forecast"
+     }
+    },
+    {
+     "namespace": "ui_state",
+     "operation": "write_forecast_ef34b2323059dca7",
+     "permission": {
+      "access": "write",
+      "import": {
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ef34b2323059dca7"
+      },
+      "kind": "ui-state",
+      "path": "risk_summary",
+      "scope": "forecast"
+     }
+    }
+   ],
+   "targets": [
+    "android",
+    "ios",
+    "web",
+    "server"
+   ],
+   "types": {
+    "AbiVersion": {
+     "fields": [
+      {
+       "name": "major",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned16"
+       }
+      },
+      {
+       "name": "minor",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned16"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "BatchInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "BatchOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "CommandInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "CommandOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "Effect": {
+     "fields": [
+      {
+       "name": "input",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "namespace",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "operation",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "EffectOutcome": {
+     "fields": [
+      {
+       "name": "index",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned32"
+       }
+      },
+      {
+       "name": "result",
+       "valueType": {
+        "kind": "result",
+        "value": {
+         "error": {
+          "kind": "named",
+          "value": "ExtensionError"
+         },
+         "ok": {
+          "kind": "named",
+          "value": "Value"
+         }
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "EffectPlan": {
+     "fields": [
+      {
+       "name": "effects",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Effect"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "ErrorCode": {
+     "cases": [
+      {
+       "name": "cancelled"
+      },
+      {
+       "name": "conflict"
+      },
+      {
+       "name": "deadline"
+      },
+      {
+       "name": "denied"
+      },
+      {
+       "name": "exhausted"
+      },
+      {
+       "name": "guest"
+      },
+      {
+       "name": "host"
+      },
+      {
+       "name": "invalid-input"
+      },
+      {
+       "name": "protocol"
+      }
+     ],
+     "kind": "variant"
+    },
+    "Event": {
+     "fields": [
+      {
+       "name": "sequence",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "EventBatch": {
+     "fields": [
+      {
+       "name": "dropped",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned32"
+       }
+      },
+      {
+       "name": "events",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Event"
+        }
+       }
+      },
+      {
+       "name": "subscription",
+       "valueType": {
+        "kind": "named",
+        "value": "Handle"
+       }
+      },
+      {
+       "name": "terminal",
+       "valueType": {
+        "kind": "scalar",
+        "value": "boolean"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "ExtensionError": {
+     "fields": [
+      {
+       "name": "code",
+       "valueType": {
+        "kind": "named",
+        "value": "ErrorCode"
+       }
+      },
+      {
+       "name": "message",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "retryable",
+       "valueType": {
+        "kind": "scalar",
+        "value": "boolean"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Field": {
+     "fields": [
+      {
+       "name": "name",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestCancelled": {
+     "fields": [
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestCompleted": {
+     "fields": [
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      },
+      {
+       "name": "result",
+       "valueType": {
+        "kind": "named",
+        "value": "InvocationResult"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestFailed": {
+     "fields": [
+      {
+       "name": "error",
+       "valueType": {
+        "kind": "named",
+        "value": "ExtensionError"
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestFrame": {
+     "fields": [
+      {
+       "name": "abi",
+       "valueType": {
+        "kind": "named",
+        "value": "AbiVersion"
+       }
+      },
+      {
+       "name": "magic",
+       "valueType": {
+        "kind": "scalar",
+        "value": "bytes"
+       }
+      },
+      {
+       "name": "message",
+       "valueType": {
+        "kind": "named",
+        "value": "GuestMessage"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestMessage": {
+     "cases": [
+      {
+       "name": "cancelled",
+       "payload": {
+        "kind": "named",
+        "value": "GuestCancelled"
+       }
+      },
+      {
+       "name": "completed",
+       "payload": {
+        "kind": "named",
+        "value": "GuestCompleted"
+       }
+      },
+      {
+       "name": "drained"
+      },
+      {
+       "name": "failed",
+       "payload": {
+        "kind": "named",
+        "value": "GuestFailed"
+       }
+      },
+      {
+       "name": "initialized"
+      },
+      {
+       "name": "negotiated",
+       "payload": {
+        "kind": "named",
+        "value": "GuestNegotiated"
+       }
+      },
+      {
+       "name": "shutdown"
+      },
+      {
+       "name": "yielded",
+       "payload": {
+        "kind": "named",
+        "value": "GuestYielded"
+       }
+      }
+     ],
+     "kind": "variant"
+    },
+    "GuestNegotiated": {
+     "fields": [
+      {
+       "name": "selected",
+       "valueType": {
+        "kind": "named",
+        "value": "AbiVersion"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "GuestYielded": {
+     "fields": [
+      {
+       "name": "plan",
+       "valueType": {
+        "kind": "named",
+        "value": "EffectPlan"
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Handle": {
+     "generation": {
+      "kind": "scalar",
+      "value": "unsigned32"
+     },
+     "id": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     },
+     "kind": "handle",
+     "kinds": [
+      "blob",
+      "file",
+      "secret",
+      "store-cursor",
+      "stream"
+     ]
+    },
+    "HandleKind": {
+     "cases": [
+      {
+       "name": "blob"
+      },
+      {
+       "name": "file"
+      },
+      {
+       "name": "secret"
+      },
+      {
+       "name": "store-cursor"
+      },
+      {
+       "name": "stream"
+      }
+     ],
+     "kind": "variant"
+    },
+    "HostCancel": {
+     "fields": [
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostFrame": {
+     "fields": [
+      {
+       "name": "abi",
+       "valueType": {
+        "kind": "named",
+        "value": "AbiVersion"
+       }
+      },
+      {
+       "name": "magic",
+       "valueType": {
+        "kind": "scalar",
+        "value": "bytes"
+       }
+      },
+      {
+       "name": "message",
+       "valueType": {
+        "kind": "named",
+        "value": "HostMessage"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostInitialize": {
+     "fields": [
+      {
+       "name": "application",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "extension",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "instanceId",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostInvoke": {
+     "fields": [
+      {
+       "name": "invocation",
+       "valueType": {
+        "kind": "named",
+        "value": "Invocation"
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostMessage": {
+     "cases": [
+      {
+       "name": "cancel",
+       "payload": {
+        "kind": "named",
+        "value": "HostCancel"
+       }
+      },
+      {
+       "name": "drain"
+      },
+      {
+       "name": "initialize",
+       "payload": {
+        "kind": "named",
+        "value": "HostInitialize"
+       }
+      },
+      {
+       "name": "invoke",
+       "payload": {
+        "kind": "named",
+        "value": "HostInvoke"
+       }
+      },
+      {
+       "name": "negotiate",
+       "payload": {
+        "kind": "named",
+        "value": "HostNegotiate"
+       }
+      },
+      {
+       "name": "resume",
+       "payload": {
+        "kind": "named",
+        "value": "HostResume"
+       }
+      },
+      {
+       "name": "shutdown"
+      }
+     ],
+     "kind": "variant"
+    },
+    "HostNegotiate": {
+     "fields": [
+      {
+       "name": "supported",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "AbiVersion"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "HostResume": {
+     "fields": [
+      {
+       "name": "events",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "EventBatch"
+        }
+       }
+      },
+      {
+       "name": "outcomes",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "EffectOutcome"
+        }
+       }
+      },
+      {
+       "name": "requestId",
+       "valueType": {
+        "kind": "named",
+        "value": "RequestId"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Invocation": {
+     "fields": [
+      {
+       "name": "deadlineUnixMs",
+       "valueType": {
+        "kind": "named",
+        "value": "TimestampMs"
+       }
+      },
+      {
+       "name": "export",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "input",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "snapshots",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Snapshot"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "InvocationResult": {
+     "fields": [
+      {
+       "name": "emittedEvents",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Event"
+        }
+       }
+      },
+      {
+       "name": "output",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "patches",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Patch"
+        }
+       }
+      },
+      {
+       "name": "transactions",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "TransactionProposal"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "MutationInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "MutationOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "Patch": {
+     "fields": [
+      {
+       "name": "expectedRevision",
+       "valueType": {
+        "kind": "named",
+        "value": "Revision"
+       }
+      },
+      {
+       "name": "operations",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "PatchOperation"
+        }
+       }
+      },
+      {
+       "name": "resource",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchAppend": {
+     "fields": [
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchCompareAndSet": {
+     "fields": [
+      {
+       "name": "expected",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      },
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      },
+      {
+       "name": "replacement",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchDispatch": {
+     "fields": [
+      {
+       "name": "action",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "payload",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchIncrement": {
+     "fields": [
+      {
+       "name": "amount",
+       "valueType": {
+        "kind": "scalar",
+        "value": "signed64"
+       }
+      },
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchOperation": {
+     "cases": [
+      {
+       "name": "append",
+       "payload": {
+        "kind": "named",
+        "value": "PatchAppend"
+       }
+      },
+      {
+       "name": "compare-and-set",
+       "payload": {
+        "kind": "named",
+        "value": "PatchCompareAndSet"
+       }
+      },
+      {
+       "name": "dispatch",
+       "payload": {
+        "kind": "named",
+        "value": "PatchDispatch"
+       }
+      },
+      {
+       "name": "increment",
+       "payload": {
+        "kind": "named",
+        "value": "PatchIncrement"
+       }
+      },
+      {
+       "name": "set",
+       "payload": {
+        "kind": "named",
+        "value": "PatchSet"
+       }
+      },
+      {
+       "name": "unset",
+       "payload": {
+        "kind": "named",
+        "value": "PatchUnset"
+       }
+      }
+     ],
+     "kind": "variant"
+    },
+    "PatchPath": {
+     "kind": "alias",
+     "target": {
+      "kind": "list",
+      "value": {
+       "kind": "scalar",
+       "value": "string"
+      }
+     }
+    },
+    "PatchSet": {
+     "fields": [
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "PatchUnset": {
+     "fields": [
+      {
+       "name": "path",
+       "valueType": {
+        "kind": "named",
+        "value": "PatchPath"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "QueryInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "QueryOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "RequestId": {
+     "kind": "alias",
+     "target": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     }
+    },
+    "Revision": {
+     "kind": "alias",
+     "target": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     }
+    },
+    "RuntimeInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "RuntimeOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "Snapshot": {
+     "fields": [
+      {
+       "name": "resource",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "revision",
+       "valueType": {
+        "kind": "named",
+        "value": "Revision"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "named",
+        "value": "Value"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "StateCommit": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateDispatch": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StatePatch": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateReadRequest": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateSnapshot": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StateStream": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Handle"
+     }
+    },
+    "StateSubscription": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreAction": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreCommit": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreInsert": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StorePatch": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreReadRequest": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreRemove": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreSnapshot": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StoreStream": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Handle"
+     }
+    },
+    "StoreSubscription": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StreamInput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "StreamOutput": {
+     "kind": "alias",
+     "target": {
+      "kind": "named",
+      "value": "Value"
+     }
+    },
+    "TimestampMs": {
+     "kind": "alias",
+     "target": {
+      "kind": "scalar",
+      "value": "unsigned64"
+     }
+    },
+    "TransactionProposal": {
+     "fields": [
+      {
+       "name": "patches",
+       "valueType": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Patch"
+        }
+       }
+      },
+      {
+       "name": "transactionId",
+       "valueType": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      }
+     ],
+     "kind": "record"
+    },
+    "Value": {
+     "cases": [
+      {
+       "name": "bool",
+       "payload": {
+        "kind": "scalar",
+        "value": "boolean"
+       }
+      },
+      {
+       "name": "bytes",
+       "payload": {
+        "kind": "scalar",
+        "value": "bytes"
+       }
+      },
+      {
+       "name": "handle",
+       "payload": {
+        "kind": "named",
+        "value": "Handle"
+       }
+      },
+      {
+       "name": "list",
+       "payload": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Value"
+        }
+       }
+      },
+      {
+       "name": "null"
+      },
+      {
+       "name": "record",
+       "payload": {
+        "kind": "list",
+        "value": {
+         "kind": "named",
+         "value": "Field"
+        }
+       }
+      },
+      {
+       "name": "signed",
+       "payload": {
+        "kind": "scalar",
+        "value": "signed64"
+       }
+      },
+      {
+       "name": "string",
+       "payload": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "unsigned",
+       "payload": {
+        "kind": "scalar",
+        "value": "unsigned64"
+       }
+      },
+      {
+       "name": "variant",
+       "payload": {
+        "kind": "named",
+        "value": "VariantValue"
+       }
+      }
+     ],
+     "kind": "variant"
+    },
+    "VariantValue": {
+     "fields": [
+      {
+       "name": "case",
+       "valueType": {
+        "kind": "scalar",
+        "value": "string"
+       }
+      },
+      {
+       "name": "value",
+       "valueType": {
+        "kind": "optional",
+        "value": {
+         "kind": "named",
+         "value": "Value"
+        }
+       }
+      }
+     ],
+     "kind": "record"
+    }
+   }
+  },
+  "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9"
+ },
+ "moduleSha256": {
+  "android": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+  "ios": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+  "server": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+  "web": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1"
+ },
+ "scenarios": {
+  "alias": "risk",
+  "application": {
+   "name": "example.flowspace.project-management",
+   "version": "0.1.0"
+  },
+  "format": "axiom-examples-x7-golden/v1",
+  "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+  "language": "typescript",
+  "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+  "scenarios": [
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Healthy"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 28
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "1 blocked · 5 open · deterministic score 28/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "TypeScript · verified Javy WASM"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Healthy"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 28
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "1 blocked · 5 open · deterministic score 28/100"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "8ffbe9f9a333310e27136521cea2209671b6d59725489857bcd666cafffa9455",
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Healthy"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 28
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "1 blocked · 5 open · deterministic score 28/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 28
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Healthy"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "1 blocked · 5 open · deterministic score 28/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "TypeScript · verified Javy WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 268,
+     "resultWireSha256": "71d48e926f81c39d6de10aa39d1728daba53cbf61600f9cdf1acc42b71696065",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "healthy"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Watch"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 56
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "2 blocked · 10 open · deterministic score 56/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "TypeScript · verified Javy WASM"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Watch"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 56
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "2 blocked · 10 open · deterministic score 56/100"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "c9ab6873653e334a702f18cb6c021a8ac5d56d1474b6b903aca7c6ff009f3608",
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Watch"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 56
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "2 blocked · 10 open · deterministic score 56/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 56
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Watch"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "2 blocked · 10 open · deterministic score 56/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "TypeScript · verified Javy WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 266,
+     "resultWireSha256": "638e6eb2331407f473493b662eb14c6ba0dce6a276e4e77f103e0010ae5e2697",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "watch"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Critical"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 96
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "5 blocked · 3 open · deterministic score 96/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "TypeScript · verified Javy WASM"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Critical"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 96
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "5 blocked · 3 open · deterministic score 96/100"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "0dfdb482869401a4d0b0a51d21f8b9e3ce5f010ac75bdb5c1e2d6e0e2df3d914",
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Critical"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 96
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "5 blocked · 3 open · deterministic score 96/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 96
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Critical"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "5 blocked · 3 open · deterministic score 96/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "TypeScript · verified Javy WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 270,
+     "resultWireSha256": "9e1629088631c66db3d07c7a3f1fac35add45eb01a2b4b119820c887cc427bd3",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "critical"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Critical"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 96
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "10 blocked · 50 open · deterministic score 96/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "TypeScript · verified Javy WASM"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Critical"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 96
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "10 blocked · 50 open · deterministic score 96/100"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "a702f53c3c12608da3440a8011a2b7e540c2ee4b984221e9a9a34d3e7994e57b",
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Critical"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 96
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "10 blocked · 50 open · deterministic score 96/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 96
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Critical"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "10 blocked · 50 open · deterministic score 96/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "TypeScript · verified Javy WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 274,
+     "resultWireSha256": "31ed047a69476e153325b18c8e63f2a5d473b3d19f4ca156f34176fb748b8a21",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "score clamped at 96"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-completed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "completed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "events": [],
+      "output": {
+       "Record": [
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Healthy"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "0 blocked · 0 open · deterministic score 0/100"
+         }
+        }
+       ]
+      },
+      "patches": [],
+      "status": "completed",
+      "transactions": []
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "committed",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [
+        {
+         "resource": "ui:forecast",
+         "revision": 2
+        }
+       ],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 2,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "TypeScript · verified Javy WASM"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Healthy"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "0 blocked · 0 open · deterministic score 0/100"
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "fee81b129beceee720e1db46e88d18b1641229593b7337b4d230fbaf5c86f1cb",
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Healthy"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 0
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "0 blocked · 0 open · deterministic score 0/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 1,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 0
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Healthy"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "0 blocked · 0 open · deterministic score 0/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "TypeScript · verified Javy WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 266,
+     "resultWireSha256": "996b85ac977f2419d1468681a7d7ec66892b8782fc6359b0bb2a7e8b417e6d22",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "more completed than total saturates at zero open"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-failed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "failed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "error": "guest extension failed: ExtensionError { code: Guest, message: \"authorized snapshot ui:forecast was not supplied\", retryable: false }",
+      "status": "rejected"
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [],
+     "teardown": "ok",
+     "uiStateAfter": null
+    },
+    "kernel": {
+     "error": {
+      "code": "Guest",
+      "message": "authorized snapshot ui:forecast was not supplied",
+      "retryable": false
+     },
+     "invocationWireSha256": "50cd191b7df20e08dc4a433e73eaadc4d3118fa568ae0c98c0344d4f3c2baf5e",
+     "step": "guest-failed"
+    },
+    "name": "no forecast snapshot"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-failed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "failed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "error": "guest extension failed: ExtensionError { code: Guest, message: \"unknown extension export: assess\", retryable: false }",
+      "status": "rejected"
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 1,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "Current profile · Rust"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Not evaluated"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "error": {
+      "code": "Guest",
+      "message": "unknown extension export: assess",
+      "retryable": false
+     },
+     "invocationWireSha256": "46610d5ea4bed30d44aac4ff09c8d59c30d1f98628f704c013e8f3377095116b",
+     "step": "guest-failed"
+    },
+    "name": "unknown export is rejected"
+   },
+   {
+    "host": {
+     "brokerActiveHandles": 0,
+     "brokerAudit": [],
+     "hostAudit": [
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "loaded",
+       "invocationId": null,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "verified-typescript-and-loaded",
+       "profile": "backend",
+       "sequence": 1,
+       "target": "server"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-started",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "accepted",
+       "profile": "backend",
+       "sequence": 2,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "invocation-failed",
+       "invocationId": 1,
+       "lifecycle": null,
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "failed",
+       "profile": "backend",
+       "sequence": 3,
+       "target": "server",
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      },
+      {
+       "authoritySha256": "<key-dependent>",
+       "event": "lifecycle-applied",
+       "invocationId": null,
+       "lifecycle": "app-shutdown",
+       "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+       "outcome": "cancelled-drained-and-torn-down",
+       "profile": "backend",
+       "sequence": 4,
+       "target": "server"
+      }
+     ],
+     "outcome": {
+      "error": "AXIOM_EXTENSION_BROKER_CONFLICT: state/store revision conflict",
+      "status": "rejected"
+     },
+     "provenance": {
+      "adapterVersion": "0.1.0",
+      "application": "example.flowspace.project-management",
+      "applicationVersion": "0.1.0",
+      "authoritySha256": "<key-dependent>",
+      "engine": "javy",
+      "engineVersion": "9.1.0+wasmi-2.0.0",
+      "extension": "local.risk",
+      "extensionVersion": "0.0.0-dev.0",
+      "limitsSha256": "c6484ff615913c32059672400badadbdbf33e55a79122596df07729c587cef28",
+      "moduleSha256": "5f7f862ada89f87be016c8802a258ac46b1841d38a12dc2df207c44b35dc9fe1",
+      "profile": "backend",
+      "runtimeVersion": "0.1.0",
+      "schema": "axiom-extension-host/v1",
+      "target": "server"
+     },
+     "stateAudit": [
+      {
+       "application": "example.flowspace.project-management",
+       "auditId": "441d433b214d79d41406f1c918972d126157bfbde8e708fd3523227e93cca6eb",
+       "decision": "conflict",
+       "extension": "local.risk",
+       "grantSha256": "<key-dependent>",
+       "instanceId": 1,
+       "paths": [
+        "engine_label",
+        "risk_label",
+        "risk_score",
+        "risk_summary"
+       ],
+       "requestId": 9223372036854775808,
+       "resources": [
+        "ui:forecast"
+       ],
+       "revisions": [],
+       "sequence": 1,
+       "traceId": "axiom:example.flowspace.project-management:local.risk:1"
+      }
+     ],
+     "teardown": "ok",
+     "uiStateAfter": {
+      "revision": 1,
+      "value": {
+       "Record": [
+        {
+         "name": "engine_label",
+         "value": {
+          "String": "Current profile · Rust"
+         }
+        },
+        {
+         "name": "risk_label",
+         "value": {
+          "String": "Not evaluated"
+         }
+        },
+        {
+         "name": "risk_score",
+         "value": {
+          "Unsigned": 0
+         }
+        },
+        {
+         "name": "risk_summary",
+         "value": {
+          "String": "Run the same bounded forecast in Rust, TypeScript, or Python."
+         }
+        }
+       ]
+      }
+     }
+    },
+    "kernel": {
+     "events": [],
+     "invocationWireSha256": "c77fec8887e40bcf84ad3b3ef2b3a19b7766e268bb4a3f5b99176236c5488d9d",
+     "output": {
+      "Record": [
+       {
+        "name": "risk_label",
+        "value": {
+         "String": "Healthy"
+        }
+       },
+       {
+        "name": "risk_score",
+        "value": {
+         "Unsigned": 28
+        }
+       },
+       {
+        "name": "risk_summary",
+        "value": {
+         "String": "1 blocked · 5 open · deterministic score 28/100"
+        }
+       }
+      ]
+     },
+     "patches": [
+      {
+       "expected_revision": 3,
+       "operations": [
+        {
+         "Set": {
+          "path": [
+           "risk_score"
+          ],
+          "value": {
+           "Unsigned": 28
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_label"
+          ],
+          "value": {
+           "String": "Healthy"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "risk_summary"
+          ],
+          "value": {
+           "String": "1 blocked · 5 open · deterministic score 28/100"
+          }
+         }
+        },
+        {
+         "Set": {
+          "path": [
+           "engine_label"
+          ],
+          "value": {
+           "String": "TypeScript · verified Javy WASM"
+          }
+         }
+        }
+       ],
+       "resource": "ui:forecast"
+      }
+     ],
+     "resultWireBytes": 268,
+     "resultWireSha256": "17cb6a2f230b57bbfba41e5a4cf48cb6db8a289f2f7cced03fe57266d0153a04",
+     "step": "completed",
+     "transactions": []
+    },
+    "name": "stale snapshot revision is rejected by the host"
+   }
+  ]
+ },
+ "uiExtensionBindings": {
+  "android": {
+   "format": "axiom-ui-extension-bindings/v1",
+   "graphRevision": "96fdbbf6f5a9558772e13d37527d5bb735c5a654fc88a4a59b8a484fe98fdd3c",
+   "imports": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "alias": "risk",
+     "export": "assess_delivery_risk",
+     "imports": [
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_33ab0f461591200f",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ba18b9c060918ec2",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_e727fb7d0be09207",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ef34b2323059dca7",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_33ab0f461591200f",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ba18b9c060918ec2",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_e727fb7d0be09207",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ef34b2323059dca7",
+       "outputType": "StateCommit"
+      }
+     ],
+     "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+     "language": "typescript",
+     "localName": "risk",
+     "permissions": {
+      "ui-state": {
+       "forecast": {
+        "read": [
+         "engine_label",
+         "risk_label",
+         "risk_score",
+         "risk_summary"
+        ],
+        "write": [
+         "engine_label",
+         "risk_label",
+         "risk_score",
+         "risk_summary"
+        ]
+       }
+      }
+     },
+     "sourceSha256": "ee2f332a01a522516d4fe88041fdb7cefa2d21904e2b4cdbabcaab13e429ae22",
+     "span": {
+      "end": 135,
+      "start": 117
+     },
+     "stateScope": "forecast"
+    }
+   ],
+   "invocations": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "action": "assess_risk",
+     "actionSemanticId": {
+      "value": "action:fa5109fe685240d4"
+     },
+     "alias": "risk",
+     "export": "assess_delivery_risk",
+     "inputExpression": "overview.data",
+     "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+     "localName": "risk",
+     "page": "Dashboard",
+     "pageSemanticId": {
+      "value": "page:67b696468610b879"
+     },
+     "sourceSpan": {
+      "end": 1759,
+      "start": 1719
+     },
+     "stateScope": "forecast"
+    }
+   ],
+   "module": "examples.flowspace.project_management.ui",
+   "status": "compiled",
+   "target": "android"
+  },
+  "ios": {
+   "format": "axiom-ui-extension-bindings/v1",
+   "graphRevision": "96fdbbf6f5a9558772e13d37527d5bb735c5a654fc88a4a59b8a484fe98fdd3c",
+   "imports": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "alias": "risk",
+     "export": "assess_delivery_risk",
+     "imports": [
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_33ab0f461591200f",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ba18b9c060918ec2",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_e727fb7d0be09207",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ef34b2323059dca7",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_33ab0f461591200f",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ba18b9c060918ec2",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_e727fb7d0be09207",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ef34b2323059dca7",
+       "outputType": "StateCommit"
+      }
+     ],
+     "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+     "language": "typescript",
+     "localName": "risk",
+     "permissions": {
+      "ui-state": {
+       "forecast": {
+        "read": [
+         "engine_label",
+         "risk_label",
+         "risk_score",
+         "risk_summary"
+        ],
+        "write": [
+         "engine_label",
+         "risk_label",
+         "risk_score",
+         "risk_summary"
+        ]
+       }
+      }
+     },
+     "sourceSha256": "ee2f332a01a522516d4fe88041fdb7cefa2d21904e2b4cdbabcaab13e429ae22",
+     "span": {
+      "end": 135,
+      "start": 117
+     },
+     "stateScope": "forecast"
+    }
+   ],
+   "invocations": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "action": "assess_risk",
+     "actionSemanticId": {
+      "value": "action:fa5109fe685240d4"
+     },
+     "alias": "risk",
+     "export": "assess_delivery_risk",
+     "inputExpression": "overview.data",
+     "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+     "localName": "risk",
+     "page": "Dashboard",
+     "pageSemanticId": {
+      "value": "page:67b696468610b879"
+     },
+     "sourceSpan": {
+      "end": 1759,
+      "start": 1719
+     },
+     "stateScope": "forecast"
+    }
+   ],
+   "module": "examples.flowspace.project_management.ui",
+   "status": "compiled",
+   "target": "ios"
+  },
+  "web": {
+   "format": "axiom-ui-extension-bindings/v1",
+   "graphRevision": "96fdbbf6f5a9558772e13d37527d5bb735c5a654fc88a4a59b8a484fe98fdd3c",
+   "imports": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "alias": "risk",
+     "export": "assess_delivery_risk",
+     "imports": [
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_33ab0f461591200f",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ba18b9c060918ec2",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_e727fb7d0be09207",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StateReadRequest",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "read_forecast_ef34b2323059dca7",
+       "outputType": "StateSnapshot"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_33ab0f461591200f",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ba18b9c060918ec2",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_e727fb7d0be09207",
+       "outputType": "StateCommit"
+      },
+      {
+       "inputType": "StatePatch",
+       "mode": "call",
+       "namespace": "ui_state",
+       "operation": "write_forecast_ef34b2323059dca7",
+       "outputType": "StateCommit"
+      }
+     ],
+     "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+     "language": "typescript",
+     "localName": "risk",
+     "permissions": {
+      "ui-state": {
+       "forecast": {
+        "read": [
+         "engine_label",
+         "risk_label",
+         "risk_score",
+         "risk_summary"
+        ],
+        "write": [
+         "engine_label",
+         "risk_label",
+         "risk_score",
+         "risk_summary"
+        ]
+       }
+      }
+     },
+     "sourceSha256": "ee2f332a01a522516d4fe88041fdb7cefa2d21904e2b4cdbabcaab13e429ae22",
+     "span": {
+      "end": 135,
+      "start": 117
+     },
+     "stateScope": "forecast"
+    }
+   ],
+   "invocations": [
+    {
+     "abiSymbol": "axiom_extension__risk__assess_delivery_risk",
+     "action": "assess_risk",
+     "actionSemanticId": {
+      "value": "action:fa5109fe685240d4"
+     },
+     "alias": "risk",
+     "export": "assess_delivery_risk",
+     "inputExpression": "overview.data",
+     "interfaceSha256": "3c2b84709d958917ce6b5a2bbcd04c636b8626ca55bcee28c5530096c61da7f9",
+     "localName": "risk",
+     "page": "Dashboard",
+     "pageSemanticId": {
+      "value": "page:67b696468610b879"
+     },
+     "sourceSpan": {
+      "end": 1759,
+      "start": 1719
+     },
+     "stateScope": "forecast"
+    }
+   ],
+   "module": "examples.flowspace.project_management.ui",
+   "status": "compiled",
+   "target": "web"
+  }
+ },
+ "variant": "pm-typescript"
+}

@@ -18,7 +18,8 @@ copy of the app, so the checkout is never modified:
 It then compares the normalised results with `scripts/x7-golden/golden/`.
 Signing keys are generated per run, so key-dependent digests (authority
 locks, signed documents) are masked; module digests are compared only with
-`--strict-modules` (they depend on the exact toolchain).
+`--strict-modules`: they depend on the exact toolchain and, while the SDK is a
+path dependency, on the checkout location (its absolute path is embedded).
 
 The Rust guests pin `axiom-extension-sdk` through a path dependency on the
 sibling SDK checkout (0.1.5 is unpublished). The Linux compiler sandbox cannot
@@ -149,7 +150,7 @@ def main() -> int:
     parser.add_argument("--sdk-root", type=Path, default=ROOT.parent / "axiom-extension-sdk")
     parser.add_argument("--variant", action="append", choices=sorted(VARIANTS))
     parser.add_argument("--strict-modules", action="store_true",
-                        help="also require identical module bytes (same toolchain as the goldens)")
+                        help="also require identical module bytes (same toolchain and location as the goldens)")
     parser.add_argument("--update", action="store_true", help="rewrite the goldens")
     args = parser.parse_args()
     sdk_root = args.sdk_root.resolve(strict=True)
