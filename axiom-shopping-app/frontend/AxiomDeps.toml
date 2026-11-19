@@ -30,6 +30,10 @@ allowUnsupportedPackageForms = false
 [extensions.pricing]
 language = "rust"
 source = "sandbox/member_pricing.rs"
+# `exports` stays listed although the build can derive it: `axiom run` moves
+# AxiomDeps.lock to .axiom/ before resolving, so a derived list never survives
+# a run (AXIOM_EXTENSION_EXPORTS_UNDERIVED). Drop it once that is fixed.
+exports = ["apply_member_price"]
 targets = [
     "android",
     "ios",

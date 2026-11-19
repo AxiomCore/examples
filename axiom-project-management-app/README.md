@@ -53,10 +53,10 @@ action assess_risk() writes forecast { engine_label, risk_label, risk_score, ris
 }
 ```
 
-The Rust and Python profiles list no `exports`: the build derives them from the
-guest (`#[export]` methods, `@extension.export` functions) and records them in
-`AxiomDeps.lock`. TypeScript exports are dispatched dynamically, so
-`profiles/typescript.toml` keeps `exports = ["assess_delivery_risk"]`.
+The profiles still list `exports = ["assess_delivery_risk"]`. For Rust and
+Python the build can derive them from the guest, but `axiom run` does not keep
+the derived list yet, so they stay explicit; TypeScript exports are dispatched
+dynamically and always need the list.
 
 Choose the implementation before launching:
 

@@ -26,9 +26,8 @@ compile-time inputs only; target runtimes never load source files.
 maps directly to exact `ui.cart` capability paths (`AxiomDeps.toml` uses the
 permission shorthand), and one-expression actions lower to the same validated
 action IR as block actions. `main.acore` names the extension once
-(`use extension pricing`); its exports come from the compiled guest, and the
-`apply_member_price` action declares the cart fields the guest writes
-(`writes cart { ... }`). `AppScreen`,
+(`use extension pricing`), and the `apply_member_price` action declares the
+cart fields the guest writes (`writes cart { ... }`). `AppScreen`,
 `Section`, `ResponsiveGrid`, `AsyncBoundary`, and `ActionButton` are versioned
 standard component contracts whose authored and expanded behavior is visible
 in Inspector. They do not add hidden network, retry, or state behavior.
