@@ -35,9 +35,7 @@ in Inspector. They do not add hidden network, retry, or state behavior.
 
 ## Run the app
 
-No fixture JSON or explicit lock path is required. The `just` recipes first
-build the extension once (`just prepare`), which derives its exports into
-`AxiomDeps.lock`; run `just prepare` yourself before a bare `axiom run`. Start the Acore backend service in one terminal:
+No preparation command, fixture JSON, or explicit lock path is required. Start the Acore backend service in one terminal:
 
 ```sh
 just backend

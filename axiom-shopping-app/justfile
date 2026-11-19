@@ -3,13 +3,7 @@ axiom := env_var_or_default("AXIOM", "laxiom")
 default:
     @just --list
 
-# Build the extension once: AxiomDeps.toml lists no `exports`, and this build
-# derives them from the guest and records them in AxiomDeps.lock. `axiom run`
-# does not derive them by itself yet (AXIOM_EXTENSION_EXPORTS_UNDERIVED).
-prepare:
-    cd frontend && {{axiom}} extensions source-build pricing --target web
-
-check: prepare
+check:
     cd frontend && {{axiom}} run main.acore --target web --once
     cd frontend && {{axiom}} run main.acore --target android --once
     cd frontend && {{axiom}} run main.acore --target ios --once
@@ -20,23 +14,23 @@ backend:
 mock:
     cd backend && {{axiom}} run axiom.acore --mode mock --debug
 
-web: prepare
+web:
     cd frontend && {{axiom}} run main.acore --target web
 
-android: prepare
+android:
     cd frontend && {{axiom}} run main.acore --target android
 
-ios: prepare
+ios:
     cd frontend && {{axiom}} run main.acore --target ios
 
-inspect: prepare
+inspect:
     cd frontend && {{axiom}} inspect serve .
 
-audit: prepare
+audit:
     cd frontend && {{axiom}} dependencies check --deps AxiomDeps.toml
     cd frontend && {{axiom}} inspect security .
     cd frontend && {{axiom}} inspect authority .
     cd frontend && {{axiom}} inspect provenance pricing .
 
-release-check: prepare
+release-check:
     cd frontend && {{axiom}} inspect release-check . --enforce

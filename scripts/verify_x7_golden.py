@@ -5,9 +5,8 @@ For each variant (the shopping app, and the project-management app with each
 of its Rust, TypeScript and Python profiles) this script works on a temporary
 copy of the app, so the checkout is never modified:
 
-1. `axiom extensions source-build` (records the derived exports, as `just
-   prepare` does), then `axiom run main.acore --target web --once` (backend
-   contract, UI lock, signed local release workflow);
+1. `axiom run main.acore --target web --once` (backend contract, extension
+   source build, UI lock, signed local release workflow);
 2. `axiom extensions source-build` for every target, `axiom extensions
    interface`, `axiom ui inspect extensions` for web/android/ios;
 3. the golden harness (`scripts/x7-golden/harness`), which loads the signed
@@ -116,9 +115,6 @@ def capture(variant: str, cli: str, harness: str, sdk_root: Path, strict: bool) 
         frontend = prepare(app, sdk_root, Path(temp))
         if profile:
             shutil.copy(frontend / f"profiles/{profile}.toml", frontend / "AxiomDeps.toml")
-        # Build once first: `axiom run` does not derive omitted exports (the
-        # justfiles do the same in `just prepare`).
-        run([cli, "extensions", "source-build", alias, "--target", "web"], frontend)
         run([cli, "run", "main.acore", "--target", "web", "--once"], frontend)
         modules = {}
         for target in ("web", "android", "ios", "server"):
