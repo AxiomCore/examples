@@ -9,12 +9,11 @@ Person.rpcs.get_contacts(limit: int32)
   -> POST /collections  body {max_results: $args.limit, person_id: $this.id}
 ```
 
-The app shows one person and a button. Pressing it calls `person.getContacts(sdk, limit: 10)`
+The app shows one person and a button. Pressing it calls `person.getContacts(sdk.rpc, limit: 10)`
 through `AxiomMutationBuilder` and shows the server's message.
 
-`axiom_flutter_generator` does not emit model RPC methods yet, so `lib/main.dart` contains a
-small `PersonRpc` extension that applies the same resolver by hand on top of the generated
-client (`RpcModule.endpointIds`).
+The generator emits `getContacts` as an extension on the `Person` model, because the
+contract declares it as a model RPC (`Person.rpcs.get_contacts`).
 
 ## Layout
 
