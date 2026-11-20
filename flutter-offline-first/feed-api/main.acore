@@ -1,0 +1,40 @@
+project(id: "examples.offline_feed", version: "1.0.0")
+variant default(include: ["*"])
+
+model Post { id: String author: String text: String }
+model Feed { posts: List<Models.Post> }
+model Health { ok: Bool }
+
+cors(origins: ["http://localhost:5000", "http://127.0.0.1:5000"], methods: [GET], headers: ["accept", "content-type", "x-axiom-request-id", "x-axiom-cache-mode", "traceparent", "tracestate"], credentials: false, maxAge: 10m)
+
+action feed(kind: ActionKind.query, output: Models.Feed) {
+  managed {
+    return {posts: [
+      {id: "p1", author: "Ada", text: "Offline first means the cache answers first."},
+      {id: "p2", author: "Grace", text: "The network refreshes it when it can."},
+      {id: "p3", author: "Linus", text: "Restart the app with the backend down: still here."}
+    ]}
+  }
+}
+
+// Cache-first: served from the persistent cache while fresh (1 hour), no network call.
+endpoint pinnedFeed(method: GET, path: "/feed/pinned") {
+  handle(action: Actions.feed)
+  response(type: Models.Feed)
+  cache(strategy: CacheStrategy.cacheFirst, ttl: 1h)
+}
+
+// Stale-while-revalidate: show the cached copy at once, refresh it in the background.
+endpoint latestFeed(method: GET, path: "/feed/latest") {
+  handle(action: Actions.feed)
+  response(type: Models.Feed)
+  cache(strategy: CacheStrategy.staleWhileRevalidate, ttl: 30s)
+}
+
+action health(kind: ActionKind.query, output: Models.Health) {
+  managed { return {ok: true} }
+}
+endpoint health(method: GET, path: "/health") {
+  handle(action: Actions.health)
+  response(type: Models.Health)
+}
