@@ -1,0 +1,30 @@
+project(id: "docs.talks", version: "1.0.0")
+variant default(include: ["*"])
+
+model Talk { id: String title: String speaker: String }
+model TalkList { talks: List<Models.Talk> }
+model NewTalk { title: String speaker: String }
+
+cors(origins: ["http://localhost:5000", "http://127.0.0.1:5000"], methods: [GET, POST], headers: ["accept", "content-type", "x-axiom-request-id", "x-axiom-cache-mode", "traceparent", "tracestate"], credentials: false, maxAge: 10m)
+
+action listTalks(kind: ActionKind.query, output: Models.TalkList) {
+  managed {
+    return {talks: [
+      {id: "t1", title: "Typed APIs in Flutter", speaker: "Ada"},
+      {id: "t2", title: "Contracts over REST", speaker: "Grace"}
+    ]}
+  }
+}
+endpoint listTalks(method: GET, path: "/talks") {
+  handle(action: Actions.listTalks)
+  response(type: Models.TalkList)
+}
+
+action createTalk(kind: ActionKind.command, input: Models.NewTalk, output: Models.Talk) {
+  managed { return {id: "t3", title: Input.title, speaker: Input.speaker} }
+}
+endpoint createTalk(method: POST, path: "/talks") {
+  request { body("title", type: String) body("speaker", type: String) }
+  handle(action: Actions.createTalk, input: {title: Input.body.title, speaker: Input.body.speaker})
+  response(type: Models.Talk, status: 201)
+}
