@@ -1,17 +1,65 @@
-import 'package:flutter/material.dart';
 import 'package:axiom_flutter/axiom_flutter.dart';
+import 'package:flutter/material.dart';
+
 import 'axiom_generated/axiom_sdk.dart';
 import 'axiom_generated/models.dart' as models;
 
 late final AxiomSdk sdk;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1. Initialize the SDK
-  sdk = await AxiomSdk.create();
+  // Starts the runtime and loads assets/axiom/rpc.axiom. The base URL comes
+  // from AxiomDeps.toml (http://127.0.0.1:8000); override it at run time with
+  // --dart-define=AXIOM_BASE_URL=http://10.0.2.2:8000 (Android emulator).
+  try {
+    sdk = await AxiomSdk.create();
+  } catch (e) {
+    debugPrint('AXIOM_EXAMPLE init FAIL $e');
+    debugPrint('AXIOM_EXAMPLE DONE');
+    runApp(
+      MaterialApp(
+        home: Scaffold(body: Center(child: Text('$e'))),
+      ),
+    );
+    return;
+  }
 
   runApp(const MaterialApp(home: RpcDemoScreen()));
+
+  // Smoke mode for CI / headless runs: call the RPC once and print the result.
+  if (const bool.fromEnvironment('AXIOM_EXAMPLE_AUTORUN')) {
+    final state =
+        await const models.Person(id: 'USR-9921', name: 'Example person')
+            .getContacts(sdk, limit: 10)
+            .stream
+            .firstWhere((s) => s.hasData || s.hasError);
+    debugPrint(
+      state.hasData
+          ? 'AXIOM_EXAMPLE rpc PASS ${state.data}'
+          : 'AXIOM_EXAMPLE rpc FAIL ${state.error?.message}',
+    );
+    debugPrint('AXIOM_EXAMPLE DONE');
+  }
+}
+
+/// The contract declares `Person.rpcs.get_contacts`, resolved to
+/// `POST /collections` with body `{max_results: $args.limit, person_id: $this.id}`.
+///
+/// axiom_flutter_generator does not emit model RPC methods yet, so this
+/// extension spells out the same resolver by hand on top of the generated
+/// endpoint id.
+extension PersonRpc on models.Person {
+  AxiomQuery<Object?> getContacts(AxiomSdk sdk, {required int limit}) {
+    return sdk.runtime.sendMutation<Object?>(
+      namespace: 'rpc',
+      endpointId: RpcModule.endpointIds['create_collection']!,
+      method: 'POST',
+      path: '/collections',
+      body: {'max_results': limit, 'person_id': id},
+      decoder: (json) => json,
+    );
+  }
 }
 
 class RpcDemoScreen extends StatefulWidget {
@@ -22,53 +70,45 @@ class RpcDemoScreen extends StatefulWidget {
 }
 
 class _RpcDemoScreenState extends State<RpcDemoScreen> {
-  // 2. Instantiate a local model (this would usually come from a previous query)
-  final person = const models.Person(id: "USR-9921", name: "Yash Makan");
+  // Usually this would come from a previous query.
+  final person = const models.Person(id: 'USR-9921', name: 'Example person');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("RPC Chaining Demo")),
+      appBar: AppBar(title: const Text('RPC demo')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Active User: ${person.name}"),
+            Text('Active user: ${person.name}'),
             const SizedBox(height: 20),
-
-            // 3. Use the Mutation Builder for the RPC call
-            // Since 'create_collection' is a POST, the generator mapped it to AxiomMutation
-            AxiomMutationBuilder<dynamic, int>(
-              // 4. Calling the RPC Extension Method!
-              // Note how we pass 'sdk' (the module) and the typed 'limit' argument.
+            AxiomMutationBuilder<Object?, int>(
               mutation: AxiomMutation(
-                (limit) => person.getContacts(sdk.rpc, limit: limit),
+                (limit) => person.getContacts(sdk, limit: limit),
               ),
               builder: (context, state, execute) {
                 return Column(
                   children: [
                     ElevatedButton(
+                      key: const Key('get-contacts'),
                       onPressed: state.isMutating ? null : () => execute(10),
                       child: Text(
-                        state.isMutating ? "Fetching..." : "Get Contacts (RPC)",
+                        state.isMutating ? 'Fetching...' : 'Get contacts (RPC)',
                       ),
                     ),
-
                     const SizedBox(height: 20),
-
-                    // Result Display
                     if (state.hasData)
                       Container(
                         padding: const EdgeInsets.all(12),
                         color: Colors.green.shade50,
                         child: Text(
-                          "Server Response: ${state.data['message']}",
+                          'Server response: ${(state.data as Map?)?['message']}',
                         ),
                       ),
-
                     if (state.hasError)
                       Text(
-                        "Error: ${state.error?.message}",
+                        'Error: ${state.error?.message}',
                         style: const TextStyle(color: Colors.red),
                       ),
                   ],

@@ -1,0 +1,5 @@
+framework = "flutter"
+
+[contracts.rpc]
+source = "assets/axiom/rpc.axiom"
+base_url = "http://127.0.0.1:8000"

@@ -11,7 +11,7 @@ void main() {
 
   testWidgets('RPC screen renders without contacting the backend', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: RpcDemoScreen()));
-    expect(find.text('RPC Chaining Demo'), findsOneWidget);
-    expect(find.text('Get Contacts (RPC)'), findsOneWidget);
+    expect(find.text('RPC demo'), findsOneWidget);
+    expect(find.text('Get contacts (RPC)'), findsOneWidget);
   });
 }
