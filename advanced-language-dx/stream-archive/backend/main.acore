@@ -1,0 +1,45 @@
+project(id: "advanced.stream-archive", version: "1")
+variant default(include: ["*"])
+model Change { id: String title: String(minLength: 1, maxLength: 200) }
+model ArchiveBatch { key: String(minLength: 1, maxLength: 128) changes: List<Models.Change> }
+model Archived { id: String title: String } also entity
+model Problem { message: String }
+failure duplicate(payload: Models.Problem, status: 409)
+validator batchSize(input: Models.ArchiveBatch) {
+ check(condition: Input.changes.length >= 1 && Input.changes.length <= 32,
+   field: .changes, code: "batch_size", message: "Supply between one and 32 changes")
+}
+validation(model: Models.ArchiveBatch, rules: [Validators.batchSize], expose: true)
+projection archivePublic(entity: Entities.archived, fields: [.id, .title], audience: Audience.web)
+guard signedIn(kind: GuardKind.authenticated)
+serverPolicy bounded(timeout: 10s)
+serverDefaults(policy: ServerPolicies.bounded)
+resource archive(lifetime: ProviderLifetime.application, transactionProfile: TransactionProfile.postgres17_11) {
+ operation writeBatch(input: Models.ArchiveBatch, output: List<Models.Archived>, effect: EffectKind.write, errors: [Failures.duplicate])
+}
+action archiveBatch(kind: ActionKind.command, input: Models.ArchiveBatch, output: List<Models.Archived>) {
+ require(guard: Guards.signedIn)
+ errors(Failures.duplicate)
+ managed {
+  let saved = await transaction database(resource: Resources.archive,
+    isolation: TransactionIsolation.serializable, receipt: Input.key) {
+   let rows = await database.writeBatch(input: {key: Input.key, changes: Input.changes})
+   return rows
+  }
+  return saved
+ }
+}
+endpoint archive_batch(method: POST, path: "/archive") {
+ request { body("key", type: String) body("changes", type: List<Models.Change>) }
+ handle(action: Actions.archiveBatch, input: {key: Input.body.key, changes: Input.body.changes})
+ response(type: List<Models.Archived>, projection: Projections.archivePublic)
+ errors(Failures.duplicate)
+}
+// A source publishes a bounded immutable batch with a stable source key.
+// Only explicit trusted worker activation consumes these durable messages.
+event changes(payload: Models.ArchiveBatch)
+publisher publishChanges(event: Events.changes)
+consumer archiveChanges(event: Events.changes, action: Actions.archiveBatch,
+ attempts: 3, backoff: 100ms, maxBackoff: 400ms, deadline: 10s,
+ ordering: DeliveryOrdering.binding)
+serverTelemetry(maxSeries: 32, maxEvents: 128)

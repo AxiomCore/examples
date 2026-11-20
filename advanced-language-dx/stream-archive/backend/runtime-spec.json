@@ -1,0 +1,24 @@
+{
+ "format": "axiom-database-runtime/v1",
+ "profile": "postgres-17.11-typed-primary/v1",
+ "tenantClaim": "tenant",
+ "tenantColumn": "tenant",
+ "operations": {
+  "writeBatch": {
+   "readOnly": false,
+   "isolation": "serializable",
+   "maxAttempts": 3,
+   "steps": [
+    {"name": "rows", "query": {"kind": "insertBatch", "table": "app.archive", "inputField": "changes", "maxItems": 32,
+     "values": {"id": {"kind": "item", "field": "id"}, "title": {"kind": "item", "field": "title"}},
+     "fields": {"id": "id", "title": "title"}}},
+    {"name": "publications", "query": {"kind": "insertBatch", "table": "app.outbox", "inputField": "changes", "maxItems": 32,
+     "values": {"eventId": {"kind": "item", "field": "id"}, "title": {"kind": "item", "field": "title"}, "delivered": {"kind": "literal", "value": false}},
+     "fields": {"id": "eventId", "title": "title"}}}
+   ],
+   "result": "rows",
+   "idempotency": {"table": "app.commands", "keyInput": "key", "keyColumn": "key", "hashColumn": "requestHash", "resultColumn": "result"},
+   "constraintFailures": {"archive_pkey": {"failure": "duplicate", "payload": {"message": "An archive event already exists"}}}
+  }
+ }
+}

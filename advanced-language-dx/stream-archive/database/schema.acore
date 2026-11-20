@@ -1,0 +1,25 @@
+module storage
+database archive(engine: DatabaseEngine.postgres) {
+ manage(schemas: [Schemas.app], mode: ManagementMode.ownedObjects)
+ schema app {
+  table archive {
+   tenant: Pg.Text() id: Pg.Int64() title: Pg.Text()
+   primaryKey(columns: [.tenant, .id], sqlName: "archive_pkey")
+  }
+  table commands {
+   tenant: Pg.Text() key: Pg.Text() requestHash: Pg.Text() result: Pg.Jsonb(nullable: true)
+   primaryKey(columns: [.tenant, .key])
+  }
+  table outbox {
+   tenant: Pg.Text() eventId: Pg.Int64() title: Pg.Text() delivered: Pg.Bool(default: false)
+   primaryKey(columns: [.tenant, .eventId])
+  }
+  rowSecurity archiveRls(tableId: Tables.app.archive, enabled: true, force: true)
+  rowPolicy tenantArchive(tableId: Tables.app.archive, roleIds: [Roles.archive_app], public: false, command: "all", permissive: true, using: Sql.predicate(source: "tenant = current_setting('app.tenant'::text, true)", dependencies: [Tables.app.archive], effects: SqlEffects.unknown), check: Sql.predicate(source: "tenant = current_setting('app.tenant'::text, true)", dependencies: [Tables.app.archive], effects: SqlEffects.unknown), sessionSettings: ["app.tenant"])
+  grant appSchema(objectId: Schemas.app, roleIds: [Roles.archive_app], public: false, privileges: ["usage"], columns: [], grantOption: false)
+  grant archiveData(objectId: Tables.app.archive, roleIds: [Roles.archive_app], public: false, privileges: ["select", "insert"], columns: [], grantOption: false)
+  grant commandData(objectId: Tables.app.commands, roleIds: [Roles.archive_app], public: false, privileges: ["select", "insert", "update"], columns: [], grantOption: false)
+  grant outboxData(objectId: Tables.app.outbox, roleIds: [Roles.archive_app], public: false, privileges: ["select", "insert", "update"], columns: [], grantOption: false)
+ }
+ role archive_app(managed: false, login: true, inherit: true, superuser: false, createDb: false, createRole: false, replication: false, bypassRls: false, connectionLimit: 8)
+}

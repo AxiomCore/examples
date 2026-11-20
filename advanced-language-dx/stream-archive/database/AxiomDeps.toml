@@ -1,0 +1,5 @@
+type = "database"
+targets = ["server"]
+[application]
+name = "advanced.archive"
+version = "1.0.0"
