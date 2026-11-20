@@ -1,0 +1,6 @@
+framework = "flutter"
+
+[contracts]
+
+[contracts.feed]
+source = "../feed-api/backend.axiom"
