@@ -1,8 +1,17 @@
 # Streams example (Flutter)
 
-Maintainer fixture for streaming in `axiom_flutter`. The contract in `../axiom.acore` amends
-the FastAPI app in `../test_server.py` and types three streaming endpoints with the
-`ChatMessage {user, text}` model:
+Streaming in `axiom_flutter`: HTTP chunked, server-sent events and a WebSocket. The server is
+the FastAPI app in `../test_server.py`. Its contract is `../contract/main.acore`, native Acore
+that describes the same three routes with the `ChatMessage {user, text}` model, so the contract
+builds on any OS without the FastAPI extractor (the FastAPI app still serves every request; the
+managed bodies in the Acore file are never run). `../axiom.acore` is the older form, which
+`amends` the FastAPI app and needs the extractor (macOS only with CLI 0.156.0); it is kept for
+reference and is not used by the app.
+
+Why the server is not Acore: with CLI 0.156.0 a managed stream action emits exactly one frame per
+call, and a WebSocket endpoint behind a global `cors(...)` refuses the browser's upgrade, so the
+five-frame streams and the unauthenticated browser WebSocket of this example cannot be served by an
+Acore backend yet.
 
 | Endpoint | Kind | Dart API used |
 | --- | --- | --- |
@@ -39,16 +48,13 @@ uvicorn test_server:app --host 127.0.0.1 --port 8000
 ## Regenerate the client
 
 ```sh
-tool/regen.sh            # AXIOM=/path/to/axiom to pick a CLI
+tool/regen.sh            # AXIOM=/path/to/axiom to pick a CLI; works on Linux, macOS and Windows
 ```
 
-This runs `axiom build ../axiom.acore --out assets/axiom/stream.axiom` and then
+This runs `axiom check` and `axiom build` on `../contract/main.acore`, writes
+`assets/axiom/stream.axiom` and then runs
 `dart run axiom_flutter_generator:generate --config AxiomDeps.toml --out axiom_generated`.
-The build needs the FastAPI extractor (`axiom install --module fastapi-extractor`); CLI 0.156
-runs extractors on macOS only.
-
-To use an `axiom-sdk` checkout instead of pub.dev, create an uncommitted
-`pubspec_overrides.yaml` (the form is shown at the bottom of `pubspec.yaml`).
+When you change `../test_server.py`, change `../contract/main.acore` to match.
 
 ## Run
 
@@ -70,7 +76,14 @@ Platform setup is already in place: iOS 13.0 and macOS 11.0 deployment targets, 
 Android minSdk 24 (required by `axiom_flutter`), the `INTERNET` permission and cleartext HTTP for local backends.
 
 Headless smoke run: build with `--dart-define=AXIOM_EXAMPLE_AUTORUN=true`; the app reads both streams and
-sends one WebSocket message at start-up, printing `AXIOM_EXAMPLE chunks|sse|websocket PASS|FAIL ...`.
+sends one WebSocket message at start-up. Expected (verified in headless Chrome against the FastAPI server):
+
+```text
+AXIOM_EXAMPLE chunks PASS 5 frames, last "Message chunk #5"
+AXIOM_EXAMPLE sse PASS 5 frames, last "Event 5"
+AXIOM_EXAMPLE websocket PASS "Received: hello"
+AXIOM_EXAMPLE DONE
+```
 
 ## Tests
 

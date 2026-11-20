@@ -1,0 +1,6 @@
+framework = "flutter"
+
+[contracts]
+
+[contracts.talks]
+source = "../talks-api/backend.axiom"

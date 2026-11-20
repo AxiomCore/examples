@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT EDIT.
-// axiom_flutter_generator 0.147.5
-// stream: streaming-test 1.0.0 variant default schema 9491d72a4024
+// axiom_flutter_generator 0.150.0
+// stream: streaming-test 1.0.0 variant default schema d0cbf11bb031
 
 import 'dart:convert';
 import 'dart:typed_data';
@@ -24,7 +24,7 @@ abstract final class AxiomDefaultConfig {
   /// sha256 of each contract asset at generation time.
   static const Map<String, String> contractSha256 = {
     'stream':
-        '0ca91f8baa4aad9631616f361a25b6a64a018be6ef2c011f884b0244b3901e49',
+        'c30c65487763baf386e6e4a4c9a120d7b5602bbc5e0d7a52e4ab653b1e48d144',
   };
 }
 
@@ -80,6 +80,11 @@ class StreamModule {
   StreamModule._(this._runtime, this._namespace)
     : axiom = StreamModuleAxiomNamespace._(_runtime, _namespace);
 
+  /// Binds this client to another namespace of [runtime], for example the same
+  /// contract loaded a second time with a different base URL.
+  StreamModule(AxiomRuntime runtime, String namespace)
+    : this._(runtime, namespace);
+
   final AxiomRuntime _runtime;
   final String _namespace;
 
@@ -88,9 +93,9 @@ class StreamModule {
 
   /// Endpoint ids by contract endpoint name.
   static const Map<String, int> endpointIds = {
-    'stream_chunks': 0,
-    'stream_sse': 1,
-    'websocket_endpoint': 2,
+    'stream_chunks': 3842853571,
+    'stream_sse': 2163966778,
+    'websocket_endpoint': 3385426738,
   };
 
   /// Endpoint ids by contract cache identity.
@@ -100,97 +105,101 @@ class StreamModule {
   static const List<String> authMethods = [];
 
   /// `GET /stream/chunks` (http_stream).
-  AxiomQuery<Object?> streamChunks({AxiomCallOptions? options}) {
-    return _streamQuery<Object?>(
-      '${_namespace}_0_stream_${jsonEncode(<String, dynamic>{})}',
+  AxiomQuery<models.ChatMessage> streamChunks({AxiomCallOptions? options}) {
+    return _streamQuery<models.ChatMessage>(
+      '${_namespace}_3842853571_stream_${jsonEncode(<String, dynamic>{})}',
       _runtime,
       (extra) => _runtime.callStream(
         namespace: _namespace,
-        endpointId: 0,
+        endpointId: 3842853571,
         method: 'GET',
         path: '/stream/chunks',
         headers: {...?(options?.mergeHeaders(null)), ...extra},
         requestBytes: Uint8List(0),
         options: options,
       ),
-      models.AxiomGeneratedCodec.asJson,
+      models.ChatMessage.fromJson,
     );
   }
 
   /// Frames of `stream_chunks` as a typed stream. Cancelling the subscription
   /// cancels the request.
-  Stream<Object?> streamChunksStream({AxiomCallOptions? options}) {
+  Stream<models.ChatMessage> streamChunksStream({AxiomCallOptions? options}) {
     final response = _runtime.callStream(
       namespace: _namespace,
-      endpointId: 0,
+      endpointId: 3842853571,
       method: 'GET',
       path: '/stream/chunks',
       headers: options?.mergeHeaders(null),
       requestBytes: Uint8List(0),
       options: options,
     );
-    return _frames(response, _runtime, models.AxiomGeneratedCodec.asJson);
+    return _frames(response, _runtime, models.ChatMessage.fromJson);
   }
 
   /// `GET /stream/sse` (sse).
-  AxiomQuery<Object?> streamSse({AxiomCallOptions? options}) {
-    return _streamQuery<Object?>(
-      '${_namespace}_1_stream_${jsonEncode(<String, dynamic>{})}',
+  AxiomQuery<models.ChatMessage> streamSse({AxiomCallOptions? options}) {
+    return _streamQuery<models.ChatMessage>(
+      '${_namespace}_2163966778_stream_${jsonEncode(<String, dynamic>{})}',
       _runtime,
       (extra) => _runtime.callStream(
         namespace: _namespace,
-        endpointId: 1,
+        endpointId: 2163966778,
         method: 'GET',
         path: '/stream/sse',
         headers: {...?(options?.mergeHeaders(null)), ...extra},
         requestBytes: Uint8List(0),
         options: options,
       ),
-      models.AxiomGeneratedCodec.asJson,
+      models.ChatMessage.fromJson,
     );
   }
 
   /// Frames of `stream_sse` as a typed stream. Cancelling the subscription
   /// cancels the request.
-  Stream<Object?> streamSseStream({AxiomCallOptions? options}) {
+  Stream<models.ChatMessage> streamSseStream({AxiomCallOptions? options}) {
     final response = _runtime.callStream(
       namespace: _namespace,
-      endpointId: 1,
+      endpointId: 2163966778,
       method: 'GET',
       path: '/stream/sse',
       headers: options?.mergeHeaders(null),
       requestBytes: Uint8List(0),
       options: options,
     );
-    return _frames(response, _runtime, models.AxiomGeneratedCodec.asJson);
+    return _frames(response, _runtime, models.ChatMessage.fromJson);
   }
 
   /// `WS /ws/chat` (websocket).
-  AxiomQuery<void> websocketEndpoint({AxiomCallOptions? options}) {
-    return _runtime.send<void>(
+  AxiomQuery<models.ChatMessage> websocketEndpoint({
+    required String text,
+    AxiomCallOptions? options,
+  }) {
+    return _runtime.send<models.ChatMessage>(
       namespace: _namespace,
-      endpointId: 2,
+      endpointId: 3385426738,
       method: 'WS',
       path: '/ws/chat',
       headers: options?.mergeHeaders(null),
-      args: <String, dynamic>{},
-      decoder: models.AxiomGeneratedCodec.asVoid,
+      body: jsonEncode(text),
+      args: <String, dynamic>{'text': text},
+      decoder: models.ChatMessage.fromJson,
       options: options,
     );
   }
 
-  /// Typed WebSocket channel for `websocket_endpoint`: send [Object?], receive [void].
-  AxiomChannel<void, Object?> websocketEndpointChannel({
+  /// Typed WebSocket channel for `websocket_endpoint`: send [String], receive [models.ChatMessage].
+  AxiomChannel<models.ChatMessage, String> websocketEndpointChannel({
     AxiomReconnectPolicy reconnect = AxiomReconnectPolicy.auto,
     AxiomCallOptions? options,
   }) {
-    return _runtime.openChannel<void, Object?>(
+    return _runtime.openChannel<models.ChatMessage, String>(
       namespace: _namespace,
-      endpointId: 2,
+      endpointId: 3385426738,
       method: 'WS',
       path: '/ws/chat',
       headers: options?.mergeHeaders(null),
-      decoder: models.AxiomGeneratedCodec.asVoid,
+      decoder: models.ChatMessage.fromJson,
       reconnect: reconnect,
       options: options,
     );

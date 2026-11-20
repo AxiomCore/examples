@@ -1,0 +1,27 @@
+project(id: "examples.flutter_auth", version: "1.0.0")
+variant default(include: ["*"])
+
+model Me { subject: String message: String }
+model Health { ok: Bool }
+
+guard signedIn(kind: GuardKind.authenticated)
+
+cors(origins: ["http://localhost:5173", "http://127.0.0.1:5173"], methods: [GET], headers: ["accept", "authorization", "content-type", "x-axiom-request-id", "x-axiom-cache-mode", "traceparent", "tracestate"], credentials: false, maxAge: 10m)
+
+action health(kind: ActionKind.query, output: Models.Health) {
+  managed { return {ok: true} }
+}
+endpoint health(method: GET, path: "/health") {
+  handle(action: Actions.health)
+  response(type: Models.Health)
+}
+
+action me(kind: ActionKind.query, output: Models.Me) {
+  require(guard: Guards.signedIn)
+  managed { return {subject: Principal.subject, message: "Hello from a protected endpoint"} }
+}
+endpoint me(method: GET, path: "/me") {
+  require(guard: Guards.signedIn)
+  handle(action: Actions.me)
+  response(type: Models.Me)
+}
