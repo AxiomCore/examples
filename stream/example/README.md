@@ -67,7 +67,7 @@ without extra flags.
 
 Platform setup is already in place: iOS 13.0 and macOS 11.0 deployment targets, the macOS
 `com.apple.security.network.client` entitlement, `NSAllowsLocalNetworking` on iOS, and the
-Android `INTERNET` permission with cleartext HTTP allowed for local backends.
+Android minSdk 24 (required by `axiom_flutter`), the `INTERNET` permission and cleartext HTTP for local backends.
 
 Headless smoke run: build with `--dart-define=AXIOM_EXAMPLE_AUTORUN=true`; the app reads both streams and
 sends one WebSocket message at start-up, printing `AXIOM_EXAMPLE chunks|sse|websocket PASS|FAIL ...`.
