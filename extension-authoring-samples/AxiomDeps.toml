@@ -77,5 +77,10 @@ language = "python"
 source = "logic/lookup.py"
 targets = ["server"]
 
+# Python starts its runtime for every exchange; a yield and a resume can need
+# more than the default 1,000 ms on a slow or debug-built host.
+[extensions.lookuppy.budgets]
+deadlineMs = 5000
+
 [extensions.lookuppy.permissions.contract-runtime.catalog]
 query = ["price", "stock"]

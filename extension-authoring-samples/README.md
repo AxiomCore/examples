@@ -29,13 +29,26 @@ form and a `writes` clause. `AxiomDeps.toml` uses the permission shorthand and
 
 ## Build and release
 
+`source-release` writes a workflow file that lists only the extension it
+released, so release each alias into its own file and `pricing` into the
+default `AxiomExtensions.toml`. Build the Python extensions first: until a
+Python extension has been built once, its exports are not recorded, and
+resolving the manifest for another alias fails with
+`AXIOM_EXTENSION_EXPORTS_UNDERIVED`.
+
 ```sh
 axiom dependencies check
-for alias in pricing pricingts pricingpy lookup lookupts lookuppy; do
-  axiom extensions source-release "$alias" --application example.extension.samples
+for alias in pricingpy lookuppy pricingts lookupts lookup; do
+  axiom extensions source-release "$alias" --application example.extension.samples \
+    --workflow "AxiomExtensions.$alias.toml"
+  axiom extensions verify --manifest "AxiomExtensions.$alias.toml"
 done
+axiom extensions source-release pricing --application example.extension.samples
 axiom extensions verify
 ```
+
+Aliases use only lowercase letters and digits: a source build refuses an alias
+with `_` (its package name would be `local.<alias>`).
 
 ## Run
 
@@ -44,6 +57,16 @@ so it can run `apply_discount` but not `quote` or `lookup`:
 
 ```sh
 axiom extensions run pricing --export apply_discount --input 12000 --snapshot cart=scenarios/cart.json
+axiom extensions run pricing --scenario scenarios/apply.json --scenario-name capped
+```
+
+`scenarios/replay.json` was made from a dev replay tape of the first command
+(`--record-tape tapes`, then `axiom extensions replay <tape> --to-scenario scenarios/replay.json`).
+It replays the recorded invocation against the current build and fails with
+`AXIOM_EXTENSION_REPLAY_DIFFERS` if the result changes:
+
+```sh
+axiom extensions run pricing --scenario scenarios/replay.json
 ```
 
 `scripts/extension-docs-harness` in this repository runs every scenario in
@@ -51,8 +74,8 @@ axiom extensions run pricing --export apply_discount --input 12000 --snapshot ca
 result, the effects per round and the UI state after the commit:
 
 ```sh
-cargo run --release --manifest-path ../scripts/extension-docs-harness/Cargo.toml -- \
-  scenarios/pricing.json AxiomExtensions.toml
+HARNESS_DEADLINE_MS=60000 cargo run --manifest-path ../scripts/extension-docs-harness/Cargo.toml -- \
+  scenarios/pricing.json .
 ```
 
 Expected results (all three languages):

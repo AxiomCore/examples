@@ -13,6 +13,10 @@ page Home {
 
   action apply = pricing.apply_discount(cart.subtotal_cents) writes cart { discount_cents, total_cents }
 
+  action recalc() writes cart { total_cents } {
+    pricing.apply_discount(cart.subtotal_cents)
+  }
+
   view {
     SafeArea {
       Text(value: cart.total_cents)

@@ -8,7 +8,10 @@
 //! invokes each scenario through `TargetExtensionHost` (kernel, broker,
 //! budgets, rounds, audit).
 //!
-//! Usage: `harness <scenarios.json> <AxiomExtensions.toml> [<tape-directory>]`.
+//! Usage: `harness <scenarios.json> <project-directory> [<tape-directory>]`.
+//! `axiom extensions source-release` writes a workflow file per alias; the
+//! harness reads `AxiomExtensions.<alias>.toml` when it exists, otherwise
+//! `AxiomExtensions.toml`.
 //! `HARNESS_DEADLINE_MS` (default 1000, the kernel default) is the host
 //! policy's deadline ceiling; the package's signed `deadlineMs` still applies.
 //! With a tape directory, every invocation is also recorded as a dev replay
@@ -226,7 +229,7 @@ async fn run(loaded: &Loaded, alias: &str, kernel: &SandboxKernel, scenario: &Sc
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<()> {
-    let usage = "usage: harness <scenarios.json> <AxiomExtensions.toml> [<tape-directory>]";
+    let usage = "usage: harness <scenarios.json> <project-directory> [<tape-directory>]";
     let path = std::env::args().nth(1).context(usage)?;
     let workflow = std::env::args().nth(2).context(usage)?;
     let tapes = std::env::args().nth(3);
@@ -235,7 +238,10 @@ async fn main() -> Result<()> {
     let kernel = SandboxKernel::new(policy())?;
     let mut extensions = Vec::new();
     for alias in &suite.aliases {
-        let loaded = load(Path::new(&workflow), alias)?;
+        let project = Path::new(&workflow);
+        let per_alias = project.join(format!("AxiomExtensions.{alias}.toml"));
+        let manifest = if per_alias.is_file() { per_alias } else { project.join("AxiomExtensions.toml") };
+        let loaded = load(&manifest, alias)?;
         let mut results = Vec::new();
         for scenario in &suite.scenarios {
             let tape_dir = tapes.as_ref().map(|root| Path::new(root).join(alias));

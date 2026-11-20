@@ -3,5 +3,5 @@
 # is committed.
 .axiom/extensions/
 .axiom/evidence/
-AxiomExtensions.toml
+AxiomExtensions*.toml
 tapes/

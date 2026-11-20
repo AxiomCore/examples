@@ -1,0 +1,190 @@
+{
+  "alias": "pricing",
+  "scenarios": [
+    {
+      "export": "apply_discount",
+      "input": 12000,
+      "name": "replay-apply_discount-5f1b87ff",
+      "replay": {
+        "abi": "1.1",
+        "budgets": {
+          "maxConcurrentStreams": 4,
+          "maxEvents": 64,
+          "maxHostCalls": 32,
+          "maxMutations": 32,
+          "maxReadBytes": 65536,
+          "maxRounds": 3,
+          "maxWriteBytes": 65536
+        },
+        "format": "axiom-extension-replay-tape",
+        "header": {
+          "contains": [
+            "identity",
+            "input",
+            "snapshots",
+            "plans",
+            "sites",
+            "outcomes",
+            "events",
+            "hostExchanges",
+            "result",
+            "budgets",
+            "usage"
+          ],
+          "notice": "Axiom extension dev replay tape. It contains the real input, the round-1 snapshots (as the guest saw them), every plan the guest yielded, the host's outcomes and events, and the final result of one invocation. Secret values are never recorded (handles and granted names only); host context, request ids, trace ids and wall-clock deadlines are not recorded. Keep it local and treat it like the data it holds. The integrity digest detects accidental change; it is not a trust anchor.",
+          "recorder": "axiom-extension-broker/0.1.0",
+          "redactions": [],
+          "replayable": true,
+          "sensitive": "none-present"
+        },
+        "hostExchanges": [
+          {
+            "call": {
+              "kind": "commit",
+              "patches": [
+                {
+                  "expected_revision": 1,
+                  "operations": [
+                    {
+                      "Set": {
+                        "path": [
+                          "discount_cents"
+                        ],
+                        "value": {
+                          "Unsigned": 1200
+                        }
+                      }
+                    },
+                    {
+                      "Set": {
+                        "path": [
+                          "total_cents"
+                        ],
+                        "value": {
+                          "Unsigned": 10800
+                        }
+                      }
+                    }
+                  ],
+                  "resource": "ui:cart"
+                }
+              ],
+              "transactions": []
+            },
+            "reply": {
+              "kind": "commit",
+              "replayed": false,
+              "revisions": [
+                [
+                  "ui:cart",
+                  2
+                ]
+              ]
+            },
+            "round": 1
+          }
+        ],
+        "hostGroups": true,
+        "identity": {
+          "abiVersion": "1.1.0",
+          "alias": "pricing",
+          "application": "example.extension.samples",
+          "extension": "local.pricing",
+          "interfaceSha256": "2f58b21d40635cdc65dba903dab4e1a5ae321d9448027ba2cde10623de1cc8e6",
+          "moduleSha256": "bf30aab683521e18966fb83b0b0eadff12fd2ffd931601734c42f45bea72d7d1",
+          "sdk": "rust@0.1.5"
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "5f1b87ff1dcbf64ebd769863a5282e3e6fa2c8c0ff1dbf29d52a8d1baa11c314"
+        },
+        "invocation": {
+          "export": "apply_discount",
+          "input": {
+            "Unsigned": 12000
+          },
+          "snapshots": [
+            {
+              "resource": "ui:cart",
+              "revision": 1,
+              "value": {
+                "Record": [
+                  {
+                    "name": "subtotal_cents",
+                    "value": {
+                      "Unsigned": 12000
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "maxRounds": 3,
+        "rounds": [],
+        "terminal": {
+          "committed": true,
+          "result": {
+            "emitted_events": [],
+            "output": {
+              "Record": [
+                {
+                  "name": "discount_cents",
+                  "value": {
+                    "Unsigned": 1200
+                  }
+                },
+                {
+                  "name": "total_cents",
+                  "value": {
+                    "Unsigned": 10800
+                  }
+                }
+              ]
+            },
+            "patches": [
+              {
+                "expected_revision": 1,
+                "operations": [
+                  {
+                    "Set": {
+                      "path": [
+                        "discount_cents"
+                      ],
+                      "value": {
+                        "Unsigned": 1200
+                      }
+                    }
+                  },
+                  {
+                    "Set": {
+                      "path": [
+                        "total_cents"
+                      ],
+                      "value": {
+                        "Unsigned": 10800
+                      }
+                    }
+                  }
+                ],
+                "resource": "ui:cart"
+              }
+            ],
+            "transactions": []
+          },
+          "status": "completed"
+        },
+        "usage": {
+          "fuelPerRound": [
+            99680
+          ],
+          "hostCalls": 1,
+          "readBytes": 0,
+          "rounds": 1,
+          "writeBytes": 49
+        },
+        "version": 1
+      }
+    }
+  ]
+}
