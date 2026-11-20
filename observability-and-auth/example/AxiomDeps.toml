@@ -1,0 +1,5 @@
+framework = "flutter"
+
+[contracts.auth_obs_test]
+source = "assets/axiom/auth_obs_test.axiom"
+base_url = "http://127.0.0.1:8000"
