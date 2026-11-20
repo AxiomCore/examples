@@ -32,13 +32,14 @@ Future<void> main() async {
 }
 
 /// Waits for the first data or error state and returns the data.
-Future<T> result<T>(AxiomQuery<T> query) async {
-  await for (final state in query.stream) {
-    if (state.hasError) throw state.error!;
-    if (state.hasData) return state.data as T;
-  }
-  throw StateError('stream closed without data');
-}
+///
+/// Written with `then` rather than `async`/`await`: with axiom_flutter
+/// 0.147.5 on web (dart2js), awaiting a query stream inside an `async`
+/// function can crash in release builds.
+Future<T> result<T>(AxiomQuery<T> query) => query.stream
+    .firstWhere((s) => s.hasData || s.hasError)
+    .timeout(const Duration(seconds: 20))
+    .then((s) => s.hasError ? throw s.error! : s.data as T);
 
 /// `POST /login` takes an OAuth2 password form. The contract does not describe
 /// form fields, so the form body is passed to the runtime directly; the
