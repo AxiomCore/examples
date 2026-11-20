@@ -29,17 +29,20 @@ Future<void> main() async {
 
   // Smoke mode for CI / headless runs: call the RPC once and print the result.
   if (const bool.fromEnvironment('AXIOM_EXAMPLE_AUTORUN')) {
-    final state =
-        await const models.Person(id: 'USR-9921', name: 'Example person')
-            .getContacts(sdk, limit: 10)
-            .stream
-            .firstWhere((s) => s.hasData || s.hasError);
-    debugPrint(
-      state.hasData
-          ? 'AXIOM_EXAMPLE rpc PASS ${state.data}'
-          : 'AXIOM_EXAMPLE rpc FAIL ${state.error?.message}',
-    );
-    debugPrint('AXIOM_EXAMPLE DONE');
+    // `then` instead of `await`: with axiom_flutter 0.147.5 on web (dart2js),
+    // awaiting a query stream inside an `async` function can crash.
+    const models.Person(id: 'USR-9921', name: 'Example person')
+        .getContacts(sdk, limit: 10)
+        .stream
+        .firstWhere((s) => s.hasData || s.hasError)
+        .then((state) {
+          debugPrint(
+            state.hasData
+                ? 'AXIOM_EXAMPLE rpc PASS ${state.data}'
+                : 'AXIOM_EXAMPLE rpc FAIL ${state.error?.message}',
+          );
+          debugPrint('AXIOM_EXAMPLE DONE');
+        });
   }
 }
 
