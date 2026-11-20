@@ -18,7 +18,7 @@ EXPECTED_ROOTS = {
     "axiom-extension-language-samples", "axiom-project-management-app",
     "axiom-shopping-app", "axiom-ui-task-app", "demo-app", "domain-commerce",
     "domain-inference-fastapi", "domain-support", "extension-sandbox",
-    "extension-sandbox-legacy",
+    "extension-sandbox-legacy", "extension-authoring-samples",
     "native-ui-first-render", "observability-and-auth", "offline-first-feed",
     "package-dependencies", "realtime-chat", "rpc", "security-mode-v1",
     "simple-backend", "stream", "ui-feature-gallery", "ui-interaction-demos",

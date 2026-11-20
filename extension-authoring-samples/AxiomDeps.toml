@@ -1,0 +1,81 @@
+format = "axiom-deps/v2"
+targets = ["web", "server"]
+
+[application]
+name = "example.extension.samples"
+version = "0.1.0"
+
+# One alias per language. Each pricing extension has the same two exports:
+# `quote` (async, three effect rounds) and `apply_discount` (sync, UI patch).
+# Each lookup extension has one export, `lookup`, that yields once and reads
+# the results with tickets.
+
+[extensions.pricing]
+language = "rust"
+source = "logic/pricing.rs"
+targets = ["web", "server"]
+
+[extensions.pricing.budgets]
+maxRounds = 3
+
+[extensions.pricing.permissions]
+ui.cart = { read = ["subtotal_cents"], write = ["discount_cents", "total_cents"] }
+
+[extensions.pricing.permissions.contract-runtime.catalog]
+query = ["discount", "price", "shipping", "stock"]
+
+[extensions.pricingts]
+language = "typescript"
+source = "logic/pricing.ts"
+exports = ["apply_discount", "quote"]
+targets = ["server"]
+
+[extensions.pricingts.budgets]
+maxRounds = 3
+
+[extensions.pricingts.permissions]
+ui.cart = { read = ["subtotal_cents"], write = ["discount_cents", "total_cents"] }
+
+[extensions.pricingts.permissions.contract-runtime.catalog]
+query = ["discount", "price", "shipping", "stock"]
+
+[extensions.pricingpy]
+language = "python"
+source = "logic/pricing.py"
+targets = ["server"]
+
+[extensions.pricingpy.budgets]
+maxRounds = 3
+deadlineMs = 5000
+
+[extensions.pricingpy.permissions]
+ui.cart = { read = ["subtotal_cents"], write = ["discount_cents", "total_cents"] }
+
+[extensions.pricingpy.permissions.contract-runtime.catalog]
+query = ["discount", "price", "shipping", "stock"]
+
+[extensions.lookup]
+language = "rust"
+source = "logic/lookup.rs"
+exports = ["lookup", "lookup_group"]
+targets = ["server"]
+
+[extensions.lookup.permissions.contract-runtime.catalog]
+query = ["price", "stock"]
+
+[extensions.lookupts]
+language = "typescript"
+source = "logic/lookup.ts"
+exports = ["lookup"]
+targets = ["server"]
+
+[extensions.lookupts.permissions.contract-runtime.catalog]
+query = ["price", "stock"]
+
+[extensions.lookuppy]
+language = "python"
+source = "logic/lookup.py"
+targets = ["server"]
+
+[extensions.lookuppy.permissions.contract-runtime.catalog]
+query = ["price", "stock"]

@@ -1,0 +1,22 @@
+module example.extension.samples.ui
+
+use extension pricing
+
+app Samples { route "/" => Home }
+
+page Home {
+  state cart {
+    subtotal_cents: Int = 12000
+    discount_cents: Int = 0
+    total_cents: Int = 12000
+  }
+
+  action apply = pricing.apply_discount(cart.subtotal_cents) writes cart { discount_cents, total_cents }
+
+  view {
+    SafeArea {
+      Text(value: cart.total_cents)
+      Button(label: "Apply discount", on_press: apply)
+    }
+  }
+}

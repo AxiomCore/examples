@@ -1,0 +1,13 @@
+[package]
+name = "axiom-extension-project"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+# Cargo needs a target to resolve the SDK; Axiom builds each extension in its
+# own generated workspace and does not compile this library.
+[lib]
+path = "logic/pricing.rs"
+
+[dependencies]
+axiom-extension-sdk = { version = "=0.1.5", path = "../../axiom-extension-sdk/rust/sdk" }

@@ -1,0 +1,14 @@
+{
+  "aliases": ["lookup"],
+  "scenarios": [
+    {
+      "name": "lookup-group-featured",
+      "export": "lookup_group",
+      "input": null,
+      "contracts": [
+        {"service": "catalog", "method": "price", "reply": 4999},
+        {"service": "catalog", "method": "stock", "reply": 7}
+      ]
+    }
+  ]
+}

@@ -8,6 +8,7 @@ class FetchExtensionCratesTests(unittest.TestCase):
         self.assertEqual({str(path.parent.relative_to(ROOT)) for path in manifests()}, {
             "axiom-project-management-app/frontend",
             "axiom-shopping-app/frontend",
+            "extension-authoring-samples",
             "extension-sandbox",
             "extension-sandbox-legacy",
         })

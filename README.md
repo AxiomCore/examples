@@ -16,6 +16,7 @@ Start with a single directory; each example owns its dependencies and commands. 
 | [`axiom-shopping-app`](axiom-shopping-app) | Demo | Contract-driven shopping UI, state, and Rust extension |
 | [`axiom-project-management-app`](axiom-project-management-app) | Demo | Flowspace project management UI and capability-scoped extensions |
 | [`extension-sandbox`](extension-sandbox) | Advanced | Authored Rust extension with bounded authority |
+| [`extension-authoring-samples`](extension-authoring-samples) | Preview fixture | Async exports, typed tickets, `Cents`/`Percentage`, `use extension` and `writes` in Rust, TypeScript and Python; the samples of the extension docs; requires extension SDK 0.1.5 |
 | [`axiom-extension-language-samples`](axiom-extension-language-samples) | Preview fixture | TypeScript/Python extension source and dependency-resolution cases; requires a development CLI |
 | [`ui-feature-gallery`](ui-feature-gallery) | Source gallery | Styles, layout, text, elements, scrolling, input, and component examples |
 | [`ui-interaction-demos`](ui-interaction-demos) | Source demos | State, navigation, assets, and contract-backed tasks |

@@ -1,0 +1,38 @@
+{
+  "aliases": ["pricing", "pricingts", "pricingpy"],
+  "scenarios": [
+    {
+      "name": "quote-in-stock",
+      "export": "quote",
+      "input": "sku-1",
+      "contracts": [
+        {"service": "catalog", "method": "price", "reply": 12000},
+        {"service": "catalog", "method": "stock", "reply": 3},
+        {"service": "catalog", "method": "discount", "reply": 1500},
+        {"service": "catalog", "method": "shipping", "reply": 499}
+      ]
+    },
+    {
+      "name": "quote-out-of-stock",
+      "export": "quote",
+      "input": "sku-2",
+      "contracts": [
+        {"service": "catalog", "method": "price", "reply": 12000},
+        {"service": "catalog", "method": "stock", "reply": 0},
+        {"service": "catalog", "method": "discount", "reply": 1500},
+        {"service": "catalog", "method": "shipping", "reply": 499}
+      ]
+    },
+    {
+      "name": "apply-discount",
+      "export": "apply_discount",
+      "input": 12000,
+      "ui": {
+        "scope": "cart",
+        "revision": 1,
+        "read": ["subtotal_cents"],
+        "value": {"subtotal_cents": 12000, "discount_cents": 0, "total_cents": 12000}
+      }
+    }
+  ]
+}

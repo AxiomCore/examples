@@ -1,0 +1,32 @@
+[package]
+name = "axiom-examples-extension-docs-harness"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Runs the extension documentation samples through the real kernels, broker and host with a deterministic contract host, and prints canonical results"
+
+[workspace]
+
+[dependencies]
+anyhow = "1"
+axiom-extension-abi = { path = "../../../axiom-runtime/extensions/abi" }
+axiom-extension-broker = { path = "../../../axiom-runtime/extensions/broker", features = ["dev-replay-tape"] }
+axiom-extension-host = { path = "../../../axiom-runtime/extensions/host", features = ["dev-replay-tape"] }
+axiom-extension-kernel = { path = "../../../axiom-runtime/extensions/kernel" }
+axiom-lib = { path = "../../../axiom-lib" }
+serde = { version = "1", features = ["derive"] }
+serde_jcs = "0.1"
+serde_json = "1"
+sha2 = "0.10"
+tokio = { version = "1", features = ["rt", "macros"] }
+
+# The interpreter dominates run time; optimise it even in debug builds so the
+# managed-engine deadlines are representative.
+[profile.dev.package.wasmi]
+opt-level = 3
+[profile.dev.package.wasmi_core]
+opt-level = 3
+[profile.dev.package.wasmi_ir]
+opt-level = 3
+[profile.dev.package.wasmi_collections]
+opt-level = 3
