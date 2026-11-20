@@ -1,7 +1,5 @@
 framework = "flutter"
 
-[contracts]
-
 [contracts.py-example]
-source = "../../backend/py-example/axiom.axiom"
-base_url = "http://localhost:8000"
+source = "assets/axiom/py-example.axiom"
+base_url = "http://127.0.0.1:8000"

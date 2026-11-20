@@ -1,22 +1,82 @@
 import 'dart:async';
-import 'package:example/clear.dart';
-import 'package:flutter/material.dart';
+
 import 'package:axiom_flutter/axiom_flutter.dart';
+import 'package:flutter/material.dart';
+
 import 'axiom_generated/axiom_sdk.dart';
 
 late final AxiomSdk sdk;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  clearStaleAxiomAuthTokens();
-  // 1. Create using the auto-generated config!
-  // You can optionally pass `config: AxiomDefaultConfig.config.copyWith(...)` if you want to override something.
-  sdk = await AxiomSdk.create();
+/// Public fixture key accepted by `../test_server.py`. Not a secret.
+const fixtureApiKey = 'development-only-api-key';
 
-  // Enable FFI debugging
-  sdk.runtime.debug = true;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Loads assets/axiom/auth_obs_test.axiom. Default base URL
+  // http://127.0.0.1:8000; override with --dart-define=AXIOM_BASE_URL=<url>.
+  try {
+    sdk = await AxiomSdk.create();
+  } catch (e) {
+    debugPrint('AXIOM_EXAMPLE init FAIL $e');
+    debugPrint('AXIOM_EXAMPLE DONE');
+    runApp(
+      MaterialApp(
+        home: Scaffold(body: Center(child: Text('$e'))),
+      ),
+    );
+    return;
+  }
 
   runApp(const MyApp());
+
+  if (const bool.fromEnvironment('AXIOM_EXAMPLE_AUTORUN')) {
+    await _smoke();
+  }
+}
+
+/// Waits for the first data or error state of [query].
+Future<AxiomState<Object?>> settle(AxiomQuery<Object?> query) => query.stream
+    .firstWhere((s) => s.hasData || s.hasError)
+    .timeout(const Duration(seconds: 20));
+
+/// Calls `/login` (a synthetic identity) and stores the JWT for the
+/// `Authorization` auth method of this contract.
+Future<String> login() async {
+  final state = await settle(sdk.authObsTest.login());
+  if (state.hasError) throw state.error!;
+  final token = (state.data as Map?)?['token'] as String?;
+  if (token == null) throw StateError('login returned no token');
+  sdk.authObsTest.axiom.setAuthToken('Authorization', token);
+  return 'token stored';
+}
+
+Future<void> _smoke() async {
+  Future<void> run(String name, Future<String> Function() body) async {
+    try {
+      debugPrint('AXIOM_EXAMPLE $name PASS ${await body()}');
+    } catch (e) {
+      debugPrint('AXIOM_EXAMPLE $name FAIL $e');
+    }
+  }
+
+  Future<String> ok(AxiomQuery<Object?> q) async {
+    final s = await settle(q);
+    if (s.hasError) throw s.error!;
+    return '${s.data}';
+  }
+
+  await run('login', login);
+  await run('jwt', () => ok(sdk.authObsTest.protectedJwt()));
+  sdk.authObsTest.axiom.setAuthToken('x-api-key', fixtureApiKey);
+  await run(
+    'api-key-header',
+    () => ok(sdk.authObsTest.protectedApiKeyHeader()),
+  );
+  sdk.authObsTest.axiom.setAuthToken('api_key', fixtureApiKey);
+  await run('api-key-query', () => ok(sdk.authObsTest.protectedApiKeyQuery()));
+  await run('multi', () => ok(sdk.authObsTest.protectedMulti()));
+  debugPrint('AXIOM_EXAMPLE DONE');
 }
 
 class MyApp extends StatelessWidget {
@@ -36,70 +96,47 @@ class AuthTesterScreen extends StatefulWidget {
 }
 
 class _AuthTesterScreenState extends State<AuthTesterScreen> {
-  String log = "Awaiting execution...";
-  StreamSubscription? _sub;
+  String log = 'Awaiting execution...';
+  StreamSubscription<AxiomState<Object?>>? _sub;
 
-  void _log(String message) {
-    setState(() => log += '\n$message');
-  }
+  void _log(String message) => setState(() => log += '\n$message');
 
-  void _clearLog() {
-    setState(() => log = "Executing...");
-  }
+  void _start(String message) => setState(() => log = message);
 
-  /// Helper to listen to ALL stream events (Loading, Network, Cache, Error)
-  void _listenToQuery(AxiomQuery<dynamic> query, String actionName) {
-    _clearLog();
+  /// Shows every state of [query]: loading, data (network or cache), error.
+  void _listenToQuery(AxiomQuery<Object?> query, String actionName) {
+    _start('Executing...');
     _sub?.cancel();
-
     _sub = query.stream.listen((state) {
       if (state.isLoading) {
-        _log("[$actionName] ⏳ Loading...");
+        _log('[$actionName] loading...');
       } else if (state.hasError) {
-        _log("[$actionName] ❌ Error: ${state.error?.message}");
-        _log("   Details: ${state.error?.details}");
+        _log('[$actionName] error: ${state.error?.message}');
       } else if (state.hasData) {
-        final source = state.source == AxiomSource.cache
-            ? "⚡ CACHED"
-            : "🌐 NETWORK";
-        _log("[$actionName] ✅ Success ($source): ${state.data}");
+        final source = state.source == AxiomSource.cache ? 'cache' : 'network';
+        _log('[$actionName] ok ($source): ${state.data}');
       }
     });
   }
 
-  void _loginAndSetToken() {
-    _clearLog();
-    _sub?.cancel();
-
-    // Mutations require execution via `.mutationFn()`
-    final mutationQuery = sdk.authObsTest.login().mutationFn({});
-
-    _sub = mutationQuery.stream.listen((state) {
-      if (state.isLoading) {
-        _log("[Login] ⏳ Authenticating...");
-      } else if (state.hasError) {
-        _log("[Login] ❌ Error: ${state.error}");
-      } else if (state.hasData) {
-        final data = state.data as Map<String, dynamic>?;
-        if (data != null && data['token'] != null) {
-          // 2. Set Token in Rust Engine
-          sdk.authObsTest.setAuthToken('Authorization', data['token']);
-          _log("[Login] ✅ Success! Token secured in Rust engine.");
-        }
-      }
-    });
+  Future<void> _login() async {
+    _start('Logging in...');
+    try {
+      _log('[Login] ${await login()} for the Authorization method');
+    } catch (e) {
+      _log('[Login] error: $e');
+    }
   }
 
-  void _setApiKeyHeader() {
-    sdk.authObsTest.setAuthToken('x-api-key', 'development-only-api-key');
-    _clearLog();
-    _log("API Key Header set in Rust engine.");
+  void _setApiKey(String method) {
+    sdk.authObsTest.axiom.setAuthToken(method, fixtureApiKey);
+    _start('API key set for the "$method" auth method.');
   }
 
-  void _setApiKeyQuery() {
-    sdk.authObsTest.setAuthToken('api_key', 'development-only-api-key');
-    _clearLog();
-    _log("API Key Query set in Rust engine.");
+  Future<void> _logout() async {
+    // Cancels in-flight calls, clears session cache and every stored token.
+    await sdk.runtime.resetSession();
+    _start('Session reset: tokens and session cache cleared.');
   }
 
   @override
@@ -108,14 +145,21 @@ class _AuthTesterScreenState extends State<AuthTesterScreen> {
     super.dispose();
   }
 
+  Widget _test(String label, AxiomQuery<Object?> Function() query) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.purple.shade100),
+      onPressed: () => _listenToQuery(query(), label),
+      child: Text('Test: $label'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Streaming and auth tester")),
+      appBar: AppBar(title: const Text('Auth tester')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        padding: const EdgeInsets.all(16),
+        child: ListView(
           children: [
             Container(
               height: 200,
@@ -133,58 +177,32 @@ class _AuthTesterScreenState extends State<AuthTesterScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _loginAndSetToken,
-              child: const Text("1. Stream Login & Set JWT"),
+              onPressed: _login,
+              child: const Text('1. Log in and set JWT'),
             ),
             ElevatedButton(
-              onPressed: _setApiKeyHeader,
-              child: const Text("2. Set API Key (Header)"),
+              onPressed: () => _setApiKey('x-api-key'),
+              child: const Text('2. Set API key (header)'),
             ),
             ElevatedButton(
-              onPressed: _setApiKeyQuery,
-              child: const Text("3. Set API Key (Query)"),
+              onPressed: () => _setApiKey('api_key'),
+              child: const Text('3. Set API key (query)'),
+            ),
+            ElevatedButton(
+              onPressed: _logout,
+              child: const Text('Log out (reset session)'),
             ),
             const Divider(height: 32),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple.shade200,
-              ),
-              onPressed: () => _listenToQuery(
-                sdk.authObsTest.protectedJwt(),
-                "JWT Scope Test",
-              ),
-              child: const Text("Test: Protected JWT (Scope validation)"),
+            _test('JWT with scope', () => sdk.authObsTest.protectedJwt()),
+            _test(
+              'API key header',
+              () => sdk.authObsTest.protectedApiKeyHeader(),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple.shade200,
-              ),
-              onPressed: () => _listenToQuery(
-                sdk.authObsTest.protectedApiKeyHeader(),
-                "API Header Test",
-              ),
-              child: const Text("Test: Protected API Key (Header)"),
+            _test(
+              'API key query',
+              () => sdk.authObsTest.protectedApiKeyQuery(),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple.shade200,
-              ),
-              onPressed: () => _listenToQuery(
-                sdk.authObsTest.protectedApiKeyQuery(),
-                "API Query Test",
-              ),
-              child: const Text("Test: Protected API Key (Query)"),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple.shade200,
-              ),
-              onPressed: () => _listenToQuery(
-                sdk.authObsTest.protectedMulti(),
-                "Multi-Auth Test",
-              ),
-              child: const Text("Test: Multi Auth (OR Condition)"),
-            ),
+            _test('JWT or API key', () => sdk.authObsTest.protectedMulti()),
           ],
         ),
       ),

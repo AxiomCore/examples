@@ -1,11 +1,20 @@
+import 'package:axiom_flutter_web/axiom_generated/models.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:axiom_flutter_web/main.dart';
 
 void main() {
-  testWidgets('backend consumer controls render without a service', (tester) async {
-    await tester.pumpWidget(const MyApp());
-    expect(find.text('Axiom Full Test'), findsOneWidget);
-    expect(find.text('Register'), findsOneWidget);
-    expect(find.text('Login'), findsOneWidget);
+  test('generated models decode the backend JSON', () {
+    final token = Token.fromJson({
+      'access_token': 'abc',
+      'token_type': 'bearer',
+    });
+    expect(token.accessToken, 'abc');
+    final item = Item.fromJson({
+      'id': '1',
+      'title': 'My item',
+      'description': 'hello',
+      'owner_id': 'u1',
+      'created_at': '2026-11-20T10:00:00',
+    });
+    expect(item.title, 'My item');
   });
 }

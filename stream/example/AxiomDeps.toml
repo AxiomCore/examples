@@ -1,0 +1,5 @@
+framework = "flutter"
+
+[contracts.stream]
+source = "assets/axiom/stream.axiom"
+base_url = "http://127.0.0.1:8000"
