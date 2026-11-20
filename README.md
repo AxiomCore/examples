@@ -10,9 +10,9 @@ Start with a single directory; each example owns its dependencies and commands. 
 | [`domain-support`](domain-support) | Start here | Small audience-specific domain projection |
 | [`domain-inference-fastapi`](domain-inference-fastapi) | Guided | FastAPI/Pydantic extraction and domain promotion |
 | [`security-mode-v1`](security-mode-v1) | Guided | Passing audit fixture and intentionally rejected strict fixture |
-| [`simple-backend`](simple-backend) | Integration | FastAPI/Go service with web, React, and Flutter consumers |
+| [`simple-backend`](simple-backend) | Integration | FastAPI/Go service with web, React, and Flutter consumers; the [Flutter client](simple-backend/frontend/axiom_flutter_web) registers, logs in and manages items on Android, iOS, macOS and web |
 | [`offline-first-feed`](offline-first-feed) | Integration | Cached feed and offline/online consumer behavior |
-| [`realtime-chat`](realtime-chat) | Integration | Go streaming service with multiple client targets |
+| [`realtime-chat`](realtime-chat) | Integration | Go WebSocket chat with multiple client targets; the [Flutter client](realtime-chat/frontend/axiom_flutter_web) uses a typed `AxiomChannel` on Android, iOS, macOS and web |
 | [`axiom-shopping-app`](axiom-shopping-app) | Demo | Contract-driven shopping UI, state, and Rust extension |
 | [`axiom-project-management-app`](axiom-project-management-app) | Demo | Flowspace project management UI and capability-scoped extensions |
 | [`extension-sandbox`](extension-sandbox) | Advanced | Authored Rust extension with bounded authority |
@@ -23,7 +23,7 @@ Start with a single directory; each example owns its dependencies and commands. 
 | [`native-ui-first-render`](native-ui-first-render) | Source demo | Minimal native-rendered Acore page with local state |
 | [`axiom-ui-task-app`](axiom-ui-task-app) | Compiler fixture | Virtual Acore UI compile/check without a native host |
 | [`demo-app`](demo-app) | Legacy fixture | Small contract/build experiment; not the recommended starting point |
-| [`rpc`](rpc), [`stream`](stream), [`observability-and-auth`](observability-and-auth) | Maintainer fixtures | Lower-level Flutter/runtime behavior, RPC, streams, and auth |
+| [`rpc`](rpc), [`stream`](stream), [`observability-and-auth`](observability-and-auth) | Maintainer fixtures | Flutter apps (Android, iOS, macOS, web) for model RPCs, HTTP chunked/SSE/WebSocket streams, and JWT/API-key auth against small FastAPI servers |
 
 ## First run
 
@@ -36,6 +36,19 @@ axiom diff commerce-v1.acore commerce-v2.acore --format semantic
 ```
 
 The second contract intentionally removes a projected field; treat that as a consumer-breaking change even if the current semantic output does not classify it automatically. `axiom build` requires a configured local CLI/runtime environment and is not part of this minimal smoke test. For FastAPI extraction, use [`domain-inference-fastapi`](domain-inference-fastapi/README.md) and install its Python dependencies first. For a full application, follow the README in its directory and run the backend and frontend in separate terminals.
+
+## Flutter clients
+
+Five examples ship a Flutter app: [`rpc/example`](rpc/example), [`stream/example`](stream/example),
+[`observability-and-auth/example`](observability-and-auth/example),
+[`simple-backend/frontend/axiom_flutter_web`](simple-backend/frontend/axiom_flutter_web) and
+[`realtime-chat/frontend/axiom_flutter_web`](realtime-chat/frontend/axiom_flutter_web). Each one
+depends on `axiom_flutter` and `axiom_flutter_generator` `^0.150.0`, loads its contract from
+`assets/axiom/<name>.axiom`, and has a README with backend, regeneration (`tool/regen.sh`) and
+per-platform run commands. To build against an `axiom-sdk` checkout, add an uncommitted
+`pubspec_overrides.yaml` as shown at the bottom of each `pubspec.yaml`. Building with
+`--dart-define=AXIOM_EXAMPLE_AUTORUN=true` makes an app exercise its endpoints once at start-up
+and print `AXIOM_EXAMPLE <step> PASS|FAIL` lines for headless checks.
 
 ## Release verification
 
