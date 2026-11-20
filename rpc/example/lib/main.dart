@@ -32,7 +32,7 @@ Future<void> main() async {
     // `then` instead of `await`: with axiom_flutter 0.147.5 on web (dart2js),
     // awaiting a query stream inside an `async` function can crash.
     const models.Person(id: 'USR-9921', name: 'Example person')
-        .getContacts(sdk, limit: 10)
+        .getContacts(sdk.rpc, limit: 10)
         .stream
         .firstWhere((s) => s.hasData || s.hasError)
         .then((state) {
@@ -43,25 +43,6 @@ Future<void> main() async {
           );
           debugPrint('AXIOM_EXAMPLE DONE');
         });
-  }
-}
-
-/// The contract declares `Person.rpcs.get_contacts`, resolved to
-/// `POST /collections` with body `{max_results: $args.limit, person_id: $this.id}`.
-///
-/// axiom_flutter_generator does not emit model RPC methods yet, so this
-/// extension spells out the same resolver by hand on top of the generated
-/// endpoint id.
-extension PersonRpc on models.Person {
-  AxiomQuery<Object?> getContacts(AxiomSdk sdk, {required int limit}) {
-    return sdk.runtime.sendMutation<Object?>(
-      namespace: 'rpc',
-      endpointId: RpcModule.endpointIds['create_collection']!,
-      method: 'POST',
-      path: '/collections',
-      body: {'max_results': limit, 'person_id': id},
-      decoder: (json) => json,
-    );
   }
 }
 
@@ -88,7 +69,7 @@ class _RpcDemoScreenState extends State<RpcDemoScreen> {
             const SizedBox(height: 20),
             AxiomMutationBuilder<Object?, int>(
               mutation: AxiomMutation(
-                (limit) => person.getContacts(sdk, limit: limit),
+                (limit) => person.getContacts(sdk.rpc, limit: limit),
               ),
               builder: (context, state, execute) {
                 return Column(

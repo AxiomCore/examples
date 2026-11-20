@@ -1,8 +1,8 @@
 // GENERATED CODE - DO NOT EDIT.
 // axiom_flutter_generator 0.147.5
-// rpc: rpc-obs-test 1.0.0 variant default schema 6373ae1b80de
+// rpc: rpc-obs-test 1.0.0 variant default schema 12c3bfe91f71
 
-import 'dart:typed_data';
+import 'dart:convert';
 
 import 'package:axiom_flutter/axiom_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -22,7 +22,7 @@ abstract final class AxiomDefaultConfig {
 
   /// sha256 of each contract asset at generation time.
   static const Map<String, String> contractSha256 = {
-    'rpc': '811efc1ebd3c87484a42aff052415a88b1dad398099e0f4adde46ed1abbfbae7',
+    'rpc': 'c0c2c05e998302597cf00c8970458bd0008848591bb0ecf7bcbc3f43cce22ff1',
   };
 }
 
@@ -78,6 +78,11 @@ class RpcModule {
   RpcModule._(this._runtime, this._namespace)
     : axiom = RpcModuleAxiomNamespace._(_runtime, _namespace);
 
+  /// Binds this client to another namespace of [runtime], for example the same
+  /// contract loaded a second time with a different base URL.
+  RpcModule(AxiomRuntime runtime, String namespace)
+    : this._(runtime, namespace);
+
   final AxiomRuntime _runtime;
   final String _namespace;
 
@@ -85,7 +90,10 @@ class RpcModule {
   final RpcModuleAxiomNamespace axiom;
 
   /// Endpoint ids by contract endpoint name.
-  static const Map<String, int> endpointIds = {'create_collection': 0};
+  static const Map<String, int> endpointIds = {
+    'create_collection': 1,
+    'get_person': 2,
+  };
 
   /// Endpoint ids by contract cache identity.
   static const Map<String, List<int>> cacheIdentities = {};
@@ -103,12 +111,30 @@ class RpcModule {
     };
     return _runtime.sendMutation<Object?>(
       namespace: _namespace,
-      endpointId: 0,
+      endpointId: 1,
       method: 'POST',
       path: '/collections',
       headers: options?.mergeHeaders(headers) ?? headers,
       args: <String, dynamic>{},
       decoder: models.AxiomGeneratedCodec.asJson,
+      options: options,
+    );
+  }
+
+  /// `GET /people/{person_id}`.
+  AxiomQuery<models.Person> getPerson({
+    required String personId,
+    AxiomCallOptions? options,
+  }) {
+    return _runtime.send<models.Person>(
+      namespace: _namespace,
+      endpointId: 2,
+      method: 'GET',
+      path: '/people/{person_id}',
+      headers: options?.mergeHeaders(null),
+      pathParams: {'person_id': Uri.encodeComponent(personId)},
+      args: <String, dynamic>{'person_id': personId},
+      decoder: models.Person.fromJson,
       options: options,
     );
   }
@@ -152,6 +178,34 @@ class RpcModuleAxiomNamespace {
   /// Marks every cached query of this namespace stale and refetches.
   void invalidateAll() {
     _runtime.invalidate(namespace: _namespace);
+  }
+}
+
+/// RPCs of [models.Person] (`rpc` contract).
+extension PersonRpc on models.Person {
+  /// `Person.get_contacts`: calls `create_collection` (`POST /collections`).
+  AxiomQuery<Object?> getContacts(
+    RpcModule module, {
+    required int limit,
+    AxiomCallOptions? options,
+  }) {
+    return module._runtime.sendMutation<Object?>(
+      namespace: module._namespace,
+      endpointId: 1,
+      method: 'POST',
+      path: '/collections',
+      headers: options?.mergeHeaders(null),
+      body: jsonEncode(<String, dynamic>{
+        'max_results': limit,
+        'person_id': id,
+      }),
+      args: <String, dynamic>{
+        'rpc': 'Person.get_contacts',
+        'body': <String, dynamic>{'max_results': limit, 'person_id': id},
+      },
+      decoder: models.AxiomGeneratedCodec.asJson,
+      options: options,
+    );
   }
 }
 
