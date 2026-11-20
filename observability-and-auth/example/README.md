@@ -67,7 +67,7 @@ The auth fixture sends no CORS headers, so the web build needs a browser without
 web security for local runs, or a CORS middleware in front of the server.
 
 Platform setup is already in place: iOS 13.0 and macOS 11.0 deployment targets, the macOS
-`com.apple.security.network.client` entitlement, `NSAllowsLocalNetworking` on iOS, and the
+`com.apple.security.network.client` entitlement, `NSAllowsLocalNetworking` on iOS,
 Android minSdk 24 (required by `axiom_flutter`), the `INTERNET` permission and cleartext HTTP for local backends.
 
 Headless smoke run: build with `--dart-define=AXIOM_EXAMPLE_AUTORUN=true`; the app logs in, sets
