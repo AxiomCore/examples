@@ -1,7 +1,7 @@
 {
   "contracts": {
     "streamTest": {
-      "file": "./backend.axiom",
+      "file": "./example/assets/axiom/stream.axiom",
       "baseUrl": "http://localhost:8000"
     }
   }
