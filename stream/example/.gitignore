@@ -47,3 +47,6 @@ app.*.map.json
 # Local SDK path overrides (see pubspec.yaml)
 pubspec_overrides.yaml
 pubspec.lock
+
+# axiom build writes the server plan next to the contract
+assets/axiom/*.server.json

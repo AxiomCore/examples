@@ -1,0 +1,39 @@
+// Contract for the FastAPI server in ../test_server.py, written in Acore so it
+// builds on any OS (no FastAPI extractor). The FastAPI app serves the requests;
+// the managed bodies below exist only so the contract type-checks and are
+// never run by the example.
+project(id: "streaming-test", version: "1.0.0")
+variant default(include: ["*"])
+
+model ChatMessage { user: String text: String }
+model ChatIn { text: String }
+
+action chatFrames(kind: ActionKind.stream, output: Models.ChatMessage) {
+  managed { return {user: "system", text: "Message chunk #1"} }
+}
+
+// 1. HTTP chunked stream, NDJSON: five ChatMessage frames.
+endpoint stream_chunks(method: GET, path: "/stream/chunks") {
+  handle(action: Actions.chatFrames)
+  response(type: Models.ChatMessage)
+  streaming(HttpStreamDef(responseType: Models.ChatMessage, framing: "message", encoding: "json"))
+}
+
+// 2. Server-sent events: five ChatMessage events.
+endpoint stream_sse(method: GET, path: "/stream/sse") {
+  handle(action: Actions.chatFrames)
+  response(type: Models.ChatMessage)
+  streaming(SseStreamDef(responseType: Models.ChatMessage))
+}
+
+// 3. Bidirectional WebSocket: send text, receive {"user": "EchoBot", "text": "Received: ..."}.
+action echoChat(kind: ActionKind.stream, input: Models.ChatIn, output: Models.ChatMessage) {
+  managed { return {user: "EchoBot", text: Input.text} }
+}
+endpoint websocket_endpoint(method: WS, path: "/ws/chat") {
+  request { body("text", type: String) }
+  handle(action: Actions.echoChat, input: {text: Input.body.text})
+  response(type: Models.ChatMessage)
+  streaming(WebSocketDef(direction: "bidirectional", reconnect: "auto",
+    client: WsMessageDef(model: String), server: WsMessageDef(model: Models.ChatMessage)))
+}
