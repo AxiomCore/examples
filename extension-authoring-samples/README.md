@@ -29,26 +29,25 @@ form and a `writes` clause. `AxiomDeps.toml` uses the permission shorthand and
 
 ## Build and release
 
-`source-release` writes a workflow file that lists only the extension it
-released, so release each alias into its own file and `pricing` into the
-default `AxiomExtensions.toml`. Build the Python extensions first: until a
-Python extension has been built once, its exports are not recorded, and
-resolving the manifest for another alias fails with
-`AXIOM_EXTENSION_EXPORTS_UNDERIVED`.
+`source-release` adds each extension to the workflow file and keeps the
+extensions the file already lists, in any release order. A workflow file
+covers the targets all its extensions support, so `pricing` (web and server,
+called by `main.acore`) goes into the default `AxiomExtensions.toml`, and the
+server-only extensions share `AxiomExtensions.server.toml`:
 
 ```sh
 axiom dependencies check
-for alias in pricingpy lookuppy pricingts lookupts lookup; do
-  axiom extensions source-release "$alias" --application example.extension.samples \
-    --workflow "AxiomExtensions.$alias.toml"
-  axiom extensions verify --manifest "AxiomExtensions.$alias.toml"
-done
 axiom extensions source-release pricing --application example.extension.samples
+for alias in pricingts pricingpy lookup lookupts lookuppy; do
+  axiom extensions source-release "$alias" --application example.extension.samples \
+    --workflow AxiomExtensions.server.toml
+done
 axiom extensions verify
+axiom extensions verify --manifest AxiomExtensions.server.toml
 ```
 
-Aliases use only lowercase letters and digits: a source build refuses an alias
-with `_` (its package name would be `local.<alias>`).
+Aliases use lowercase letters and digits with single `_` between them
+(`pricing_ts` is valid); anything else fails with `AXIOM_EXTENSION_ALIAS_INVALID`.
 
 ## Run
 
